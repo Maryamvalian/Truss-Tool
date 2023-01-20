@@ -1,0 +1,67 @@
+\documentclass{article}
+
+\usepackage{tabularx}
+\usepackage{booktabs}
+
+\title{Problem Statement and Goals\\Truss Analysis Tool}
+
+\author{Maryam Valian}
+
+\date{}
+
+
+\begin{document}
+
+\maketitle
+
+\begin{table}[hp]
+\caption{Revision History} \label{TblRevisionHistory}
+\begin{tabularx}{\textwidth}{llX}
+\toprule
+\textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
+\midrule
+01/19/2023 & Maryam Valian & Initial Draft\\
+
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Problem Statement}
+
+The truss is basically a triangular system of directly connected structural elements. Trusses are commonly used to support roofs, particularly buildings requiring long spans
+such as bridges and airports. To provide a safe structure, it is crucial for civil engineers and
+architects to analyze trusses to ensure they support the load.
+
+
+\subsection{Problem}
+A properly designed and built truss will distribute stresses throughout its structure, allowing the bridge to safely support its own weight, the weight of vehicles crossing it, and wind loads. Truss Analysis Tool is a computer program developed to determine the compression and tension forces of the members for a user-defined  truss only in two-dimensional space to see if is it well-designed.
+
+\subsection{Inputs and Outputs}
+
+This software takes the features of a user-defined truss as input and outputs the compression and tension forces of the members.
+
+
+\subsection{Stakeholders}
+The stakeholders of our software are civil/architecture students, professors, engineers, and future developers.
+\subsection{Environment}
+The software is compatible with various types of operating
+systems such as Windows, Linux, or macOS and should work on various types of personal computers and laptops.
+
+
+\section{Goals}
+\begin{enumerate}
+    \item This software determines the stress distribution of all the members of a given planar truss.
+    \item It determines the reaction of supports.
+    
+\end{enumerate}
+
+\section{Stretch Goals}
+\begin{enumerate}
+    
+    \item Graphical visualization of the user-defined truss will be added in the next step.
+    \item A new component for three-dimensional trusses will be added in future.
+    
+\end{enumerate}
+
+
+\end{document}
