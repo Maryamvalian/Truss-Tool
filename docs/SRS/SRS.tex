@@ -32,8 +32,7 @@
     urlcolor=cyan           % color of external links
 }
 
-\input{../Comments}
-\input{../Common}
+
 
 % For easy change of table widths
 \newcommand{\colZwidth}{1.0\textwidth}
@@ -128,8 +127,9 @@
 
 \begin{document}
 
-\title{Software Requirements Specification for \progname: subtitle describing software} 
-\author{\authname}
+\title{Software Requirements Specification for Truss Tool: 
+A Tool for Truss Analysis} 
+\author{Maryam Valian}
 \date{\today}
 	
 \maketitle
@@ -147,7 +147,7 @@
 \begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
-Date 1 & 1.0 & Notes\\
+ 2023-01-30 & 1.0 & Initial version of the SRS\\
 Date 2 & 1.1 & Notes\\
 \bottomrule
 \end{tabularx}
@@ -160,10 +160,10 @@ This section records information for easy reference.
 
 \subsection{Table of Units}
 
-Throughout this document SI (Syst\`{e}me International d'Unit\'{e}s) is employed
+Throughout this document, SI (Syst\`{e}me International d'Unit\'{e}s) is employed
 as the unit system.  In addition to the basic units, several derived units are
 used as described below.  For each unit, the symbol is given followed by a
-description of the unit and the SI name.
+unit description and the SI name.
 ~\newline
 
 \renewcommand{\arraystretch}{1.2}
@@ -173,55 +173,34 @@ description of the unit and the SI name.
     \textbf{symbol} & \textbf{unit} & \textbf{SI}\\
     \midrule 
     \si{\metre} & length & metre\\
-    \si{\kilogram} & mass	& kilogram\\
-    \si{\second} & time & second\\
-    \si{\celsius} & temperature & centigrade\\
-    \si{\joule} & energy & joule\\
-    \si{\watt} & power & watt (W = \si{\joule\per\second})\\
-    \bottomrule
+    \si{\newton} & force & newton\\
+    \si{\deg} & angle & degree\\
+        \bottomrule
   \end{tabular}
   %	\caption{Provide a caption}
 %\end{table}
 
-\plt{Only include the units that your SRS actually uses.}
-
-\plt{Derived units, like newtons, pascal, etc, should show their derivation
-    (the units they are derived from) if their constituent units are in the
-    table of units (that is, if the units they are derived from are used in the
-    document).  For instance, the derivation of pascals as
-    $\si{\pascal}=\si{\newton\per\square\meter}$ is shown if newtons and m are
-    both in the table.  The derivations of newtons would not be shown if kg and
-    s are not both in the table.}
-
-\plt{The symbol for units named after people use capital letters, but the name
-  of the unit itself uses lower case.  For instance, pascals use the symbol Pa,
-  watts use the symbol W, teslas use the symbol T, newtons use the symbol N,
-  etc.  The one exception to this is degree Celsius.  Details on writing metric
-  units can be found on the 
-  \href{https://www.nist.gov/pml/weights-and-measures/writing-metric-units}
-  {NIST} web-page.}
-
 \subsection{Table of Symbols}
 
 The table that follows summarizes the symbols used in this document along with
-their units.  The choice of symbols was made to be consistent with the heat
-transfer literature and with existing documentation for solar water heating
-systems.  The symbols are listed in alphabetical order.
+their units.  The choice of symbols was made to be consistent with the structural statics literature and with existing documentation for the truss analysis problem. The symbols are listed in alphabetical order.
 
 \renewcommand{\arraystretch}{1.2}
 %\noindent \begin{tabularx}{1.0\textwidth}{l l X}
 \noindent \begin{longtable*}{l l p{12cm}} \toprule
 \textbf{symbol} & \textbf{unit} & \textbf{description}\\
 \midrule 
-$A_C$ & \si[per-mode=symbol] {\square\metre} & coil surface area
-\\
-$A_\text{in}$ & \si[per-mode=symbol] {\square\metre} & surface area over 
-which heat is transferred in
-\\ 
+$F_\text{i}$ & \si {\newton} & External force of joint i \\
+$M_\text{i}$ & \si{\newton}\si{\metre} & Moment component of joint i \\
+$\theta$ & \si{\deg} & Angle between two members  \\
+$F_\text{xi}$ & \si{\newton} & Force component in the x direction of joint i \\
+$F_\text{yi}$ & \si{\newton} & Force component in the y direction of joint i \\
+$S_\text{p}$ & - & Pin support \\
+$S_\text{r}$ & - & Roller support \\
+
 \bottomrule
 \end{longtable*}
-\plt{Use your problems actual symbols.  The si package is a good idea to use for
-  units.}
+
 
 \subsection{Abbreviations and Acronyms}
 
@@ -239,456 +218,261 @@ which heat is transferred in
   PS & Physical System Description\\
   R & Requirement\\
   SRS & Software Requirements Specification\\
-  \progname{} & \plt{put an expanded version of your program name here (as appropriate)}\\
+ 
   T & Theoretical Model\\
   \bottomrule
 \end{tabular}\\
 
-\plt{Add any other abbreviations or acronyms that you add}
+
 
 \subsection{Mathematical Notation}
-
-\plt{This section is optional, but should be included for projects that make use
-  of notation to convey mathematical information.  For instance, if typographic
-  conventions (like bold face font) are used to distinguish matrices, this
-  should be stated here.  If symbols are used to show mathematical operations,
-  these should be summarized here.  In some cases the easiest way to summarize
-  the notation is to point to a text or other source that explains the
-  notation.}
-
-\plt{This section was added to the template because some students use very
-  domain specific notation.  This notation will not be readily understandable to
-  people outside of your domain.  It should be explained.}
+In this document, we do not use any specific mathematical notation.
 
 \newpage
 
 \pagenumbering{arabic}
 
-\plt{This SRS template is based on \citet{SmithAndLai2005, SmithEtAl2007}.  It
-  will get you started.  You should not modify the section headings, without
-  first discussing the change with the course instructor.  Modification means
-  you are not following the template, which loses some of the advantage of a
-  template, especially standardization.  Although the bits shown below do not
-  include type information, you may need to add this information for your
-  problem.  If you are unsure, please can ask the instructor.}
+%{When the documentation is done, it should be possible to trace back to the source of every piece of information.  Some information will come from  external sources, like terminology.  Other information will be derived, like  General Definitions.
+%An SRS document should have the following qualities: unambiguous,  consistent, complete, validatable, abstract and traceable.{The overall goal of the SRS is that someone that meets the Characteristics  of the Intended Reader (Section~\ref{sec_IntendedReader}) can learn,  understand and verify the captured domain knowledge.  They should not have to   trust the authors of the SRS on any statements.  They should be able to  independently verify/derive every statement made.}
 
-\plt{Feel free to change the appearance of the report by modifying the LaTeX
-  commands.}
-
-\plt{This template document assumes that a single program is being documented.
-  If you are documenting a family of models, you should start with a commonality
-  analysis.  A separate template is provided for this.  For program
-  families you should look at \cite{Smith2006, SmithMcCutchanAndCarette2017}.
-  Single family member programs are often programs based on a single physical
-  model.  General purpose tools are usually documented as a family.  Families of
-  physical models also come up.}
-
-\plt{The SRS is not generally written, or read, sequentially.  The SRS is a
-  reference document.  It is generally read in an ad hoc order, as the need
-  arises.  For writing an SRS, and for reading one for the first time, the
-  suggested order of sections is:
-\begin{itemize}
-\item Goal Statement
-\item Instance Models
-\item Requirements
-\item Introduction
-\item Specific System Description
-\end{itemize}
-}
-
-\plt{Guiding principles for the SRS document:
-\begin{itemize}
-\item Do not repeat the same information at the same abstraction level.  If
-  information is repeated, the repetition should be at a different abstraction
-  level.  For instance, there will be overlap between the scope section and the
-  assumptions, but the scope section will not go into as much detail as the
-  assumptions section.
-\end{itemize}
-}
-
-\plt{The template description comments should be disabled before submitting this
-  document for grading.}
-
-\plt{You can borrow any wording from the text given in the template.  It is part
-  of the template, and not considered an instance of academic integrity.  Of
-  course, you need to cite the source of the template.}
-
-\plt{When the documentation is done, it should be possible to trace back to the
-  source of every piece of information.  Some information will come from
-  external sources, like terminology.  Other information will be derived, like
-  General Definitions.}
-
-\plt{An SRS document should have the following qualities: unambiguous,
-  consistent, complete, validatable, abstract and traceable.}
-
-\plt{The overall goal of the SRS is that someone that meets the Characteristics
-  of the Intended Reader (Section~\ref{sec_IntendedReader}) can learn,
-  understand and verify the captured domain knowledge.  They should not have to
-  trust the authors of the SRS on any statements.  They should be able to
-  independently verify/derive every statement made.}
 
 \section{Introduction}
-
-\plt{The introduction section is written to introduce the problem.  It starts
-  general and focuses on the problem domain. The general advice is to start with
-a paragraph or two that describes the problem, followed by a ``roadmap''
-paragraph.  A roadmap orients the reader by telling them what sub-sections to
-expect in the Introduction section.}
+{A truss is a structure that consists of members organized into connected triangles to enable the distribution of loads and forces. Trusses are most commonly used for wide spans like bridges, and roofs. Truss Analysis shows whether the external forces are well-distributed among the members or not. \\
+The following section provides an overview of the software requirements specification (SRS) for the truss tool. In this section, first, we explain the purpose of the document. Then we explain the scope of the requirements, the characteristics of the intended reader and the organization of the document.
+}
+%The introduction section is written to introduce the problem.  It starts  general and focuses on the problem domain. The general advice is to start with a paragraph or two that describes the problem, followed by a ``roadmap'' paragraph.  A roadmap orients the reader by telling them what sub-sections to expect in the Introduction section.}
 
 \subsection{Purpose of Document}
-
-\plt{This section summarizes the purpose of the SRS document.  It does not focus
-  on the problem itself.  The problem is described in the ``Problem
-  Description'' section (Section~\ref{Sec_pd}).  The purpose is for the document
-  in the context of the project itself, not in the context of this course.
-  Although the ``purpose'' of the document is to get a grade, you should not
-  mention this.  Instead, ``fake it'' as if this is a real project.  The purpose
-  section will be similar between projects.  The purpose of the document is the
-  purpose of the SRS, including communication, planning for the design stage,
-  etc.}
+{The primary purpose of this document is to outline the software requirements of the truss analysis tool. To provide a good understanding of the system, different aspects of the system such as  goals, assumptions, theoretical models, and definitions will be explained.  The following SRS document will remain abstract exploring what is being solved rather than how it will be solved.\\
+The following document will describe the system context and constraints, the specific problem definition and solution characteristics, requirements and likely and unlikely changes for the 
+development of the tool.}
+%\plt{This section summarizes the purpose of the SRS document.  It does not focus  on the problem itself.  The problem is described in the ``Problem  Description'' section (Section~\ref{Sec_pd}).  The purpose is for the document  in the context of the project itself, not in the context of this course.  Although the ``purpose'' of the document is to get a grade, you should not  mention this.  Instead, ``fake it'' as if this is a real project.  The purpose  section will be similar between projects.  The purpose of the document is the  purpose of the SRS, including communication, planning for the design stage,  etc.}
 
 \subsection{Scope of Requirements} 
+{The scope of the requirements includes the analysis of the two-dimensional trusses where all members and nodes lie within a two-dimensional plane. for more details, you can also see the assumptions section  (Section~\ref{sec_assumpt}). }
+%\plt{Modelling the real world requires simplification.  The full complexity of   the actual physics, chemistry, biology is too much for existing models, and  for existing computational solution techniques.  Rather than say what is in   the scope, it is usually easier to say what is not.  You can think of it as  the scope is initially everything, and then it is constrained to create the  actual scope.  For instance, the problem can be restricted to 2 dimensions, or  it can ignore the effect of temperature (or pressure) on the material   properties, etc.}  
 
-\plt{Modelling the real world requires simplification.  The full complexity of
-  the actual physics, chemistry, biology is too much for existing models, and
-  for existing computational solution techniques.  Rather than say what is in
-  the scope, it is usually easier to say what is not.  You can think of it as
-  the scope is initially everything, and then it is constrained to create the
-  actual scope.  For instance, the problem can be restricted to 2 dimensions, or
-  it can ignore the effect of temperature (or pressure) on the material
-  properties, etc.}  
-
-\plt{The scope section is related to the assumptions section
-  (Section~\ref{sec_assumpt}).  However, the scope and the assumptions are not
-  at the same level of abstraction.  The scope is at a high level.  The focus is
-  on the ``big picture'' assumptions.  The assumptions section lists, and
-  describes, all of the assumptions.}
+%\plt{The scope section is related to the assumptions section  (Section~\ref{sec_assumpt}).  However, the scope and the assumptions are not   at the same level of abstraction.  The scope is at a high level.  The focus is on the ``big picture'' assumptions.  The assumptions section lists, and  describes, all of the assumptions.}
 
 \subsection{Characteristics of Intended Reader} \label{sec_IntendedReader}
+Reviewers of this documentation should have a basic understanding of structure statics and high school physics and Mathematics. The users of the Truss Tool must have a higher level of expertise, as explained in Section: User Characteristics (Section~\ref{SecUserCharacteristics}). 
+%\plt{This section summarizes the skills and knowledge of the readers of the  SRS.  It does NOT have the same purpose as the ``User Characteristics''  section (Section~\ref{SecUserCharacteristics}).  The intended readers are the  people that will read, review and maintain the SRS.  They are the people that  will conceivably design the software that is intended to meet the  requirements.  The user, on the other hand, is the person that uses the  software that is built.  They may never read this SRS document.  Of course,  the same person could be a ``user'' and an ``intended reader.''}
 
-\plt{This section summarizes the skills and knowledge of the readers of the
-  SRS.  It does NOT have the same purpose as the ``User Characteristics''
-  section (Section~\ref{SecUserCharacteristics}).  The intended readers are the
-  people that will read, review and maintain the SRS.  They are the people that
-  will conceivably design the software that is intended to meet the
-  requirements.  The user, on the other hand, is the person that uses the
-  software that is built.  They may never read this SRS document.  Of course,
-  the same person could be a ``user'' and an ``intended reader.''}
-
-\plt{The intended reader characteristics should be written as unambiguously and
-  as specifically as possible.  Rather than say, the user should have an
-  understanding of physics, say what kind of physics and at what level.  For
-  instance, is high school physics adequate, or should the reader have had a
-  graduate course on advanced quantum mechanics?}
+%\plt{The intended reader characteristics should be written as unambiguously and  as specifically as possible.  Rather than say, the user should have an  understanding of physics, say what kind of physics and at what level.  For   instance, is high school physics adequate, or should the reader have had a  graduate course on advanced quantum mechanics?} 
 
 \subsection{Organization of Document}
-
-\plt{This section provides a roadmap of the SRS document.  It will help the
-  reader orient themselves.  It will provide direction that will help them
-  select which sections they want to read, and in what order.  This section will
-  be similar between project.}
+The organization of the document follows the template for an SRS for scientific computing software proposed by \citep{SmithandLai2005}. The template will present the system's goals, theories, definitions, and assumptions. Readers interested in top-down reading can begin by reading the system's goal statements (Section~\ref{Sec_gs}). Subsequently, the theoretical models will elaborate on the goal statements. Lastly, readers can finish with a more  understanding of the system by reading instance models of the system.
+%\plt{This section provides a roadmap of the SRS document.  It will help the  reader orient themselves.  It will provide direction that will help them  select which sections they want to read, and in what order.  This section will  be similar between projects.}
 
 \section{General System Description}
 
-This section provides general information about the system.  It identifies the
-interfaces between the system and its environment, describes the user
-characteristics and lists the system constraints.  \plt{This text can likely be
-  borrowed verbatim.}
+This section provides general information about the system.  It identifies the interfaces between the system and its environment, describes the user characteristics and lists the system constraints.  %\plt{This text can likely be borrowed verbatim.}
 
-\plt{The purpose of this section is to provide general information about the
-  system so the specific requirements in the next section will be easier to
-  understand. The general system description section is designed to be
-  changeable independent of changes to the functional requirements documented in
-  the specific system description. The general system description provides a
-  context for a family of related models.  The general description can stay the
-  same, while specific details are changed between family members.}
+%\plt{The purpose of this section is to provide general information about the  system so the specific requirements in the next section will be easier to  understand. The general system description section is designed to be changeable independent of changes to the functional requirements documented in  the specific system description. The general system description provides a   context for a family of related models.  The general description can stay the  same, while specific details are changed between family members.}
 
 \subsection{System Context}
-
-\plt{Your system context will include a figure that shows the abstract view of
-  the software.  Often in a scientific context, the program can be viewed
-  abstractly following the design pattern of Inputs $\rightarrow$ Calculations
-  $\rightarrow$ Outputs.  The system context will therefore often follow this
-  pattern.  The user provides inputs, the system does the calculations, and then
-  provides the outputs to the user.  The figure should not show all of the
-  inputs, just an abstract view of the main categories of inputs (like material
-  properties, geometry, etc.).  Likewise, the outputs should be presented from
-  an abstract point of view.  In some cases the diagram will show other external
-  entities, besides the user.  For instance, when the software product is a
-  library, the user will be another software program, not an actual end user.
-  If there are system constraints that the software must work with external
-  libraries, these libraries can also be shown on the System Context diagram.
-  They should only be named with a specific library name if this is required by
-  the system constraint.}
+Figure~\ref{Fig_SystemContext} shows the system context. The circles 
+represent a user that interacts with the software. The rectangle represents the software system for the truss tool. The arrows display the input data from the user and the output data that is useful for the user.
+%\plt{Your system context will include a figure that shows the abstract view of   the software.  Often in a scientific context, the program can be viewed   abstractly following the design pattern of Inputs $\rightarrow$ Calculations   $\rightarrow$ Outputs.  The system context will therefore often follow this  pattern.  The user provides inputs, the system does the calculations and then  provides the outputs to the user.  The figure should not show all of the  inputs, just an abstract view of the main categories of inputs (like material  properties, geometry, etc.).  Likewise, the outputs should be presented from  an abstract point of view.  In some cases, the diagram will show other external  entities, besides the user.  For instance, when the software product is a  library, the user will be another software program, not an actual end user.  If there are system constraints that the software must work with external  libraries, these libraries can also be shown on the System Context diagram.  They should only be named with a specific library name if this is required by the system constraint.}
 
 \begin{figure}[h!]
 \begin{center}
- \includegraphics[width=0.6\textwidth]{SystemContextFigure}
+ \includegraphics[width=0.8\textwidth]{systemcontext.jpg}
 \caption{System Context}
 \label{Fig_SystemContext} 
 \end{center}
 \end{figure}
 
-\plt{For each of the entities in the system context diagram its responsibilities
-  should be listed.  Whenever possible the system should check for data quality,
-  but for some cases the user will need to assume that responsibility.  The list
-  of responsibilites should be about the inputs and outputs only, and they
-  should be abstract.  Details should not be presented here.  However, the
-  information should not be so abstract as to just say ``inputs'' and
-  ``outputs''.  A summarizing phrase can be used to characterize the inputs.
-  For instance, saying ``material properties'' provides some information, but it
-  stays away from the detail of listing every required properties.}
-
+The interaction between the product and the user is through a user interface. The responsibilities of the user and the system are as follows:
 \begin{itemize}
 \item User Responsibilities:
 \begin{itemize}
-\item 
+\item Provide truss design features, supports and external forces. 
+\item Ensure the input data describes a correct truss.
+
 \end{itemize}
-\item \progname{} Responsibilities:
+\item Truss Tool Responsibilities:
 \begin{itemize}
-\item Detect data type mismatch, such as a string of characters instead of a
-  floating point number
-\item 
+\item Detect data type mismatch, such as a string of characters instead of a  floating point number.
+\item Calculate external forces and support's reaction.
 \end{itemize}
 \end{itemize}
+
+%\plt{For each of the entities in the system context diagram its responsibilities  should be listed.  Whenever possible the system should check for data quality,  but in some cases, the user will need to assume that responsibility.  The list  of responsibilities should be about the inputs and outputs only, and they  should be abstract.  Details should not be presented here.  However, the  information should not be so abstract as to just say ``inputs'' and  ``outputs''.  A summarizing phrase can be used to characterize the inputs.  For instance, saying ``material properties'' provides some information, but it   stays away from the detail of listing every required property.}
 
 \subsection{User Characteristics} \label{SecUserCharacteristics}
 
-\plt{This section summarizes the knowledge/skills expected of the user.
-  Measuring usability, which is often a required non-function requirement,
-  requires knowledge of a typical user.  As mentioned above, the user is a
-  different role from the ``intended reader,'' as given in
-  Section~\ref{sec_IntendedReader}.  As in Section~\ref{sec_IntendedReader}, the
-  user characteristics should be specific an unambiguous.  For instance, ``The
-  end user of \progname{} should have an understanding of undergraduate Level 1
-  Calculus and Physics.''}
+The end user of Truss Tool should be an architecture/civil/mechanic engineer or should have an understanding of undergraduate Level 1 structural analysis.
+%\plt{This section summarizes the knowledge/skills expected of the user.  Measuring usability, which is often a required non-function requirement,  requires knowledge of a typical user.  As mentioned above, the user is a  different role from the ``intended reader,'' as given in  Section~\ref{sec_IntendedReader}.  As in Section~\ref{sec_IntendedReader}, the  user characteristics should be specific an unambiguous.  For instance, ``The  end user of \progname{} should have an understanding of undergraduate Level 1  Calculus and Physics.''}
 
 \subsection{System Constraints}
 
-\plt{System constraints differ from other type of requirements because they
-  limit the developers' options in the system design and they identify how the
-  eventual system must fit into the world. This is the only place in the SRS
-  where design decisions can be specified.  That is, the quality requirement for
-  abstraction is relaxed here.  However, system constraints should only be
-  included if they are truly required.}
+There is no constraint on the development of the Truss Tool.
+%\plt{System constraints differ from other types of requirements because they  limit the developers' options in the system design and they identify how the  eventual system must fit into the world. This is the only place in the SRS  where design decisions can be specified.  That is, the quality requirement for  abstraction is relaxed here.  However, system constraints should only be  included if they are truly required.}
 
 \section{Specific System Description}
 
-This section first presents the problem description, which gives a high-level
-view of the problem to be solved.  This is followed by the solution characteristics
-specification, which presents the assumptions, theories, definitions and finally
-the instance models.  \plt{Add any project specific details that are relevant
-  for the section overview.}
+This section first presents the problem description, which gives a high-level view of the problem to be solved.  This is followed by the solution characteristics specification, which presents the assumptions, theories, definitions and finally the instance models.
+%\plt{Add any project-specific details that are relevant to the section overview.}
 
 \subsection{Problem Description} \label{Sec_pd}
 
-\progname{} is intended to solve ... \plt{What problem does your program solve?
-The description here should be in the problem space, not the solution space.}
+Truss Tool is intended to solve a given truss with given external forces. By solving a truss, we mean that we are interested to calculate all internal forces among the members and the reactions of the supports. As a result, Truss Tool will help engineers to make a decision on whether the design of the given truss is proper or not.
+%\plt{What problem does your program solve? The description here should be in the problem space, not the solution space.}
 
 \subsubsection{Terminology and  Definitions}
 
-\plt{This section is expressed in words, not with equations.  It provide the
-  meaning of the different words and phrases used in the domain of the problem.
-The terminology is used to introduce concepts from the world outside of the
-mathematical model  The terminology provides a real world connection to give the
-mathematical model meaning.}
+%\plt{This section is expressed in words, not with equations.  It provides the meaning of the different words and phrases used in the domain of the problem. The terminology is used to introduce concepts from the world outside of the mathematical model  The terminology provides a real-world connection to give the mathematical model meaning.}
 
 This subsection provides a list of terms that are used in the subsequent
-sections and their meaning, with the purpose of reducing ambiguity and making it
-easier to correctly understand the requirements:
+sections and their meaning, with the purpose of reducing ambiguity and making it easier to correctly understand the requirements:
 
 \begin{itemize}
 
-\item 
-
+\item{ Planar truss:  A planar truss is one where all members and nodes lie within a two-dimensional plane.} 
+\item{Joint(nodes): A place where two or more  members of the truss  are connected.}
+\item{Force equilibrium: A body is in force equilibrium if the sum of all the forces acting on the body is zero.}
+\item{Moment equilibrium: A body is in moment equilibrium if the sum of all the moments of all the forces acting on the body is zero.}
+\item{Moment: The turning effect of a force is called the moment. The moment is the result of the force multiplied by the perpendicular distance from the line of action of the force to the pivot or point where the object will turn.}
+\item{Compression: When a member force points toward the joint it is attached to, the member is in compression}
+\item{Tension: When a member force points away from the joint it is attached to, the member is in tension.}
+\item{Pinned support: A kind of structural support that can have both a horizontal reaction and a vertical reaction. }
+\item{Roller support: A kind of structural support that can have only a vertical reaction. }
+\item{Zero force members: Members which do not have any force in them.}
 \end{itemize}
 
 \subsubsection{Physical System Description} \label{sec_phySystDescrip}
 
-\plt{The purpose of this section is to clearly and unambiguously state the
-  physical system that is to be modelled. Effective problem solving requires a
-  logical and organized approach. The statements on the physical system to be
-  studied should cover enough information to solve the problem. The physical
-  description involves element identification, where elements are defined as
-  independent and separable items of the physical system. Some example elements
-  include acceleration due to gravity, the mass of an object, and the size and
-  shape of an object. Each element should be identified and labelled, with their
-  interesting properties specified clearly. The physical description can also
-  include interactions of the elements, such as the following: i) the
-  interactions between the elements and their physical environment; ii) the
-  interactions between elements; and, iii) the initial or boundary conditions.}
+%\plt{The purpose of this section is to clearly and unambiguously state the physical system that is to be modelled. Effective problem-solving requires a logical and organized approach. The statements on the physical system to be studied should cover enough information to solve the problem. The physical   description involves element identification, where elements are defined as   independent and separable items of the physical system. Some example elements include acceleration due to gravity, the mass of an object, and the size and   shape of an object. Each element should be identified and labelled, with its interesting properties specified clearly. The physical description can also include interactions of the elements, such as the following: i) the interactions between the elements and their physical environment; ii) the interactions between elements; and, iii) the initial or boundary conditions.}
 
-The physical system of \progname{}, as shown in Figure~?,
+The physical system of Truss Tool, as shown in Figure~\ref{fig_physys},
 includes the following elements:
 
 \begin{itemize}
 
-\item[PS1:] 
-
-\item[PS2:] ...
+\item{PS1: The joints ($j_\text{1}$,$j_\text{2}$,..,$j_\text{n}$).}
+\item{PS2: The members ($m_\text{1}$,$m_\text{2}$,..,$m_\text{k}$).}
+\item{PS3: The supports ($S_\text{1}$,$S_\text{2}$).}
 
 \end{itemize}
 
-\plt{A figure here makes sense for most SRS documents}
+%\plt{A figure here makes sense for most SRS documents}
 
-% \begin{figure}[h!]
-% \begin{center}
-% %\rotatebox{-90}
-% {
-%  \includegraphics[width=0.5\textwidth]{<FigureName>}
-% }
-% \caption{\label{<Label>} <Caption>}
-% \end{center}
-% \end{figure}
+ \begin{figure}[h!]
+\begin{center}
+ %\rotatebox{-90}
+ 
+  \includegraphics[width=0.7\textwidth]{physic_system.jpg}
+ 
+ \caption{The physical system of Truss Tool}
+ \label{fig_physys}
+ \end{center}
+ \end{figure}
 
-\subsubsection{Goal Statements}
+\subsubsection{Goal Statements} \label{Sec_gs}
 
-\plt{The goal statements refine the ``Problem Description''
-  (Section~\ref{Sec_pd}).  A goal is a functional objective the system under
-  consideration should achieve. Goals provide criteria for sufficient
-  completeness of a requirements specification and for requirements
-  pertinence. Goals will be refined in Section “Instanced Models”
-  (Section~\ref{sec_instance}). Large and complex goals should be decomposed
-  into smaller sub-goals.  The goals are written abstractly, with a minimal
-  amount of technical language.  They should be understandable by non-domain
-  experts.}
+%\plt{The goal statements refine the ``Problem Description''   (Section~\ref{Sec_pd}).  A goal is a functional objective the system under   consideration should achieve. Goals provide criteria for sufficient  completeness of a requirements specification and for requirements  pertinence. Goals will be refined in Section “Instanced Models”  (Section~\ref{sec_instance}). Large and complex goals should be decomposed  into smaller sub-goals.  The goals are written abstractly, with a minimal  amount of technical language.  They should be understandable by non-domain  experts.}
 
-\noindent Given the \plt{inputs}, the goal statements are:
+\noindent Given the truss features and external forces, the goal statements are:
 
 \begin{itemize}
 
-\item[GS\refstepcounter{goalnum}\thegoalnum \label{G_meaningfulLabel}:] \plt{One
-    sentence description of the goal.  There may be more than one.  Each Goal
-    should have a meaningful label.}
+\item{GS\refstepcounter{goalnum}\thegoalnum \label{G_support_reactions}: Calculate the reactions of the supports.}
+\item{GS\refstepcounter{goalnum}\thegoalnum \label{G_internal}: Calculate the internal forces for each member.}
+%\plt{One sentence description of the goal.  There may be more than one.  Each Goal should have a meaningful label.}
 
 \end{itemize}
 
 \subsection{Solution Characteristics Specification}
 
-\plt{This section specifies the information in the solution domain of the system
-  to be developed. This section is intended to express what is required in
-  such a way that analysts and stakeholders get a clear picture, and the
-  latter will accept it. The purpose of this section is to reduce the problem
-  into one expressed in mathematical terms. Mathematical expertise is used to
-  extract the essentials from the underlying physical description of the
-  problem, and to collect and substantiate all physical data pertinent to the
-  problem.}
+%\plt{This section specifies the information in the solution domain of the system   to be developed. This section is intended to express what is required in   such a way that analysts and stakeholders get a clear picture, and the latter will accept it. The purpose of this section is to reduce the problem  into one expressed in mathematical terms. Mathematical expertise is used to   extract the essentials from the underlying physical description of the problem, and to collect and substantiate all physical data pertinent to the problem.}
 
-\plt{This section presents the solution characteristics by successively refining
-  models.  It starts with the abstract/general Theoretical Models (TMs) and
-  refines them to the concrete/specific Instance Models (IMs).  If necessary
-  there are intermediate refinements to General Definitions (GDs).  All of these
-  refinements can potentially use Assumptions (A) and Data Definitions (DD).
-  TMs are refined to create new models, that are called GMs or IMs. DDs are not
-  refined; they are just used. GDs and IMs are derived, or refined, from other
-  models. DDs are not derived; they are just given. TMs are also just given, but
-  they are refined, not used.  If a potential DD includes a derivation, then
-  that means it is refining other models, which would make it a GD or an IM.}
+%This section presents the solution characteristics by successively refining   models.  It starts with the abstract/general Theoretical Models (TMs) and refines them to the concrete/specific Instance Models (IMs). 
+%If necessary there are intermediate refinements to General Definitions (GDs).  All of these refinements can potentially use Assumptions (A) and Data Definitions (DD). TMs are refined to create new models, that are called GMs or IMs. DDs are not refined; they are just used. GDs and IMs are derived, or refined, from other   models. DDs are not derived; they are just given. 
+%--------->TMs are also just given, but  they are refined, not used.  If a potential DD includes a derivation, then that means it is refining other models, which would make it a GD or an IM.}
 
-\plt{The above makes a distinction between ``refined'' and ``used.'' A model is
-  refined to another model if it is changed by the refinement. When we change a
-  general 3D equation to a 2D equation, we are making a refinement, by applying
-  the assumption that the third dimension does not matter. If we use a
-  definition, like the definition of density, we aren't refining, or changing
-  that definition, we are just using it.}
+%\plt{The above makes a distinction between ``refined'' and ``used.'' A model is refined to another model if it is changed by the refinement. When we change a general 3D equation to a 2D equation, we are making a refinement, by applying the assumption that the third dimension does not matter. If we use a definition, like the definition of density, we aren't refining, or changing that definition, we are just using it.}
 
-\plt{The same information can be a TM in one problem and a DD in another.  It is
-  about how the information is used.  In one problem the definition of
-  acceleration can be a TM, in another it would be a DD.}
+%\plt{The same information can be a TM in one problem and a DD in another.  It is about how the information is used.  In one problem the definition of acceleration can be a TM, in another, it would be a DD.}
 
-\plt{There is repetition between the information given in the different chunks
-  (TM, GDs etc) with other information in the document.  For instance, the
-  meaning of the symbols, the units etc are repeated.  This is so that the
-  chunks can stand on their own when being read by a reviewer/user.  It also
-  facilitates reuse of the models in a different context.}
+%\plt{There is repetition between the information given in the different chunks  (TM, GDs etc) with other information in the document.  For instance, the  meaning of the symbols, the units etc are repeated.  This is so that the chunks can stand on their own when being read by a reviewer/user.  It also facilitates reuse of the models in a different context.}
 
-\noindent \plt{The relationships between the parts of the document are show in
-  the following figure.  In this diagram ``may ref'' has the same role as
-  ``uses'' above.  The figure adds ``Likely Changes,'' which are able to
-  reference (use) Assumptions.}
+%\noindent \plt{The relationships between the parts of the document are show in  the following figure.  In this diagram ``may ref'' has the same role as `uses'' above.  The figure adds ``Likely Changes,'' which are able to reference (use) Assumptions.}
 
-\begin{figure}[H]
-  \includegraphics[scale=0.9]{RelationsBetweenTM_GD_IM_DD_A.pdf}
-\end{figure}
+%\begin{figure}[H]
+%  \includegraphics[scale=0.9]{RelationsBetweenTM_GD_IM_DD_A.pdf}
+%\end{figure}
 
-The instance models that govern \progname{} are presented in
-Subsection~\ref{sec_instance}.  The information to understand the meaning of the
-instance models and their derivation is also presented, so that the instance
-models can be verified.
+The instance models that govern Truss Tool are presented in
+Subsection~\ref{sec_instance}.  The information to understand the meaning of the instance models and their derivation is also presented so that the instance models can be verified.
 
 \subsubsection{Assumptions} \label{sec_assumpt}
 
-\plt{The assumptions are a refinement of the scope.  The scope is general, where
-  the assumptions are specific.  All assumptions should be listed, even those
-  that domain experts know so well that they are rarely (if ever) written down.}
-\plt{The document should not take for granted that the reader knows which
-  assumptions have been made. In the case of unusual assumptions, it is
-  recommended that the documentation either include, or point to, an explanation
-  and justification for the assumption.}
+%\plt{The assumptions are a refinement of the scope.  The scope is general, where the assumptions are specific.  All assumptions should be listed, even those that domain experts know so well that they are rarely (if ever) written down.}
+%\plt{The document should not take for granted that the reader knows which assumptions have been made. In the case of unusual assumptions, it is  recommended that the documentation either include, or point to, an explanation  and justification for the assumption.}
 
 This section simplifies the original problem and helps in developing the
 theoretical model by filling in the missing information for the physical
 system. The numbers given in the square brackets refer to the theoretical model
-[T], general definition [GD], data definition [DD], instance model [IM], or
+[T], the general definition [GD], data definition [DD], instance model [IM], or
 likely change [LC], in which the respective assumption is used.
 
 \begin{itemize}
 
-\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_meaningfulLabel}:]
-  \plt{Short description of each assumption.  Each assumption
-    should have a meaningful label.  Use cross-references to identify the
-    appropriate traceability to T, GD, DD etc., using commands like dref, ddref
-    etc.  Each assumption should be atomic - that is, there should not be an
-    explicit (or implicit) ``and'' in the text of an assumption.}
+\item{A\refstepcounter{assumpnum}\theassumpnum \label{planar}: All members and nodes lie within a two-dimensional plane.}
+
+\item{A\refstepcounter{assumpnum}\theassumpnum \label{connection}: Members are inter-connected only at their ends.}
+\item{A\refstepcounter{assumpnum}\theassumpnum \label{Staight_members}: Members must be straight.}
+\item{A\refstepcounter{assumpnum}\theassumpnum \label{frictionless}: All joints are smooth and frictionless hinges.}
+\item{A\refstepcounter{assumpnum}\theassumpnum \label{Force_at_joints}: All forces must only be applied at joints}
+\item{A\refstepcounter{assumpnum}\theassumpnum \label{reaction_at_joints}: All reactions must only be applied at joints}
+\item{A\refstepcounter{assumpnum}\theassumpnum \label{self_w}: Self-weight of the member will be neglected}
+\item{A\refstepcounter{assumpnum}\theassumpnum \label{axial_f_members}: Members are subjected to axial forces only.}
+\item{A\refstepcounter{assumpnum}\theassumpnum \label{maxsupport}: The number of supports at most is two.}
+
+
+%  \plt{Short description of each assumption.  Each assumption     should have a meaningful label.  Use cross-references to identify the    appropriate traceability to T, GD, DD etc., using commands like dref, ddref etc.  Each assumption should be atomic - that is, there should not be an explicit (or implicit) ``and'' in the text of an assumption.}
 
 \end{itemize}
 
 \subsubsection{Theoretical Models}\label{sec_theoretical}
 
-\plt{Theoretical models are sets of abstract mathematical equations or axioms
-  for solving the problem described in Section ``Physical System Description''
-  (Section~\ref{sec_phySystDescrip}). Examples of theoretical models are
-  physical laws, constitutive equations, relevant conversion factors, etc.}
+%\plt{Theoretical models are sets of abstract mathematical equations or axioms for solving the problem described in Section ``Physical System Description''  (Section~\ref{sec_phySystDescrip}). Examples of theoretical models are physical laws, constitutive equations, relevant conversion factors, etc.}
 
-This section focuses on the general equations and laws that \progname{} is based
-on.  \plt{Modify the examples below for your problem, and add additional models
-  as appropriate.}
+This section focuses on the general equations and laws that Truss Tool is based on. 
+%\plt{Modify the examples below for your problem, and add additional models as appropriate.}
 
 ~\newline
 
 \noindent
 \deftheory
 % #2 refname of theory
-{T:COE}
+{T: EQUIL}
 % #3 label
-{Conservation of thermal energy}
+{ Equilibrium Equations}
 % #4 equation
 {
-  $-{\bf \nabla \cdot q} + g$ = $\rho C \frac{\partial T}{\partial t}$
+$\sum F = 0$ ,  & $\sum M = 0$\\
+ 
 }
-% #5 description
-{
-  The above equation gives the conservation of energy for transient heat transfer in a material
-  of specific heat capacity $C$ (\si{\joule\per\kilogram\per\celsius}) and density $\rho$ 
-  (\si{\kilogram\per\cubic\metre}), where $\bf q$ is the thermal flux vector (\si{\watt\per\square\metre}),
-  $g$ is the volumetric heat generation
-  (\si{\watt\per\cubic\metre}), $T$ is the temperature
-  (\si{\celsius}),  $t$ is time (\si{\second}), and $\nabla$ is
-  the gradient operator.  For this equation to apply, other forms
-  of energy, such as mechanical energy, are assumed to be negligible in the
-  system (\aref{A_OnlyThermalEnergy}).  In general, the material properties ($\rho$ and $C$) depend on temperature.
+% #5 Description
+{  
+   
+ 
+  & The equilibrium equation describes the static equilibrium of all  forces of the system and the moment for the system so that $\sum M =0$ and $\sum F=0$.\\
+  & $F$ is any force in the system (\si{\newton}). $M$ is a moment that is the turning effect of a force. Moments act about a point in a clockwise or anticlockwise direction(\si{\newton\metre})\\
 }
 % #6 Notes
-{
+{ 
 None.
 }
 % #7 Source
 {
-  \url{http://www.efunda.com/formulae/heat_transfer/conduction/overview_cond.cfm}
+  \url{https://en.wikipedia.org/wiki/Mechanical_equilibrium/}
 }
 % #8 Referenced by
 {
-  \dref{ROCT}
+  \dref{}
 }
 % #9 Preconditions
 {
@@ -697,31 +481,22 @@ None
 % #1 derivation - not applicable by default
 {}
 
-\plt{``Ref.\ By'' is used repeatedly with the different types of information.
-  This stands for Referenced By.  It means that the models, definitions and
-  assumptions listed reference the current model, definition or assumption.
-  This information is given for traceability.  Ref. By provides a pointer in the
-  opposite direction to what we commonly do.  You still need to have a reference
-  in the other direction pointing to the current model, definition or
-  assumption.  As an example, if T1 is referenced by G2, that means that G2 will
-  explicitly include a reference to T1.}
 
+%\plt{``Ref.\ By'' is used repeatedly with the different types of information. This stands for Referenced By.  It means that the models, definitions and assumptions listed reference the current model, definition or assumption. This information is given for traceability.  Ref. By provides a pointer in the opposite direction to what we commonly do.  You still need to have a reference  in the other direction pointing to the current model, definition or assumption.  As an example, if T1 is referenced by G2, that means that G2 will  explicitly include a reference to T1.}
+%--------------------------------------------
+%----------------------------------------------------
+
+\newpage
 ~\newline
 
 \subsubsection{General Definitions}\label{sec_gendef}
 
-\plt{General Definitions (GDs) are a refinement of one or more TMs, and/or of
-  other GDs.  The GDs are less abstract than the TMs.  Generally the reduction
-  in abstraction is possible through invoking (using/referencing) Assumptions.
-  For instance, the TM could be Newton's Law of Cooling stated abstracting.  The
-  GD could take the general law and apply it to get a 1D equation.}
+%\plt{General Definitions (GDs) are a refinement of one or more TMs, and/or of   other GDs.  The GDs are less abstract than the TMs.  Generally the reduction  in abstraction is possible through invoking (using/referencing) Assumptions.  For instance, the TM could be Newton's Law of Cooling stated abstracting.  The  GD could take the general law and apply it to get a 1D equation.}
 
 This section collects the laws and equations that will be used in building the
 instance models.
 
-\plt{Some projects may not have any content for this section, but the section
-  heading should be kept.}  \plt{Modify the examples below for your problem, and
-  add additional definitions as appropriate.}
+%\plt{Some projects may not have any content for this section, but the section heading should be kept.}  \plt{Modify the examples below for your problem, and   add additional definitions as appropriate.}
 
 ~\newline
 
@@ -731,56 +506,40 @@ instance models.
 \begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
 \hline
 \rowcolor[gray]{0.9}
-Number& GD\refstepcounter{defnum}\thedefnum \label{NL}\\
+Number& GD\refstepcounter{defnum}\thedefnum \label{Trussequil}\\
 \hline
-Label &\bf Newton's law of cooling \\
+Label &\bf Equilibrium equations in planar trusses \\
 \hline
-% Units&$MLt^{-3}T^0$\\
-% \hline
-SI Units&\si{\watt\per\square\metre}\\
+
+
+SI Units& All Forces are measured in \si{\newton}\\
 \hline
-Equation&$ q(t) = h \Delta T(t)$  \\
+Equation& $\sum F_{x}=0 $, $\sum F_{y}=0 $   \\
 \hline
 Description &
-Newton's law of cooling describes convective cooling from a surface.  The law is
-stated as: the rate of heat loss from a body is proportional to the difference
-in temperatures between the body and its surroundings.
-\\
-& $q(t)$ is the thermal flux (\si{\watt\per\square\metre}).\\
-& $h$ is the heat transfer coefficient, assumed independent of $T$ (\aref{A_hcoeff})
-	(\si{\watt\per\square\metre\per\celsius}).\\
-&$\Delta T(t)$= $T(t) - T_{\text{env}}(t)$ is the time-dependent thermal gradient
-between the environment and the object (\si{\celsius}).
+For any joint point in a planar truss, the equilibrium equations are satisfied horizontally and vertically on the direction of y-axis and y-axis.
+
 \\
 \hline
-  Source & Citation here \\
+  Source & \url{https://www.khanacademy.org/math/geometry/hs-geo-analytic-geometry/hs-geo-distance-and-midpoints/a/distance-formula} \\
   \hline
-  Ref.\ By & \ddref{FluxCoil}, \ddref{FluxPCM}\\
+  Ref.\ By & \ddref{}\\
   \hline
 \end{tabular}
 \end{minipage}\\
 
-\subsubsection*{Detailed derivation of simplified rate of change of temperature}
+\subsubsection*{Detailed derivation of the member length}
 
-\plt{This may be necessary when the necessary information does not fit in the
-  description field.}
-\plt{Derivations are important for justifying a given GD.  You want it to be
-  clear where the equation came from.}
+%\plt{This may be necessary when the necessary information does not fit in the description field.}
+%\plt{Derivations are important for justifying a given GD.  You want it to be clear where the equation came from.}
 
 \subsubsection{Data Definitions}\label{sec_datadef}
 
-\plt{The Data Definitions are definitions of symbols and equations that are
-  given for the problem.  They are not derived; they are simply used by other
-  models.  For instance, if a problem depends on density, there may be a data
-  definition for the equation defining density.  The DDs are given information
-  that you can use in your other modules.}
+%\plt{The Data Definitions are definitions of symbols and equations that are given for the problem.  They are not derived; they are simply used by other models.  For instance, if a problem depends on density, there may be a data  definition for the equation defining density.  The DDs are given information that you can use in your other modules.}
 
-\plt{All Data Definitions should be used (referenced) by at least one other
-  model.}
+%\plt{All Data Definitions should be used (referenced) by at least one other model.}
 
-This section collects and defines all the data needed to build the instance
-models. The dimension of each quantity is also given.  \plt{Modify the examples
-  below for your problem, and add additional definitions as appropriate.}
+This section collects and defines all the data needed to build the instance models. The dimension of each quantity is also given.  %\plt{Modify the examples below for your problem, and add additional definitions as appropriate.}
 
 ~\newline
 
@@ -790,93 +549,101 @@ models. The dimension of each quantity is also given.  \plt{Modify the examples
 \begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
 \hline
 \rowcolor[gray]{0.9}
-Number& DD\refstepcounter{datadefnum}\thedatadefnum \label{FluxCoil}\\
+Number& DD\refstepcounter{datadefnum}\thedatadefnum \label{length_mem}\\
 \hline
-Label& \bf Heat flux out of coil\\
+Label& \bf Length of a straight Line \\
 \hline
-Symbol &$q_C$\\
+Symbol &$L$\\
 \hline
-% Units& $Mt^{-3}$\\
-% \hline
-  SI Units & \si{\watt\per\square\metre}\\
+
+  SI Units & \si{\metre}\\
   \hline
-  Equation&$q_C(t) = h_C (T_C - T_W(t))$, over area $A_C$\\
+  Equation&$L = \sqrt{(x_{2}-x_{1})^2+(y_{2}-y_{1})^2}$\\
+ \hline
+Description & 
+   For every two points such as $X_{1}$,$X_{2}$   with coordination $(x_{1},y_{1})$ and $(x_{2},y_{2})$ the length of line between two point is $L$. \\
   \hline
-  Description & 
-                $T_C$ is the temperature of the coil (\si{\celsius}).  $T_W$ is the temperature of the water (\si{\celsius}).  
-                The heat flux out of the coil, $q_C$ (\si{\watt\per\square\metre}), is found by
-                assuming that Newton's Law 
-                of Cooling applies (\aref{A_Newt_coil}).  This law (\dref{NL}) is used on the surface of
-                the coil, which has area $A_C$ (\si{\square\metre}) and heat 
-                transfer coefficient $h_C$
-                (\si{\watt\per\square\metre\per\celsius}).  This equation
-                assumes that the temperature of the coil is constant over time (\aref{A_tcoil}) and that it does not vary along the length
-                of the coil (\aref{A_tlcoil}).
-  \\
+  Sources& \url{https://www.cuemath.com/distance-formula/} \\
   \hline
-  Sources& Citation here \\
-  \hline
-  Ref.\ By & \iref{ewat}\\
+  Ref.\ By & \iref{Design_truss}\\
   \hline
 \end{tabular}
 \end{minipage}\\
-
-\subsubsection{Data Types}\label{sec_datatypes}
-
-\plt{This section is optional.  In many scientific computing programs it isn't
-  necessary, since the inputs and outpus are straightforward types, like reals,
-  integers, and sequences of reals and integers.  However, for some problems it
-  is very helpful to capture the type information.}
-
-\plt{The data types are not derived; they are simply stated and used by other
-  models.}
-
-\plt{All data types must be used by at least one of the models.}
-
-\plt{For the mathematical notation for expressing types, the recommendation is
-  to use the notation of~\citet{HoffmanAndStrooper1995}.}
-
-This section collects and defines all the data types needed to document the
-models. \plt{Modify the examples below for your problem, and add additional
-  definitions as appropriate.}
-
+%------------------------------------DD2
 ~\newline
+
 
 \noindent
 \begin{minipage}{\textwidth}
 \renewcommand*{\arraystretch}{1.5}
 \begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+\hline
+\rowcolor[gray]{0.9}
+Number& DD\refstepcounter{datadefnum}\thedatadefnum \label{Law_cos}\\
+\hline
+Label& \bf Finding angle by Law of cosine \\
+\hline
+Symbol &$\theta$\\
+\hline
+
+  SI Units & Degree\\
   \hline
-  \rowcolor[gray]{0.9}
-  Type Name & Name for Type\\
+  Equation& $\theta= \arccos(\frac{a^2+b^2+c^2}{2ab}$)\\
+ \hline
+Description & 
+   The Law of Cosine helps us to find any angle for a  given triangle with a known length of sides. Where $\theta$ is the angle between sides a and b. and c is the length of the opposite side. \\
   \hline
-  Type Def & mathematical definition of the type\\
+  Sources& \url{https://en.wikipedia.org/wiki/Law_of_cosines} \\
   \hline
-  Description & description here
-  \\
-  \hline
-  Sources & Citation here, if the type is borrowed from another source\\
+  Ref.\ By & \iref{Design_truss}\\
   \hline
 \end{tabular}
 \end{minipage}\\
+\subsubsection{Data Types}\label{sec_datatypes}
+
+%\plt{This section is optional.  In many scientific computing programs it isn't  necessary, since the inputs and outpus are straightforward types, like reals,  integers, and sequences of reals and integers.  However, for some problems it  is very helpful to capture the type information.}
+
+%\plt{The data types are not derived; they are simply stated and used by other models.}
+
+%\plt{All data types must be used by at least one of the models.}
+
+%\plt{For the mathematical notation for expressing types, the recommendation is  to use the notation of~\citet{HoffmanAndStrooper1995}.}
+
+This section collects and defines all the data types needed to document the models. For Truss Tool, all data types are real numbers or boolean numbers.
+%\plt{Modify the examples below for your problem, and add additional  definitions as appropriate.}
+
+%~\newline
+
+%\noindent
+%\begin{minipage}{\textwidth}
+%\renewcommand*{\arraystretch}{1.5}
+%\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+%  \hline
+%  \rowcolor[gray]{0.9}
+%  Type Name & Name for Type\\
+%  \hline
+%  Type Def & mathematical definition of the type\\
+%  \hline
+%  Description & description here
+%  \\
+%  \hline
+%  Sources & Citation here, if the type is borrowed from another source\\
+%  \hline
+%\end{tabular}
+%\end{minipage}\\
 
 \subsubsection{Instance Models} \label{sec_instance}    
 
-\plt{The motivation for this section is to reduce the problem defined in
-  ``Physical System Description'' (Section~\ref{sec_phySystDescrip}) to one
-  expressed in mathematical terms. The IMs are built by refining the TMs and/or
-  GDs.  This section should remain abstract.  The SRS should specify the
-  requirements without considering the implementation.}
+%\plt{The motivation for this section is to reduce the problem defined in   ``Physical System Description'' (Section~\ref{sec_phySystDescrip}) to one  expressed in mathematical terms. The IMs are built by refining the TMs and/or  GDs.  This section should remain abstract.  The SRS should specify the  requirements without considering the implementation.}
 
 This section transforms the problem defined in Section~\ref{Sec_pd} into 
 one which is expressed in mathematical terms. It uses concrete symbols defined 
 in Section~\ref{sec_datadef} to replace the abstract symbols in the models 
 identified in Sections~\ref{sec_theoretical} and~\ref{sec_gendef}.
 
-The goals \plt{reference your goals} are solved by \plt{reference your instance
-  models}.  \plt{other details, with cross-references where appropriate.}
-\plt{Modify the examples below for your problem, and add additional models as
-  appropriate.}
+The goals G1 and G2 are solved by IM1, IM2, IM3.
+ %   \plt{other details, with cross-references where appropriate.}
+%\plt{Modify the examples below for your problem, and add additional models as   appropriate.}
 
 ~\newline
 
@@ -888,28 +655,76 @@ The goals \plt{reference your goals} are solved by \plt{reference your instance
 \begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
   \hline
   \rowcolor[gray]{0.9}
-  Number& IM\refstepcounter{instnum}\theinstnum \label{ewat}\\
+  Number& IM\refstepcounter{instnum}\theinstnum \label{Design_truss}\\
   \hline
-  Label& \bf Energy balance on water to find $T_W$\\
+  Label& \bf Find truss design features $L_j$, $\theta_i$\\
   \hline
-  Input&$m_W$, $C_W$, $h_C$, $A_C$, $h_P$, $A_P$, $t_\text{final}$, $T_C$, 
-  $T_\text{init}$, $T_P(t)$ from \iref{epcm}\\
-  & The input is constrained so that $T_\text{init} \leq T_C$ (\aref{A_charge})\\
+  Input& $J_{i}$,$M_{j},S_{k}$, $F_{i}$\\
+%  Input&$m_W$, $C_W$, $h_C$, $A_C$, $h_P$, $A_P$, $t_\text{final}$, %$T_C$, 
+%  $T_\text{init}$, $T_P(t)$ from \iref{epcm}\\
+  & The input is constrained so that $k \leq 2$ (\aref{maxsupport})\\
   \hline
-  Output&$T_W(t)$, $0\leq t \leq t_\text{final}$, such that\\
-  &$\frac{dT_W}{dt} = \frac{1}{\tau_W}[(T_C - T_W(t)) + {\eta}(T_P(t) - T_W(t))]$,\\
-  &$T_W(0) = T_P(0) = T_\text{init}$ (\aref{A_InitTemp}) and $T_P(t)$ from \iref{epcm} \\
+   Output& $L(m_{j})$ so that $0 \leq L$ , $\theta $ between each two members \\
+ % Output&$T_W(t)$, $0\leq t \leq t_\text{final}$, such that\\
+ % &$\frac{dT_W}{dt} = \frac{1}{\tau_W}[(T_C - T_W(t)) + {\eta}(T_P(t) - T_W(t))]$,\\
+ % &$T_W(0) = T_P(0) = T_\text{init}$ (\aref{A_InitTemp}) and $T_P(t)$ from \iref{epcm} \\
   \hline
-  Description&$T_W$ is the water temperature (\si{\celsius}).\\
-  &$T_P$ is the PCM temperature (\si{\celsius}).\\
-  &$T_C$ is the coil temperature (\si{\celsius}).\\
-  &$\tau_W = \frac{m_W C_W}{h_C A_C}$ is a constant (\si{\second}).\\
-  &$\eta = \frac{h_P A_P}{h_C A_C}$ is a constant (dimensionless).\\
-  & The above equation applies as long as the water is in liquid form,
-  $0<T_W<100^o\text{C}$, where $0^o\text{C}$ and $100^o\text{C}$ are the melting
-  and boiling points of water, respectively (\aref{A_OpRange}, \aref{A_Pressure}).
+  Description& $L(m_{j})$ is the length of the member $j$. for each member Truss Tool should calculate the length from DD1. $\theta $ is the angle between two members that will be calculated from DD2.\\
+  
+%  Description&$T_W$ is the water temperature (\si{\celsius}).\\
+%  &$T_P$ is the PCM temperature (\si{\celsius}).\\
+%  &$T_C$ is the coil temperature (\si{\celsius}).\\
+%  &$\tau_W = \frac{m_W C_W}{h_C A_C}$ is a constant (\si{\second}).\\
+%  &$\eta = \frac{h_P A_P}{h_C A_C}$ is a constant (dimensionless).\\
+%  & The above equation applies as long as the water is in liquid form,
+%  $0<T_W<100^o\text{C}$, where $0^o\text{C}$ and $100^o\text{C}$ are %the melting
+ % and boiling points of water, respectively (\aref{A_OpRange}, \aref{A_Pressure}).
   \\
+ \hline
+  Sources& Citation here \\
   \hline
+  Ref.\ By & \iref{length_mem}\\
+  \hline
+\end{tabular}
+\end{minipage}\\
+
+~\newline
+
+%-----------------------------
+%Instance Model 2
+
+\noindent
+\begin{minipage}{\textwidth}
+\renewcommand*{\arraystretch}{1.5}
+\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+  \hline
+  \rowcolor[gray]{0.9}
+  Number& IM\refstepcounter{instnum}\theinstnum \label{Supp_react}\\
+  \hline
+  Label& \bf Find support's reactions $S_x$, $S_y$\\
+  \hline
+  Input& $J_{i}$,$M_{j},S_{k}$, $F_{i}$\\
+%  Input&$m_W$, $C_W$, $h_C$, $A_C$, $h_P$, $A_P$, $t_\text{final}$, %$T_C$, 
+%  $T_\text{init}$, $T_P(t)$ from \iref{epcm}\\
+  
+  \hline
+  Output& $S_ix$, $S_iy$ for each support on joint $i$, so that if support is a roller one, $S_{ix}=0$ \\
+ 
+ % Output&$T_W(t)$, $0\leq t \leq t_\text{final}$, such that\\
+ % &$\frac{dT_W}{dt} = \frac{1}{\tau_W}[(T_C - T_W(t)) + {\eta}(T_P(t) - T_W(t))]$,\\
+ % &$T_W(0) = T_P(0) = T_\text{init}$ (\aref{A_InitTemp}) and $T_P(t)$ from \iref{epcm} \\
+  \hline
+  Description& \\
+%  Description&$T_W$ is the water temperature (\si{\celsius}).\\
+%  &$T_P$ is the PCM temperature (\si{\celsius}).\\
+%  &$T_C$ is the coil temperature (\si{\celsius}).\\
+%  &$\tau_W = \frac{m_W C_W}{h_C A_C}$ is a constant (\si{\second}).\\
+%  &$\eta = \frac{h_P A_P}{h_C A_C}$ is a constant (dimensionless).\\
+%  & The above equation applies as long as the water is in liquid form,
+%  $0<T_W<100^o\text{C}$, where $0^o\text{C}$ and $100^o\text{C}$ are %the melting
+ % and boiling points of water, respectively (\aref{A_OpRange}, \aref{A_Pressure}).
+  \\
+ \hline
   Sources& Citation here \\
   \hline
   Ref.\ By & \iref{epcm}\\
@@ -917,28 +732,109 @@ The goals \plt{reference your goals} are solved by \plt{reference your instance
 \end{tabular}
 \end{minipage}\\
 
+~\newline
+
+%Instance Model 3
+
+\noindent
+\begin{minipage}{\textwidth}
+\renewcommand*{\arraystretch}{1.5}
+\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+  \hline
+  \rowcolor[gray]{0.9}
+  Number& IM\refstepcounter{instnum}\theinstnum \label{zero_mem2}\\
+  \hline
+  Label& \bf Find zero members  $F_{mi}=0$\\
+  \hline
+  Input& Joints with only two members\\
+%  Input&$m_W$, $C_W$, $h_C$, $A_C$, $h_P$, $A_P$, $t_\text{final}$, %$T_C$, 
+%  $T_\text{init}$, $T_P(t)$ from \iref{epcm}\\
+  & The input is constrained so that there is no external force or reaction on the joint\\
+  \hline
+   Output& $F_{m1}=0$,$F_{m2}=0$\\
+ % Output&$T_W(t)$, $0\leq t \leq t_\text{final}$, such that\\
+ % &$\frac{dT_W}{dt} = \frac{1}{\tau_W}[(T_C - T_W(t)) + {\eta}(T_P(t) - T_W(t))]$,\\
+ % &$T_W(0) = T_P(0) = T_\text{init}$ (\aref{A_InitTemp}) and $T_P(t)$ from \iref{epcm} \\
+  \hline
+  Description& \\
+%  Description&$T_W$ is the water temperature (\si{\celsius}).\\
+%  &$T_P$ is the PCM temperature (\si{\celsius}).\\
+%  &$T_C$ is the coil temperature (\si{\celsius}).\\
+%  &$\tau_W = \frac{m_W C_W}{h_C A_C}$ is a constant (\si{\second}).\\
+%  &$\eta = \frac{h_P A_P}{h_C A_C}$ is a constant (dimensionless).\\
+%  & The above equation applies as long as the water is in liquid form,
+%  $0<T_W<100^o\text{C}$, where $0^o\text{C}$ and $100^o\text{C}$ are %the melting
+ % and boiling points of water, respectively (\aref{A_OpRange}, \aref{A_Pressure}).
+  \\
+ \hline
+  Sources& Citation here \\
+  \hline
+  Ref.\ By & \iref{epcm}\\
+  \hline
+\end{tabular}
+\end{minipage}\\
+
+~\newline
+
+%-----------------------------
+~\newline
+
+%Instance Model 4
+
+\noindent
+\begin{minipage}{\textwidth}
+\renewcommand*{\arraystretch}{1.5}
+\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+  \hline
+  \rowcolor[gray]{0.9}
+  Number& IM\refstepcounter{instnum}\theinstnum \label{zero_mem3}\\
+  \hline
+  Label& \bf Find zero member in joints with 3 members \\
+  \hline
+  Input& Joints with 2 collinear member and one non-collinear\\
+%  Input&$m_W$, $C_W$, $h_C$, $A_C$, $h_P$, $A_P$, $t_\text{final}$, %$T_C$, 
+%  $T_\text{init}$, $T_P(t)$ from \iref{epcm}\\
+  & The input is constrained so no external force or reaction exists on the joint\\
+  \hline
+   Output& $F_{m3}=0$ , $F_{m2}=-F_{m1}$ \\
+ % Output&$T_W(t)$, $0\leq t \leq t_\text{final}$, such that\\
+ % &$\frac{dT_W}{dt} = \frac{1}{\tau_W}[(T_C - T_W(t)) + {\eta}(T_P(t) - T_W(t))]$,\\
+ % &$T_W(0) = T_P(0) = T_\text{init}$ (\aref{A_InitTemp}) and $T_P(t)$ from \iref{epcm} \\
+  \hline
+  Description& \\
+%  Description&$T_W$ is the water temperature (\si{\celsius}).\\
+%  &$T_P$ is the PCM temperature (\si{\celsius}).\\
+%  &$T_C$ is the coil temperature (\si{\celsius}).\\
+%  &$\tau_W = \frac{m_W C_W}{h_C A_C}$ is a constant (\si{\second}).\\
+%  &$\eta = \frac{h_P A_P}{h_C A_C}$ is a constant (dimensionless).\\
+%  & The above equation applies as long as the water is in liquid form,
+%  $0<T_W<100^o\text{C}$, where $0^o\text{C}$ and $100^o\text{C}$ are %the melting
+ % and boiling points of water, respectively (\aref{A_OpRange}, \aref{A_Pressure}).
+  \\
+ \hline
+  Sources& Citation here \\
+  \hline
+  Ref.\ By & \iref{epcm}\\
+  \hline
+\end{tabular}
+\end{minipage}\\
+
+~\newline
+
+%-----------------------------
 %~\newline
+\subsubsection*{Derivation of Zero members}
+A proof of zero members in truss can be found in \url{https://learnaboutstructures.com/Identifying-Zero-Force-Members}.
 
-\subsubsection*{Derivation of ...}
-
-\plt{The derivation shows how the IM is derived from the TMs/GDs.  In cases
-  where the derivation cannot be described under the Description field, it will
-  be necessary to include this subsection.}
+%\plt{The derivation shows how the IM is derived from the TMs/GDs.  In cases where the derivation cannot be described under the Description field, it will  be necessary to include this subsection.}
 
 \subsubsection{Input Data Constraints} \label{sec_DataConstraints}    
 
-Table~\ref{TblInputVar} shows the data constraints on the input output
+Table~\ref{TblInputVar} shows the data constraints on the input-output
 variables.  The column for physical constraints gives the physical limitations
-on the range of values that can be taken by the variable.  The column for
-software constraints restricts the range of inputs to reasonable values.  The
-software constraints will be helpful in the design stage for picking suitable
-algorithms.  The constraints are conservative, to give the user of the model the
-flexibility to experiment with unusual situations.  The column of typical values
-is intended to provide a feel for a common scenario.  The uncertainty column
-provides an estimate of the confidence with which the physical quantities can be
+on the range of values that can be taken by the variable.  The column for software constraints restricts the range of inputs to reasonable values.  The software constraints will be helpful in the design stage for picking suitable algorithms.  The constraints are conservative, to give the user of the model the flexibility to experiment with unusual situations.  The column of typical values is intended to provide a feel for a common scenario.  The uncertainty column provides an estimate of the confidence with which the physical quantities can be
 measured.  This information would be part of the input if one were performing an
-uncertainty quantification exercise.
-
+uncertainty quantification exercise.\\
 The specification parameters in Table~\ref{TblInputVar} are listed in
 Table~\ref{TblSpecParams}.
 
@@ -950,7 +846,7 @@ Table~\ref{TblSpecParams}.
   \textbf{Var} & \textbf{Physical Constraints} & \textbf{Software Constraints} &
                              \textbf{Typical Value} & \textbf{Uncertainty}\\
   \midrule 
-  $L$ & $L > 0$ & $L_{\text{min}} \leq L \leq L_{\text{max}}$ & 1.5 \si[per-mode=symbol] {\metre} & 10\%
+  $n$ & $n > 3$ & $n_{\text{min}} \leq n \leq n_{\text{max}}$ & 6  & 0\%
   \\
   \bottomrule
 \end{longtable*}
@@ -958,7 +854,8 @@ Table~\ref{TblSpecParams}.
 
 \noindent 
 \begin{description}
-\item[(*)] \plt{you might need to add some notes or clarifications}
+
+\item[(*)] The count of Joints in a given truss is an integer number. it must be greater or equal to 3 to be considered a triangle. For small trusses, the number of joints is around 6.
 \end{description}
 
 \begin{table}[!h]
@@ -968,7 +865,8 @@ Table~\ref{TblSpecParams}.
   \toprule
   \textbf{Var} & \textbf{Value} \\
   \midrule 
-  $L_\text{min}$ & 0.1 \si{\metre}\\
+  $n_\text{min}$ & 3 \\
+  $n_\text{max}$ & 20\\
   \bottomrule
 \end{longtable*}
 \end{table}
@@ -976,12 +874,7 @@ Table~\ref{TblSpecParams}.
 \subsubsection{Properties of a Correct Solution} \label{sec_CorrectSolution}
 
 \noindent
-A correct solution must exhibit \plt{fill in the details}.  \plt{These
-  properties are in addition to the stated requirements.  There is no need to
-  repeat the requirements here.  These additional properties may not exist for
-  every problem.  Examples include conservation laws (like conservation of
-  energy or mass) and known constraints on outputs, which are usually summarized
-  in tabular form.  A sample table is shown in Table~\ref{TblOutputVar}}
+Table~\ref{TblOutputVar} shows the physical constraints on the output.
 
 \begin{table}[!h]
 \caption{Output Variables} \label{TblOutputVar}
@@ -990,103 +883,80 @@ A correct solution must exhibit \plt{fill in the details}.  \plt{These
   \toprule
   \textbf{Var} & \textbf{Physical Constraints} \\
   \midrule 
-  $T_W$ & $T_\text{init} \leq T_W \leq T_C$ (by~\aref{A_charge})
+  $F_{mi}$ &  (by~\aref{A_charge})
   \\
   \bottomrule
 \end{longtable*}
 \end{table}
 
-\plt{This section is not for test cases or techniques for verification and
-  validation.  Those topics will be addressed in the Verification and Validation
-  plan.}
+%\plt{This section is not for test cases or techniques for verification and  validation.  Those topics will be addressed in the Verification and Validation   plan.}
 
 \section{Requirements}
 
-\plt{The requirements refine the goal statement.  They will make heavy use of
-  references to the instance models.}
+%\plt{The requirements refine the goal statement.  They will make heavy use of  references to the instance models.}
 
-This section provides the functional requirements, the business tasks that the
-software is expected to complete, and the nonfunctional requirements, the
+This section provides the functional requirements and the business tasks that the
+software is expected to be complete, and the nonfunctional requirements, the
 qualities that the software is expected to exhibit.
 
 \subsection{Functional Requirements}
 
 \noindent \begin{itemize}
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_Inputs}:] \plt{Requirements
-    for the inputs that are supplied by the user.  This information has to be
-    explicit.}
+\item{R\refstepcounter{reqnum}\thereqnum \label{R_Inputs}: Input the values from Table \ref{TblInputVal}}
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_OutputInputs}:] \plt{It isn't
-    always required, but often echoing the inputs as part of the output is a
-    good idea.}
+\item{R\refstepcounter{reqnum}\thereqnum \label{R_OutputInputs}:Echoing inputs as part of output.} 
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_Calculate}:] \plt{Calculation
-    related requirements.}
+\item{R\refstepcounter{reqnum}\thereqnum \label{R_Calculate}: Calculate support reactions from IM1, and internal forces from IM1, IM2, IM3}
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_VerifyOutput}:]
-  \plt{Verification related requirements.}
+\item{R\refstepcounter{reqnum}\thereqnum \label{R_VerifyOutput}: Check summation of internal forces is zero in each joint}
+  %{Verification-related requirements.}
 
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_Output}:] \plt{Output related
-    requirements.}
+%\item[R\refstepcounter{reqnum}\thereqnum \label{R_Output}:] 
+%{Output related requirements.}
 
 \end{itemize}
+\begin{table}[!h]
+	\caption{Required Inputs} \label{TblInputVal}
+	\renewcommand{\arraystretch}{1.2}
+	\noindent \begin{longtable*}{l l l l c} 
+		\toprule
+		\textbf{Symbol} & \textbf{Description} & \textbf{Data Type} \\
+		\midrule 
+		$F$  & External forces on each joint Index  & Array of Integer (\si{\newton}). \\
+		$J$  & The location of all joint & Array of Real tuples \\
+		$M$  & A pair of joint index for all members &Array of Integer tuples \\
+		
+		$S_1, S_2$ & pair of Joint Index as Location of supports and type of support   &(Integer, Char) \\
+		\bottomrule
+		
+	\end{longtable*}
+\end{table}
 
-\plt{Every IM should map to at least one requirement, but not every requirement
-  has to map to a corresponding IM.}
+%\plt{Every IM should map to at least one requirement, but not every requirement   has to map to a corresponding IM.}
 
 \subsection{Nonfunctional Requirements}
 
-\plt{List your nonfunctional requirements.  You may consider using a fit
-  criterion to make them verifiable.}
-\plt{The goal is for the nonfunctional requirements to be unambiguous, abstract
-  and verifiable.  This isn't easy to show succinctly, so a good strategy may be
-to give a ``high level'' view of the requirement, but allow for the details to
-be covered in the Verification and Validation document.}
-\plt{An absolute requirement on a quality of the system is rarely needed.  For
-  instance, an accuracy of 0.0101 \% is likely fine, even if the requirement is
-  for 0.01 \% accuracy.  Therefore, the emphasis will often be more on
-  describing now well the quality is achieved, through experimentation, and
-  possibly theory, rather than meeting some bar that was defined a priori.}
-\plt{You do not need an entry for correctness in your NFRs.  The purpose of the
-  SRS is to record the requirements that need to be satisfied for correctness.
-  Any statement of correctness would just be redundant. Rather than discuss
-  correctness, you can characterize how far away from the correct (true)
-  solution you are allowed to be.  This is discussed under accuracy.}
+
 
 \noindent \begin{itemize}
 
 \item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_Accuracy}:]
-  \textbf{Accuracy} \plt{Characterize the accuracy by giving the context/use for
-    the software.  Maybe something like, ``The accuracy of the computed
-    solutions should meet the level needed for $<$engineering or scientific
-    application$>$.  The level of accuracy achieved by \progname{} shall be
-    described following the procedure given in Section~X of the Verification and
-    Validation Plan.''  A link to the VnV plan would be a nice extra.}
+  \textbf{Accuracy}
+  %\plt{Characterize the accuracy by giving the context/use for    the software.  Maybe something like, ``The accuracy of the computed    solutions should meet the level needed for $<$engineering or scientific    application$>$.  The level of accuracy achieved by \progname{} shall be    described following the procedure given in Section~X of the Verification and    Validation Plan.''  A link to the VnV plan would be a nice extra.}
 
 \item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_Usability}:] \textbf{Usability}
-  \plt{Characterize the usability by giving the context/use for the software.
-    You should likely reference the user characteristics section.  The level of
-    usability achieved by the software shall be described following the
-    procedure given in Section~X of the Verification and Validation Plan.  A
-    link to the VnV plan would be a nice extra.}
+ % \plt{Characterize the usability by giving the context/use for the software.    You should likely reference the user characteristics section.  The level of    usability achieved by the software shall be described following the    procedure given in Section~X of the Verification and Validation Plan.  A    link to the VnV plan would be a nice extra.}
 
 \item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_Maintainability}:]
-  \textbf{Maintainability} \plt{The effort required to make any of the likely
-    changes listed for \progname{} should be less than FRACTION of the original
-    development time.  FRACTION is then a symbolic constant that can be defined
-    at the end of the report.}
+  \textbf{Maintainability} 
+  %\plt{The effort required to make any of the likely    changes listed for \progname{} should be less than FRACTION of the original    development time.  FRACTION is then a symbolic constant that can be defined     at the end of the report.}
 
 \item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_Portability}:]
-  \textbf{Portability} \plt{This NFR is easier to write than the others.  The
-    systems that \progname{} should run on should be listed here.  When possible
-    the specific versions of the potential operating environments should be
-    given.  To make the NFR verifiable a statement could be made that the tests
-    from a given section of the VnV plan can be successfully run on all of the
-    possible operating environments.}
+  \textbf{Portability} 
+  %\plt{This NFR is easier to write than the others.  The    systems that \progname{} should run on should be listed here.  When possible     the specific versions of the potential operating environments should be    given.  To make the NFR verifiable a statement could be made that the tests    from a given section of the VnV plan can be successfully run on all of the    possible operating environments.}
 
-\item Other NFRs that might be discussed include verifiability,
-  understandability and reusability.
+%\item Other NFRs that might be discussed include verifiability,  understandability and reusability.
 
 \end{itemize}
 
