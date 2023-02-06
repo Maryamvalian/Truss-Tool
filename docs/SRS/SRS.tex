@@ -256,13 +256,9 @@ development of the tool.}
 
 \subsection{Characteristics of Intended Reader} \label{sec_IntendedReader}
 Reviewers of this documentation should have a basic understanding of structure statics and high school physics and Mathematics. The users of the Truss Tool must have a higher level of expertise, as explained in Section: User Characteristics (Section~\ref{SecUserCharacteristics}). 
-%\plt{This section summarizes the skills and knowledge of the readers of the  SRS.  It does NOT have the same purpose as the ``User Characteristics''  section (Section~\ref{SecUserCharacteristics}).  The intended readers are the  people that will read, review and maintain the SRS.  They are the people that  will conceivably design the software that is intended to meet the  requirements.  The user, on the other hand, is the person that uses the  software that is built.  They may never read this SRS document.  Of course,  the same person could be a ``user'' and an ``intended reader.''}
-
-%\plt{The intended reader characteristics should be written as unambiguously and  as specifically as possible.  Rather than say, the user should have an  understanding of physics, say what kind of physics and at what level.  For   instance, is high school physics adequate, or should the reader have had a  graduate course on advanced quantum mechanics?} 
 
 \subsection{Organization of Document}
-The organization of the document follows the template for an SRS for scientific computing software proposed by \citep{SmithandLai2005}. The template will present the system's goals, theories, definitions, and assumptions. Readers interested in top-down reading can begin by reading the system's goal statements (Section~\ref{Sec_gs}). Subsequently, the theoretical models will elaborate on the goal statements. Lastly, readers can finish with a more  understanding of the system by reading instance models of the system.
-%\plt{This section provides a roadmap of the SRS document.  It will help the  reader orient themselves.  It will provide direction that will help them  select which sections they want to read, and in what order.  This section will  be similar between projects.}
+The organization of the document follows the template for an SRS for scientific computing software proposed by \citet{SmithandLai2005}. The template will present the system's goals, theories, definitions, and assumptions. Readers interested in top-down reading can begin by reading the system's goal statements (Section~\ref{Sec_gs}). Subsequently, the theoretical models will elaborate on the goal statements. Lastly, readers can finish with a more  understanding of the system by reading instance models of the system.
 
 \section{General System Description}
 
@@ -298,31 +294,28 @@ The interaction between the product and the user is through a user interface. Th
 \end{itemize}
 \end{itemize}
 
-%\plt{For each of the entities in the system context diagram its responsibilities  should be listed.  Whenever possible the system should check for data quality,  but in some cases, the user will need to assume that responsibility.  The list  of responsibilities should be about the inputs and outputs only, and they  should be abstract.  Details should not be presented here.  However, the  information should not be so abstract as to just say ``inputs'' and  ``outputs''.  A summarizing phrase can be used to characterize the inputs.  For instance, saying ``material properties'' provides some information, but it   stays away from the detail of listing every required property.}
 
 \subsection{User Characteristics} \label{SecUserCharacteristics}
 
 The end user of Truss Tool should be an architecture/civil/mechanic engineer or should have an understanding of undergraduate Level 1 structural analysis.
-%\plt{This section summarizes the knowledge/skills expected of the user.  Measuring usability, which is often a required non-function requirement,  requires knowledge of a typical user.  As mentioned above, the user is a  different role from the ``intended reader,'' as given in  Section~\ref{sec_IntendedReader}.  As in Section~\ref{sec_IntendedReader}, the  user characteristics should be specific an unambiguous.  For instance, ``The  end user of \progname{} should have an understanding of undergraduate Level 1  Calculus and Physics.''}
 
 \subsection{System Constraints}
 
 There is no constraint on the development of the Truss Tool.
-%\plt{System constraints differ from other types of requirements because they  limit the developers' options in the system design and they identify how the  eventual system must fit into the world. This is the only place in the SRS  where design decisions can be specified.  That is, the quality requirement for  abstraction is relaxed here.  However, system constraints should only be  included if they are truly required.}
+
 
 \section{Specific System Description}
 
 This section first presents the problem description, which gives a high-level view of the problem to be solved.  This is followed by the solution characteristics specification, which presents the assumptions, theories, definitions and finally the instance models.
-%\plt{Add any project-specific details that are relevant to the section overview.}
+
 
 \subsection{Problem Description} \label{Sec_pd}
 
 Truss Tool is intended to solve a given truss with given external forces. By solving a truss, we mean that we are interested to calculate all internal forces among the members and the reactions of the supports. As a result, Truss Tool will help engineers to make a decision on whether the design of the given truss is proper or not.
-%\plt{What problem does your program solve? The description here should be in the problem space, not the solution space.}
+
 
 \subsubsection{Terminology and  Definitions}
 
-%\plt{This section is expressed in words, not with equations.  It provides the meaning of the different words and phrases used in the domain of the problem. The terminology is used to introduce concepts from the world outside of the mathematical model  The terminology provides a real-world connection to give the mathematical model meaning.}
 
 This subsection provides a list of terms that are used in the subsequent
 sections and their meaning, with the purpose of reducing ambiguity and making it easier to correctly understand the requirements:
@@ -345,7 +338,7 @@ sections and their meaning, with the purpose of reducing ambiguity and making it
 
 %\plt{The purpose of this section is to clearly and unambiguously state the physical system that is to be modelled. Effective problem-solving requires a logical and organized approach. The statements on the physical system to be studied should cover enough information to solve the problem. The physical   description involves element identification, where elements are defined as   independent and separable items of the physical system. Some example elements include acceleration due to gravity, the mass of an object, and the size and   shape of an object. Each element should be identified and labelled, with its interesting properties specified clearly. The physical description can also include interactions of the elements, such as the following: i) the interactions between the elements and their physical environment; ii) the interactions between elements; and, iii) the initial or boundary conditions.}
 
-The physical system of Truss Tool, as shown in Figure~\ref{fig_physys},
+The physical system of the Truss Tool, as shown in Figure~\ref{fig_physys},
 includes the following elements:
 
 \begin{itemize}
@@ -376,11 +369,8 @@ includes the following elements:
 \noindent Given the truss features and external forces, the goal statements are:
 
 \begin{itemize}
-
-\item{GS\refstepcounter{goalnum}\thegoalnum \label{G_support_reactions}: Calculate the reactions of the supports.}
-\item{GS\refstepcounter{goalnum}\thegoalnum \label{G_internal}: Calculate the internal forces for each member.}
-%\plt{One sentence description of the goal.  There may be more than one.  Each Goal should have a meaningful label.}
-
+\item{GS\refstepcounter{goalnum}\thegoalnum \label{G_react}: Calculate the reactions of the supports.}
+\item{GS\refstepcounter{goalnum}\thegoalnum \label{G_force}: Calculate the internal forces for each member.}
 \end{itemize}
 
 \subsection{Solution Characteristics Specification}
@@ -422,12 +412,12 @@ likely change [LC], in which the respective assumption is used.
 \item{A\refstepcounter{assumpnum}\theassumpnum \label{planar}: All members and nodes lie within a two-dimensional plane.}
 
 \item{A\refstepcounter{assumpnum}\theassumpnum \label{connection}: Members are inter-connected only at their ends.}
-\item{A\refstepcounter{assumpnum}\theassumpnum \label{Staight_members}: Members must be straight.}
+\item{A\refstepcounter{assumpnum}\theassumpnum \label{as_straight}: Members must be straight.}
 \item{A\refstepcounter{assumpnum}\theassumpnum \label{frictionless}: All joints are smooth and frictionless hinges.}
 \item{A\refstepcounter{assumpnum}\theassumpnum \label{Force_at_joints}: All forces must only be applied at joints}
 \item{A\refstepcounter{assumpnum}\theassumpnum \label{reaction_at_joints}: All reactions must only be applied at joints}
 \item{A\refstepcounter{assumpnum}\theassumpnum \label{self_w}: Self-weight of the member will be neglected}
-\item{A\refstepcounter{assumpnum}\theassumpnum \label{axial_f_members}: Members are subjected to axial forces only.}
+\item{A\refstepcounter{assumpnum}\theassumpnum \label{axial_fmem}: Members are subjected to axial forces only.}
 \item{A\refstepcounter{assumpnum}\theassumpnum \label{maxsupport}: The number of supports at most is two.}
 
 
@@ -472,7 +462,7 @@ None.
 }
 % #8 Referenced by
 {
-  \dref{}
+  \dref{Trussequil}
 }
 % #9 Preconditions
 {
@@ -480,10 +470,6 @@ None
 }
 % #1 derivation - not applicable by default
 {}
-
-
-%\plt{``Ref.\ By'' is used repeatedly with the different types of information. This stands for Referenced By.  It means that the models, definitions and assumptions listed reference the current model, definition or assumption. This information is given for traceability.  Ref. By provides a pointer in the opposite direction to what we commonly do.  You still need to have a reference  in the other direction pointing to the current model, definition or assumption.  As an example, if T1 is referenced by G2, that means that G2 will  explicitly include a reference to T1.}
-%--------------------------------------------
 %----------------------------------------------------
 
 \newpage
@@ -491,13 +477,9 @@ None
 
 \subsubsection{General Definitions}\label{sec_gendef}
 
-%\plt{General Definitions (GDs) are a refinement of one or more TMs, and/or of   other GDs.  The GDs are less abstract than the TMs.  Generally the reduction  in abstraction is possible through invoking (using/referencing) Assumptions.  For instance, the TM could be Newton's Law of Cooling stated abstracting.  The  GD could take the general law and apply it to get a 1D equation.}
-
 This section collects the laws and equations that will be used in building the
 instance models.
-
-%\plt{Some projects may not have any content for this section, but the section heading should be kept.}  \plt{Modify the examples below for your problem, and   add additional definitions as appropriate.}
-
+%--------------------------------------GD1
 ~\newline
 
 \noindent
@@ -510,36 +492,28 @@ Number& GD\refstepcounter{defnum}\thedefnum \label{Trussequil}\\
 \hline
 Label &\bf Equilibrium equations in planar trusses \\
 \hline
-
-
 SI Units& All Forces are measured in \si{\newton}\\
 \hline
 Equation& $\sum F_{x}=0 $, $\sum F_{y}=0 $   \\
+& $F_{x}=F\cos{\theta}$ , $F_{y}=F\sin{\theta}$\\
 \hline
 Description &
-For any joint point in a planar truss, the equilibrium equations are satisfied horizontally and vertically on the direction of y-axis and y-axis.
+By Decomposition of the force $F$ into $F_{x}, F_{y}$ (\aref{planar}), For any joint point in a planar truss, the equilibrium equations are satisfied horizontally and vertically in the direction of the x-axis and y-axis.
 
 \\
 \hline
   Source & \url{https://www.khanacademy.org/math/geometry/hs-geo-analytic-geometry/hs-geo-distance-and-midpoints/a/distance-formula} \\
   \hline
-  Ref.\ By & \ddref{}\\
+  Ref.\ By & \iref{Supp_react},\iref{i_force}\\
   \hline
 \end{tabular}
 \end{minipage}\\
 
 \subsubsection*{Detailed derivation of the member length}
 
-%\plt{This may be necessary when the necessary information does not fit in the description field.}
-%\plt{Derivations are important for justifying a given GD.  You want it to be clear where the equation came from.}
-
 \subsubsection{Data Definitions}\label{sec_datadef}
 
-%\plt{The Data Definitions are definitions of symbols and equations that are given for the problem.  They are not derived; they are simply used by other models.  For instance, if a problem depends on density, there may be a data  definition for the equation defining density.  The DDs are given information that you can use in your other modules.}
-
-%\plt{All Data Definitions should be used (referenced) by at least one other model.}
-
-This section collects and defines all the data needed to build the instance models. The dimension of each quantity is also given.  %\plt{Modify the examples below for your problem, and add additional definitions as appropriate.}
+This section collects and defines all the data needed to build the instance models. The dimension of each quantity is also given. 
 
 ~\newline
 
@@ -601,53 +575,20 @@ Description &
 \end{minipage}\\
 \subsubsection{Data Types}\label{sec_datatypes}
 
-%\plt{This section is optional.  In many scientific computing programs it isn't  necessary, since the inputs and outpus are straightforward types, like reals,  integers, and sequences of reals and integers.  However, for some problems it  is very helpful to capture the type information.}
-
-%\plt{The data types are not derived; they are simply stated and used by other models.}
-
-%\plt{All data types must be used by at least one of the models.}
-
-%\plt{For the mathematical notation for expressing types, the recommendation is  to use the notation of~\citet{HoffmanAndStrooper1995}.}
-
 This section collects and defines all the data types needed to document the models. For Truss Tool, all data types are real numbers or boolean numbers.
-%\plt{Modify the examples below for your problem, and add additional  definitions as appropriate.}
-
-%~\newline
-
-%\noindent
-%\begin{minipage}{\textwidth}
-%\renewcommand*{\arraystretch}{1.5}
-%\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
-%  \hline
-%  \rowcolor[gray]{0.9}
-%  Type Name & Name for Type\\
-%  \hline
-%  Type Def & mathematical definition of the type\\
-%  \hline
-%  Description & description here
-%  \\
-%  \hline
-%  Sources & Citation here, if the type is borrowed from another source\\
-%  \hline
-%\end{tabular}
-%\end{minipage}\\
 
 \subsubsection{Instance Models} \label{sec_instance}    
-
-%\plt{The motivation for this section is to reduce the problem defined in   ``Physical System Description'' (Section~\ref{sec_phySystDescrip}) to one  expressed in mathematical terms. The IMs are built by refining the TMs and/or  GDs.  This section should remain abstract.  The SRS should specify the  requirements without considering the implementation.}
 
 This section transforms the problem defined in Section~\ref{Sec_pd} into 
 one which is expressed in mathematical terms. It uses concrete symbols defined 
 in Section~\ref{sec_datadef} to replace the abstract symbols in the models 
 identified in Sections~\ref{sec_theoretical} and~\ref{sec_gendef}.
 
-The goals G1 and G2 are solved by IM1, IM2, IM3.
- %   \plt{other details, with cross-references where appropriate.}
-%\plt{Modify the examples below for your problem, and add additional models as   appropriate.}
-
+The goals \gsref{G_react} and \gsref{G_force} are solved by \iref{Design_truss}, \iref{Supp_react}, \iref{i_force}
+ 
 ~\newline
 
-%Instance Model 1
+%--------------------Instance Model 1
 
 \noindent
 \begin{minipage}{\textwidth}
@@ -657,42 +598,26 @@ The goals G1 and G2 are solved by IM1, IM2, IM3.
   \rowcolor[gray]{0.9}
   Number& IM\refstepcounter{instnum}\theinstnum \label{Design_truss}\\
   \hline
-  Label& \bf Find truss design features $L_j$, $\theta_i$\\
+  Label& \bf Calculate truss design features \\
   \hline
-  Input& $J_{i}$,$M_{j},S_{k}$, $F_{i}$\\
-%  Input&$m_W$, $C_W$, $h_C$, $A_C$, $h_P$, $A_P$, $t_\text{final}$, %$T_C$, 
-%  $T_\text{init}$, $T_P(t)$ from \iref{epcm}\\
-  & The input is constrained so that $k \leq 2$ (\aref{maxsupport})\\
-  \hline
-   Output& $L(m_{j})$ so that $0 \leq L$ , $\theta $ between each two members \\
- % Output&$T_W(t)$, $0\leq t \leq t_\text{final}$, such that\\
- % &$\frac{dT_W}{dt} = \frac{1}{\tau_W}[(T_C - T_W(t)) + {\eta}(T_P(t) - T_W(t))]$,\\
- % &$T_W(0) = T_P(0) = T_\text{init}$ (\aref{A_InitTemp}) and $T_P(t)$ from \iref{epcm} \\
-  \hline
-  Description& $L(m_{j})$ is the length of the member $j$. for each member Truss Tool should calculate the length from DD1. $\theta $ is the angle between two members that will be calculated from DD2.\\
+  Input& $J_{i}=$ Tuples of $(X,Y)$ location of joints \\& $M_{j}=$ Tuples of end-joints for the members \\
+ 
+   \hline
+   Output& $L(m_{j})=$ Tuples of the length of all members such that $0 \leq L$ \\
+   &$\theta_{p,q}= $ Tuples of all angles between two members $M_{p}$ and $M_{q}$ so that $0<\theta<180$ \\
+   \hline
+  Description&  For each member, Truss Tool should calculate the length $L(m_{j})$ from \ddref{length_mem}. For each two members $M_{p}$ and $M_{q}$, Truss Tool should calculate $\theta_{p,q}$ from \ddref{Law_cos}.\\
   
-%  Description&$T_W$ is the water temperature (\si{\celsius}).\\
-%  &$T_P$ is the PCM temperature (\si{\celsius}).\\
-%  &$T_C$ is the coil temperature (\si{\celsius}).\\
-%  &$\tau_W = \frac{m_W C_W}{h_C A_C}$ is a constant (\si{\second}).\\
-%  &$\eta = \frac{h_P A_P}{h_C A_C}$ is a constant (dimensionless).\\
-%  & The above equation applies as long as the water is in liquid form,
-%  $0<T_W<100^o\text{C}$, where $0^o\text{C}$ and $100^o\text{C}$ are %the melting
- % and boiling points of water, respectively (\aref{A_OpRange}, \aref{A_Pressure}).
-  \\
  \hline
-  Sources& Citation here \\
+  Sources& \url{https://engcourses-uofa.ca/books/statics/structural-analysis/analysis-of-trusses/} \\
   \hline
-  Ref.\ By & \iref{length_mem}\\
+  Ref.\ By & \iref{i_force}\\
   \hline
 \end{tabular}
 \end{minipage}\\
-
 ~\newline
 
-%-----------------------------
-%Instance Model 2
-
+%----------------------Instance Model 2-------------------
 \noindent
 \begin{minipage}{\textwidth}
 \renewcommand*{\arraystretch}{1.5}
@@ -701,138 +626,62 @@ The goals G1 and G2 are solved by IM1, IM2, IM3.
   \rowcolor[gray]{0.9}
   Number& IM\refstepcounter{instnum}\theinstnum \label{Supp_react}\\
   \hline
-  Label& \bf Find support's reactions $S_x$, $S_y$\\
+  Label& \bf Find support's reactions \\
   \hline
-  Input& $J_{i}$,$M_{j},S_{k}$, $F_{i}$\\
-%  Input&$m_W$, $C_W$, $h_C$, $A_C$, $h_P$, $A_P$, $t_\text{final}$, %$T_C$, 
-%  $T_\text{init}$, $T_P(t)$ from \iref{epcm}\\
-  
+  Input&   $S_{k}=$ Tuples of Joint index for support position $J_{i}$, and type of support from the set of $\{"pin", "roller"\}$\\
+  & $F_{i}=$ Tuples of a joint index for the position of an external force, and the amount of force (\si{\newton}) \\ 
+
   \hline
-  Output& $S_ix$, $S_iy$ for each support on joint $i$, so that if support is a roller one, $S_{ix}=0$ \\
+  Output& $R_ix$, $R_iy$ for each support located on joint $i$, such that if support is a roller one, $R_{ix}=0$ \\
+
+  \hline
+  Description & By considering the whole truss as a free body, The reaction of the supports should be calculated from GD\ref{Trussequil} \\
+ & The input is constrained so that $k \leq 2$ (\aref{maxsupport})\\
+   & For inputting the position of an External force or support, the index of a join is needed. (\aref{Force_at_joints},\aref{reaction_at_joints}) \\
+ \hline
+  Sources& \url{https://engcourses-uofa.ca/books/statics/structural-analysis/analysis-of-trusses/} \\
+  \hline
+  Ref.\ By & \iref{i_force},\gsref{G_react}\\
+  \hline
+\end{tabular}
+\end{minipage}\\
+
+~\newline
+
+%----------------------------Instance Model 3
+
+\noindent
+\begin{minipage}{\textwidth}
+\renewcommand*{\arraystretch}{1.5}
+\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+  \hline
+  \rowcolor[gray]{0.9}
+  Number& IM\refstepcounter{instnum}\theinstnum \label{i_force}\\
+  \hline
+  Label& \bf Calculate internal forces for all members  $IF_{m}$\\
+  \hline
+  Input& $F_{i}=$ External forces.\\
+  & $L(m_{j})$ all Members lengths, $\theta_{p,q}$ all angles between members from \iref{Design_truss}\\
+  & $R_{i}$ Support reactions from \iref{Supp_react}\\
+  \hline
+   Output& $IF_{m}$ Internal force for each member $m$ (\si{\newton})\\
+  \hline
+  Description& By decomposition of each internal force $IF_{i}$ to $IF_{x}$ and $IF_{y}$ (\aref{planar}) and applying equilibrium equations from GD\ref{Trussequil} for each joint, the internal forces will be calculated jointly. For the last joint $j_{n}$, there will be no unknown internal force left. Hence we can use the last equation as the verification test of output correctness.  \\
  
- % Output&$T_W(t)$, $0\leq t \leq t_\text{final}$, such that\\
- % &$\frac{dT_W}{dt} = \frac{1}{\tau_W}[(T_C - T_W(t)) + {\eta}(T_P(t) - T_W(t))]$,\\
- % &$T_W(0) = T_P(0) = T_\text{init}$ (\aref{A_InitTemp}) and $T_P(t)$ from \iref{epcm} \\
-  \hline
-  Description& \\
-%  Description&$T_W$ is the water temperature (\si{\celsius}).\\
-%  &$T_P$ is the PCM temperature (\si{\celsius}).\\
-%  &$T_C$ is the coil temperature (\si{\celsius}).\\
-%  &$\tau_W = \frac{m_W C_W}{h_C A_C}$ is a constant (\si{\second}).\\
-%  &$\eta = \frac{h_P A_P}{h_C A_C}$ is a constant (dimensionless).\\
-%  & The above equation applies as long as the water is in liquid form,
-%  $0<T_W<100^o\text{C}$, where $0^o\text{C}$ and $100^o\text{C}$ are %the melting
- % and boiling points of water, respectively (\aref{A_OpRange}, \aref{A_Pressure}).
-  \\
  \hline
-  Sources& Citation here \\
+  Sources& \url{https://engcourses-uofa.ca/books/statics/structural-analysis/analysis-of-trusses/} \\
   \hline
-  Ref.\ By & \iref{epcm}\\
+  Ref.\ By & \gsref{G_force}\\
   \hline
 \end{tabular}
 \end{minipage}\\
-
 ~\newline
-
-%Instance Model 3
-
-\noindent
-\begin{minipage}{\textwidth}
-\renewcommand*{\arraystretch}{1.5}
-\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
-  \hline
-  \rowcolor[gray]{0.9}
-  Number& IM\refstepcounter{instnum}\theinstnum \label{zero_mem2}\\
-  \hline
-  Label& \bf Find zero members  $F_{mi}=0$\\
-  \hline
-  Input& Joints with only two members\\
-%  Input&$m_W$, $C_W$, $h_C$, $A_C$, $h_P$, $A_P$, $t_\text{final}$, %$T_C$, 
-%  $T_\text{init}$, $T_P(t)$ from \iref{epcm}\\
-  & The input is constrained so that there is no external force or reaction on the joint\\
-  \hline
-   Output& $F_{m1}=0$,$F_{m2}=0$\\
- % Output&$T_W(t)$, $0\leq t \leq t_\text{final}$, such that\\
- % &$\frac{dT_W}{dt} = \frac{1}{\tau_W}[(T_C - T_W(t)) + {\eta}(T_P(t) - T_W(t))]$,\\
- % &$T_W(0) = T_P(0) = T_\text{init}$ (\aref{A_InitTemp}) and $T_P(t)$ from \iref{epcm} \\
-  \hline
-  Description& \\
-%  Description&$T_W$ is the water temperature (\si{\celsius}).\\
-%  &$T_P$ is the PCM temperature (\si{\celsius}).\\
-%  &$T_C$ is the coil temperature (\si{\celsius}).\\
-%  &$\tau_W = \frac{m_W C_W}{h_C A_C}$ is a constant (\si{\second}).\\
-%  &$\eta = \frac{h_P A_P}{h_C A_C}$ is a constant (dimensionless).\\
-%  & The above equation applies as long as the water is in liquid form,
-%  $0<T_W<100^o\text{C}$, where $0^o\text{C}$ and $100^o\text{C}$ are %the melting
- % and boiling points of water, respectively (\aref{A_OpRange}, \aref{A_Pressure}).
-  \\
- \hline
-  Sources& Citation here \\
-  \hline
-  Ref.\ By & \iref{epcm}\\
-  \hline
-\end{tabular}
-\end{minipage}\\
-
-~\newline
-
 %-----------------------------
-~\newline
-
-%Instance Model 4
-
-\noindent
-\begin{minipage}{\textwidth}
-\renewcommand*{\arraystretch}{1.5}
-\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
-  \hline
-  \rowcolor[gray]{0.9}
-  Number& IM\refstepcounter{instnum}\theinstnum \label{zero_mem3}\\
-  \hline
-  Label& \bf Find zero member in joints with 3 members \\
-  \hline
-  Input& Joints with 2 collinear member and one non-collinear\\
-%  Input&$m_W$, $C_W$, $h_C$, $A_C$, $h_P$, $A_P$, $t_\text{final}$, %$T_C$, 
-%  $T_\text{init}$, $T_P(t)$ from \iref{epcm}\\
-  & The input is constrained so no external force or reaction exists on the joint\\
-  \hline
-   Output& $F_{m3}=0$ , $F_{m2}=-F_{m1}$ \\
- % Output&$T_W(t)$, $0\leq t \leq t_\text{final}$, such that\\
- % &$\frac{dT_W}{dt} = \frac{1}{\tau_W}[(T_C - T_W(t)) + {\eta}(T_P(t) - T_W(t))]$,\\
- % &$T_W(0) = T_P(0) = T_\text{init}$ (\aref{A_InitTemp}) and $T_P(t)$ from \iref{epcm} \\
-  \hline
-  Description& \\
-%  Description&$T_W$ is the water temperature (\si{\celsius}).\\
-%  &$T_P$ is the PCM temperature (\si{\celsius}).\\
-%  &$T_C$ is the coil temperature (\si{\celsius}).\\
-%  &$\tau_W = \frac{m_W C_W}{h_C A_C}$ is a constant (\si{\second}).\\
-%  &$\eta = \frac{h_P A_P}{h_C A_C}$ is a constant (dimensionless).\\
-%  & The above equation applies as long as the water is in liquid form,
-%  $0<T_W<100^o\text{C}$, where $0^o\text{C}$ and $100^o\text{C}$ are %the melting
- % and boiling points of water, respectively (\aref{A_OpRange}, \aref{A_Pressure}).
-  \\
- \hline
-  Sources& Citation here \\
-  \hline
-  Ref.\ By & \iref{epcm}\\
-  \hline
-\end{tabular}
-\end{minipage}\\
-
-~\newline
-
-%-----------------------------
-%~\newline
-\subsubsection*{Derivation of Zero members}
-A proof of zero members in truss can be found in \url{https://learnaboutstructures.com/Identifying-Zero-Force-Members}.
-
-%\plt{The derivation shows how the IM is derived from the TMs/GDs.  In cases where the derivation cannot be described under the Description field, it will  be necessary to include this subsection.}
-
 \subsubsection{Input Data Constraints} \label{sec_DataConstraints}    
 
 Table~\ref{TblInputVar} shows the data constraints on the input-output
 variables.  The column for physical constraints gives the physical limitations
-on the range of values that can be taken by the variable.  The column for software constraints restricts the range of inputs to reasonable values.  The software constraints will be helpful in the design stage for picking suitable algorithms.  The constraints are conservative, to give the user of the model the flexibility to experiment with unusual situations.  The column of typical values is intended to provide a feel for a common scenario.  The uncertainty column provides an estimate of the confidence with which the physical quantities can be
+on the range of values that the variable can take.  The column for software constraints restricts the range of inputs to reasonable values.  The software constraints will be helpful in the design stage for picking suitable algorithms.  The constraints are conservative, allowing the model user to experiment with unusual situations.  The column of typical values is intended to provide a feel for a common scenario.  The uncertainty column estimates the confidence with which the physical quantities can be
 measured.  This information would be part of the input if one were performing an
 uncertainty quantification exercise.\\
 The specification parameters in Table~\ref{TblInputVar} are listed in
@@ -846,7 +695,7 @@ Table~\ref{TblSpecParams}.
   \textbf{Var} & \textbf{Physical Constraints} & \textbf{Software Constraints} &
                              \textbf{Typical Value} & \textbf{Uncertainty}\\
   \midrule 
-  $n$ & $n > 3$ & $n_{\text{min}} \leq n \leq n_{\text{max}}$ & 6  & 0\%
+  $n$ & $n > 3$ & $n_{\text{min}} \leq n \leq n_{\text{max}}$ & 8  & 5\%
   \\
   \bottomrule
 \end{longtable*}
@@ -855,7 +704,7 @@ Table~\ref{TblSpecParams}.
 \noindent 
 \begin{description}
 
-\item[(*)] The count of Joints in a given truss is an integer number. it must be greater or equal to 3 to be considered a triangle. For small trusses, the number of joints is around 6.
+\item[(*)] The count of Joints in a given truss is an integer number. it must be greater or equal to 3 to be considered a triangle. For small trusses, the number of joints is around 8. The maximum number of joints $n_{max}$ for the run time considerations will be considered 30.
 \end{description}
 
 \begin{table}[!h]
@@ -866,7 +715,7 @@ Table~\ref{TblSpecParams}.
   \textbf{Var} & \textbf{Value} \\
   \midrule 
   $n_\text{min}$ & 3 \\
-  $n_\text{max}$ & 20\\
+  $n_\text{max}$ & 30\\
   \bottomrule
 \end{longtable*}
 \end{table}
@@ -874,7 +723,7 @@ Table~\ref{TblSpecParams}.
 \subsubsection{Properties of a Correct Solution} \label{sec_CorrectSolution}
 
 \noindent
-Table~\ref{TblOutputVar} shows the physical constraints on the output.
+Table~\ref{TblOutputVar} shows the physical constraints on the output. Suppose all joints from index 1 to $n-1$ are solved. Then all $IF_{m}$ are already calculated and the last joint will be considered as a physical constraint on the output.
 
 \begin{table}[!h]
 \caption{Output Variables} \label{TblOutputVar}
@@ -883,17 +732,13 @@ Table~\ref{TblOutputVar} shows the physical constraints on the output.
   \toprule
   \textbf{Var} & \textbf{Physical Constraints} \\
   \midrule 
-  $F_{mi}$ &  (by~\aref{A_charge})
+  $\sum F_{n}=0$ &  (by~\aref{planar},\aref{Force_at_joints})
   \\
   \bottomrule
 \end{longtable*}
 \end{table}
 
-%\plt{This section is not for test cases or techniques for verification and  validation.  Those topics will be addressed in the Verification and Validation   plan.}
-
 \section{Requirements}
-
-%\plt{The requirements refine the goal statement.  They will make heavy use of  references to the instance models.}
 
 This section provides the functional requirements and the business tasks that the
 software is expected to be complete, and the nonfunctional requirements, the
@@ -907,15 +752,10 @@ qualities that the software is expected to exhibit.
 
 \item{R\refstepcounter{reqnum}\thereqnum \label{R_OutputInputs}:Echoing inputs as part of output.} 
 
-\item{R\refstepcounter{reqnum}\thereqnum \label{R_Calculate}: Calculate support reactions from IM1, and internal forces from IM1, IM2, IM3}
+\item{R\refstepcounter{reqnum}\thereqnum \label{R_Calculate}: Calculate support reactions from \iref{Supp_react}, and internal forces from \iref{Design_truss}, \iref{Supp_react}, \iref{i_force}}
 
-\item{R\refstepcounter{reqnum}\thereqnum \label{R_VerifyOutput}: Check summation of internal forces is zero in each joint}
-  %{Verification-related requirements.}
-
-%\item[R\refstepcounter{reqnum}\thereqnum \label{R_Output}:] 
-%{Output related requirements.}
-
-\end{itemize}
+\item{R\refstepcounter{reqnum}\thereqnum \label{R_VerifyOutput}: Check summation of internal forces is zero in the last joint. \iref{i_force}}
+ \end{itemize}
 \begin{table}[!h]
 	\caption{Required Inputs} \label{TblInputVal}
 	\renewcommand{\arraystretch}{1.2}
@@ -933,8 +773,6 @@ qualities that the software is expected to exhibit.
 	\end{longtable*}
 \end{table}
 
-%\plt{Every IM should map to at least one requirement, but not every requirement   has to map to a corresponding IM.}
-
 \subsection{Nonfunctional Requirements}
 
 
@@ -942,21 +780,18 @@ qualities that the software is expected to exhibit.
 \noindent \begin{itemize}
 
 \item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_Accuracy}:]
-  \textbf{Accuracy}
-  %\plt{Characterize the accuracy by giving the context/use for    the software.  Maybe something like, ``The accuracy of the computed    solutions should meet the level needed for $<$engineering or scientific    application$>$.  The level of accuracy achieved by \progname{} shall be    described following the procedure given in Section~X of the Verification and    Validation Plan.''  A link to the VnV plan would be a nice extra.}
-
-\item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_Usability}:] \textbf{Usability}
- % \plt{Characterize the usability by giving the context/use for the software.    You should likely reference the user characteristics section.  The level of    usability achieved by the software shall be described following the    procedure given in Section~X of the Verification and Validation Plan.  A    link to the VnV plan would be a nice extra.}
+  \textbf{Accuracy: The accuracy of the computed solutions should meet the level needed for
+structural mechanic and have the properties described in Section \ref{sec_CorrectSolution}.}
+ 
+\item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_Usability}:] \textbf{Usability: The properties of the software should be able to tested easily through
+verification and validation plan (VnV Plan).}
+ 
 
 \item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_Maintainability}:]
-  \textbf{Maintainability} 
-  %\plt{The effort required to make any of the likely    changes listed for \progname{} should be less than FRACTION of the original    development time.  FRACTION is then a symbolic constant that can be defined     at the end of the report.}
+  \textbf{Maintainability: The effort required to make any of the likely    changes listed for Truss Tool should be less than 30\% of the original    development time.}
 
 \item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_Portability}:]
-  \textbf{Portability} 
-  %\plt{This NFR is easier to write than the others.  The    systems that \progname{} should run on should be listed here.  When possible     the specific versions of the potential operating environments should be    given.  To make the NFR verifiable a statement could be made that the tests    from a given section of the VnV plan can be successfully run on all of the    possible operating environments.}
-
-%\item Other NFRs that might be discussed include verifiability,  understandability and reusability.
+  \textbf{Portability:  Truss Tool is runnable on different environments, such as Windows, Mac-OS, and Linux.} 
 
 \end{itemize}
 
@@ -964,8 +799,8 @@ qualities that the software is expected to exhibit.
 
 \noindent \begin{itemize}
 
-\item[LC\refstepcounter{lcnum}\thelcnum\label{LC_meaningfulLabel}:] \plt{Give
-    the likely changes, with a reference to the related assumption (aref), as appropriate.}
+\item[LC\refstepcounter{lcnum}\thelcnum\label{LC_planar}:] The software may be changed to solve both types of trusses: two-dimensional and three-dimensional [\aref{planar}]  
+\item[LC\refstepcounter{lcnum}\thelcnum\label{LC_friction}:] The software may be changed to consider friction of the joints [\aref{frictionless} ]
 
 \end{itemize}
 
@@ -973,217 +808,125 @@ qualities that the software is expected to exhibit.
 
 \noindent \begin{itemize}
 
-\item[LC\refstepcounter{lcnum}\thelcnum\label{LC_meaningfulLabel}:] \plt{Give
-    the unlikely changes.  The design can assume that the changes listed will
-    not occur.}
-
+\item[UC1\label{UC_connection}:] The truss members are only connected at their joints [\aref{connection}]
+\item[UC2\label{UC_straight}:] The truss members are straight [\aref{as_straight}]
 \end{itemize}
 
 \section{Traceability Matrices and Graphs}
 
 The purpose of the traceability matrices is to provide easy references on what
 has to be additionally modified if a certain component is changed.  Every time a
-component is changed, the items in the column of that component that are marked
+component is changed, the items in the column of that component that is marked
 with an ``X'' may have to be modified as well.  Table~\ref{Table:trace} shows the
 dependencies of theoretical models, general definitions, data definitions, and
 instance models with each other. Table~\ref{Table:R_trace} shows the
 dependencies of instance models, requirements, and data constraints on each
 other. Table~\ref{Table:A_trace} shows the dependencies of theoretical models,
-general definitions, data definitions, instance models, and likely changes on
+general definitions, data definitions, instance models, and likely changes in
 the assumptions.
-
-\plt{You will have to modify these tables for your problem.}
-
-\plt{The traceability matrix is not generally symmetric.  If GD1 uses A1, that
-  means that GD1's derivation or presentation requires invocation of A1.  A1
-  does not use GD1.  A1 is ``used by'' GD1.}
-
-\plt{The traceability matrix is challenging to maintain manually.  Please do
-  your best.  In the future tools (like Drasil) will make this much easier.}
-
-\afterpage{
-\begin{landscape}
-\begin{table}[h!]
-\centering
-\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
-\hline
-	& \aref{A_OnlyThermalEnergy}& \aref{A_hcoeff}& \aref{A_mixed}& \aref{A_tpcm}& \aref{A_const_density}& \aref{A_const_C}& \aref{A_Newt_coil}& \aref{A_tcoil}& \aref{A_tlcoil}& \aref{A_Newt_pcm}& \aref{A_charge}& \aref{A_InitTemp}& \aref{A_OpRangePCM}& \aref{A_OpRange}& \aref{A_htank}& \aref{A_int_heat}& \aref{A_vpcm}& \aref{A_PCM_state}& \aref{A_Pressure} \\
-\hline
-\tref{T_COE}        & X& & & & & & & & & & & & & & & & & & \\ \hline
-\tref{T_SHE}        & & & & & & & & & & & & & & & & & & & \\ \hline
-\tref{T_LHE}        & & & & & & & & & & & & & & & & & & & \\ \hline
-\dref{NL}           & & X& & & & & & & & & & & & & & & & & \\ \hline
-\dref{ROCT}         & & & X& X& X& X& & & & & & & & & & & & & \\ \hline
-\ddref{FluxCoil}    & & & & & & & X& X& X& & & & & & & & & & \\ \hline
-\ddref{FluxPCM}     & & & X& X& & & & & & X& & & & & & & & & \\ \hline
-\ddref{D_HOF}       & & & & & & & & & & & & & & & & & & & \\ \hline
-\ddref{D_MF}        & & & & & & & & & & & & & & & & & & & \\ \hline
-\iref{ewat}         & & & & & & & & & & & X& X& & X& X& X& & & X \\ \hline
-\iref{epcm}         & & & & & & & & & & & & X& X& & & X& X& X& \\ \hline
-\iref{I_HWAT}       & & & & & & & & & & & & & & X& & & & & X \\ \hline
-\iref{I_HPCM}       & & & & & & & & & & & & & X& & & & & X & \\ \hline
-\lcref{LC_tpcm}     & & & & X& & & & & & & & & & & & & & & \\ \hline
-\lcref{LC_tcoil}    & & & & & & & & X& & & & & & & & & & & \\ \hline
-\lcref{LC_tlcoil}   & & & & & & & & & X& & & & & & & & & & \\ \hline
-\lcref{LC_charge}   & & & & & & & & & & & X& & & & & & & & \\ \hline
-\lcref{LC_InitTemp} & & & & & & & & & & & & X& & & & & & & \\ \hline
-\lcref{LC_htank}    & & & & & & & & & & & & & & & X& & & & \\
-\hline
-\end{tabular}
-\caption{Traceability Matrix Showing the Connections Between Assumptions and Other Items}
-\label{Table:A_trace}
-\end{table}
-\end{landscape}
-}
-
-\begin{table}[h!]
-\centering
-\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
-\hline        
-	& \tref{T_COE}& \tref{T_SHE}& \tref{T_LHE}& \dref{NL}& \dref{ROCT} & \ddref{FluxCoil}& \ddref{FluxPCM} & \ddref{D_HOF}& \ddref{D_MF}& \iref{ewat}& \iref{epcm}& \iref{I_HWAT}& \iref{I_HPCM} \\
-\hline
-\tref{T_COE}     & & & & & & & & & & & & & \\ \hline
-\tref{T_SHE}     & & & X& & & & & & & & & & \\ \hline
-\tref{T_LHE}     & & & & & & & & & & & & & \\ \hline
-\dref{NL}        & & & & & & & & & & & & & \\ \hline
-\dref{ROCT}      & X& & & & & & & & & & & & \\ \hline
-\ddref{FluxCoil} & & & & X& & & & & & & & & \\ \hline
-\ddref{FluxPCM}  & & & & X& & & & & & & & & \\ \hline
-\ddref{D_HOF}    & & & & & & & & & & & & & \\ \hline
-\ddref{D_MF}     & & & & & & & & X& & & & & \\ \hline
-\iref{ewat}      & & & & & X& X& X& & & & X& & \\ \hline
-\iref{epcm}      & & & & & X& & X& & X& X& & & X \\ \hline
-\iref{I_HWAT}    & & X& & & & & & & & & & & \\ \hline
-\iref{I_HPCM}    & & X& X& & & & X& X& X& & X& & \\
-\hline
-\end{tabular}
-\caption{Traceability Matrix Showing the Connections Between Items of Different Sections}
-\label{Table:trace}
-\end{table}
 
 \begin{table}[h!]
 \centering
 \begin{tabular}{|c|c|c|c|c|c|c|c|}
 \hline
-	& \iref{ewat}& \iref{epcm}& \iref{I_HWAT}& \iref{I_HPCM}& \ref{sec_DataConstraints}& \rref{R_RawInputs}& \rref{R_MassInputs} \\
+	& T1& \dref{Trussequil}& \ddref{length_mem}  
+  & \ddref{Law_cos} &\iref{Design_truss}& \iref{Supp_react}& 
+	\iref{i_force}  \\
 \hline
-\iref{ewat}            & & X& & & & X& X \\ \hline
-\iref{epcm}            & X& & & X& & X& X \\ \hline
-\iref{I_HWAT}          & & & & & & X& X \\ \hline
-\iref{I_HPCM}          & & X& & & & X& X \\ \hline
-\rref{R_RawInputs}     & & & & & & & \\ \hline
-\rref{R_MassInputs}    & & & & & & X& \\ \hline
-\rref{R_CheckInputs}   & & & & & X& & \\ \hline
-\rref{R_OutputInputs}  & X& X& & & & X& X \\ \hline
-\rref{R_TempWater}     & X& & & & & & \\ \hline 
-\rref{R_TempPCM}       & & X& & & & & \\ \hline
-\rref{R_EnergyWater}   & & & X& & & & \\ \hline
-\rref{R_EnergyPCM}     & & & & X& & & \\ \hline
-\rref{R_VerifyOutput}  & & & X& X& & & \\ \hline
-\rref{R_timeMeltBegin} & & X& & & & & \\ \hline
-\rref{R_timeMeltEnd}   & & X& & & & & \\ 
+T1       & & & & & & &\\ \hline
+\dref{Trussequil}    &X & & & & & &\\ \hline
+\ddref{length_mem}    & & & & & & &\\ \hline
+\ddref{Law_cos}       & & & & & & &\\ \hline
+\iref{Design_truss} & & &X &X & & &\\ \hline 
+\iref{Supp_react} & &X & & & & &\\ \hline 
+\iref{i_force} & &X & & &X &X &\\ \hline 
+\end{tabular}
+\caption{Traceability Matrix Showing the Connections Between  theoretical models, general definitions,
+data definitions and Instance Models}
+\label{Table:trace}
+\end{table}
+%----------------
+\begin{table}[h!]
+\centering
+\begin{tabular}{|c|c|c|c|c|}
 \hline
+	& \iref{Design_truss}& \iref{Supp_react}& 
+	\iref{i_force}& Constraint \ref{sec_DataConstraints}  \\
+\hline
+R1      &X & & &X\\ \hline
+R2    &X & &  &X\\ \hline
+R3    &X &X &X&\\ \hline
+R4       & & & &X\\ \hline
 \end{tabular}
 \caption{Traceability Matrix Showing the Connections Between Requirements and Instance Models}
 \label{Table:R_trace}
 \end{table}
+%--------------------
+\begin{table}[h!]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+	& \aref{planar}& \aref{connection}& \aref{as_straight}  &\aref{frictionless} & \aref{Force_at_joints} & \aref{reaction_at_joints} & \aref{self_w} 
+ & \aref{axial_fmem} &\aref{maxsupport}\\
+\hline
+T1      & & & & & & & & & \\ \hline
+\dref{Trussequil}      &X & & &X & & & & & \\ \hline
+\ddref{length_mem}      & & &X & & & & & & \\ \hline
+\ddref{Law_cos}      & &X &X & & & & & & \\ \hline
+\iref{Design_truss}      & &X &X & & & & & & \\ \hline
+\iref{Supp_react}      &X &X &X &X &X &X & & &X \\ \hline
+\iref{i_force}      &X & & &X & & &X &X &X \\ \hline
+\end{tabular}
+\caption{Traceability Matrix Showing the Connections Between assumptions and other sections}
+\label{Table:A_trace}
+\end{table}
 
-The purpose of the traceability graphs is also to provide easy references on
-what has to be additionally modified if a certain component is changed.  The
-arrows in the graphs represent dependencies. The component at the tail of an
-arrow is depended on by the component at the head of that arrow. Therefore, if a
-component is changed, the components that it points to should also be
-changed. Figure~\ref{Fig_ATrace} shows the dependencies of theoretical models,
-general definitions, data definitions, instance models, likely changes, and
-assumptions on each other. Figure~\ref{Fig_RTrace} shows the dependencies of
-instance models, requirements, and data constraints on each other.
-
-% \begin{figure}[h!]
-% 	\begin{center}
-% 		%\rotatebox{-90}
-% 		{
-% 			\includegraphics[width=\textwidth]{ATrace.png}
-% 		}
-% 		\caption{\label{Fig_ATrace} Traceability Matrix Showing the Connections Between Items of Different Sections}
-% 	\end{center}
-% \end{figure}
-
-
-% \begin{figure}[h!]
-% 	\begin{center}
-% 		%\rotatebox{-90}
-% 		{
-% 			\includegraphics[width=0.7\textwidth]{RTrace.png}
-% 		}
-% 		\caption{\label{Fig_RTrace} Traceability Matrix Showing the Connections Between Requirements, Instance Models, and Data Constraints}
-% 	\end{center}
-% \end{figure}
 
 \section{Development Plan}
 
-\plt{This section is optional.  It is used to explain the plan for developing
-  the software.  In particular, this section gives a list of the order in which
-  the requirements will be implemented.  In the context of a course  this is
-  where you can indicate which requirements will be implemented as part of the
-  course, and which will be ``faked'' as future work.  This section can be
-  organized as a prioritized list of requirements, or it could should the
-  requirements that will be implemented for ``phase 1'', ``phase 2'', etc.}
+This section is optional.  It is used to explain the plan for developing the software.  In particular, this section gives a list of the order in which the requirements will be implemented.
+
 
 \section{Values of Auxiliary Constants}
+\begin{table}[h!]
+	\renewcommand{\arraystretch}{1.2}
+	\noindent \begin{longtable*}{l l l l c} 
+		\toprule
+		\textbf{Symbol} & \textbf{Description} & \textbf{Value} & 
+		\textbf{Units} \\
+		\midrule 
+		$F_{\text{max}}$ & the maximum value for external force & 35000 & 
+		\si{\newton}\\
+		$F_{\text{min}}$ & the minimum value for external force & -35000 & 
+		\si{\newton}\\
+        $(X, Y)$ & the maximum value for the distance from the center of the coordinate axis & +20 & 
+		\si{\metre}\\
+        $(X, Y)$ & the minimum value for the distance from the center of the coordinate axis & 0 & 
+		\si{\metre}\\
+  	
+		$\theta_{\text{max}}$ & the maximum value for angle & 180 & 
+		Degree\\
+		$\theta_{\text{min}}$ & the minimum value for angle & 0 & 
+		Degree\\
+  $d_{\text{max}}$ & the maximum value for the count of joints & 30 & 
+		\\
+		$d_{\text{min}}$ & the minimum value for the count of joints &  3 & \\
+  $S_{\text{max}}$ & the maximum value for the count of supports & 2 & 
+		\\
+		$S_{\text{min}}$ & the minimum value for the count of supports &  0 & 
+		\\
+		\bottomrule		
+	\end{longtable*}
+	\caption{Auxiliary Constants} \label{TblAuxConst}
+\end{table}
 
-\plt{Show the values of the symbolic parameters introduced in the report.}
 
-\plt{The definition of the requirements will likely call for SYMBOLIC\_CONSTANTS.
-Their values are defined in this section for easy maintenance.}
-
-\plt{The value of FRACTION, for the Maintainability NFR would be given here.}
 
 \newpage
 
 \bibliographystyle {plainnat}
-\bibliography {../../refs/References}
+\bibliography {ref}
 
-\newpage
-
-\noindent \plt{The following is not part of the template, just some things to consider
-  when filing in the template.}
-
-\noindent \plt{Grammar, flow and \LaTeX advice:
-\begin{itemize}
-\item For Mac users \texttt{*.DS\_Store} should be in \texttt{.gitignore}
-\item \LaTeX{} and formatting rules
-\begin{itemize}
-\item Variables are italic, everything else not, includes subscripts (link to
-  document)
-\begin{itemize}
-\item \href{https://physics.nist.gov/cuu/pdf/typefaces.pdf}{Conventions}
-\item Watch out for implied multiplication
-\end{itemize}
-\item Use BibTeX
-\item Use cross-referencing
-\end{itemize}
-\item Grammar and writing rules
-\begin{itemize}
-\item Acronyms expanded on first usage (not just in table of acronyms)
-\item ``In order to'' should be ``to''
-\end{itemize}
-\end{itemize}}
-
-\noindent \plt{Advice on using the template:
-\begin{itemize}
-\item Difference between physical and software constraints
-\item Properties of a correct solution means \emph{additional} properties, not
-  a restating of the requirements (may be ``not applicable'' for your problem).
-  If you have a table of output constraints, then these are properties of a
-  correct solution.
-\item Assumptions have to be invoked somewhere
-\item ``Referenced by'' implies that there is an explicit reference
-\item Think of traceability matrix, list of assumption invocations and list of
-  reference by fields as automatically generatable
-\item If you say the format of the output (plot, table etc), then your
-  requirement could be more abstract
-\end{itemize}
-}
 
 \newpage{}
 \section*{Appendix --- Reflection}
@@ -1194,8 +937,8 @@ graduate attribute of Lifelong Learning.  Please answer the following questions:
 \begin{enumerate}
   \item What knowledge and skills will the team collectively need to acquire to
   successfully complete this capstone project?  Examples of possible knowledge
-  to acquire include domain specific knowledge from the domain of your
-  application, or software engineering knowledge, mechatronics knowledge or
+  to acquire include domain-specific knowledge from the domain of your
+  application, software engineering knowledge, mechatronics knowledge or
   computer science knowledge.  Skills may be related to technology, or writing,
   or presentation, or team management, etc.  You should look to identify at
   least one item for each team member.
