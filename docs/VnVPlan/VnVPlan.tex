@@ -29,6 +29,7 @@
 \midrule
 13-02-2023 & 1.0 & First Draft of VnV plan\\
 14-0202023 & 1.1& Updating Test cases   \\
+16-0202023 & 1.2& Updating Tests for NFRs   \\
 \bottomrule
 \end{tabularx}
 
@@ -125,36 +126,43 @@ Where $p$ is the vector of internal forces from the Truss Tool and $q$ is the ve
 The functional requirements are described in the \href{https://github.com/Maryamvalian/project741/blob/main/docs/SRS/SRS.pdf}{SRS}. Truss Tool will detect invalid inputs and assure that the calculated outputs are correct. Testing R1 and R2 will be explained in the input verification section. R3 and R4 will be explained in the output verification test. 
 \subsubsection{Input Verification}
 The inputs will be tested to satisfy R1 and R2 from Truss Tool SRS. Specifically, this test will ensure values of the inputs align with the input constraints. Table \ref{tbl_tc} displays the inputs and outputs of test cases for the input constraints tests.
-\begin{center}
- \begin{tabular}{|c|c c c c c| c |} 
+\begin{table}
+ \begin{tabular}{|c|c|  c c c| c |} 
  \hline
- &$N$&$J$&$M$&$F$&$\{S(p,r)\}$& \textbf{Output}\\ 
+TC &$N$ &$J$,$M$ &$F$&$\{S(p,r)\}$& \textbf{Output}\\ 
  \hline
- TC1-1 & 3& $\{(0,0),(1,1),(2,0)\}$ & $\{(1,2),(2,3),(1,3)\}$ &$\{(2,-50)\}$ & (1,3) & (25,25)(-35,-35,25) \\ 
+ 1-1 & 3& $J=\{(0,0),(1,1),(2,0)\}$ & $\{(2,-50)\}$ & (1,3) & (25,25)(-35,-35,25) \\ 
+ &&$M=\{(1,2),(2,3),(1,3)$\}&&&\\ 
  \hline
- TC2-1 & 10 & $\{(0,0),..,(2,0)\}$ & $\{(1,2),..,(1,3)\}$ &$\{(2,-50)\}$ & (1,3) & Exception: InputError \\ 
+ 2-1 & 10 & $J=\{(0,0),..,(2,0)\}$  &$\{(2,-50)\}$ & (1,3) & Exception: InputError \\ 
+ && $M=\{(1,2),..,(1,3)\}$&&&\\
  \hline
-  TC2-2 & 2 & $\{(0,0),(2,0)\}$ & $\{(1,2)\}$ &$\{(2,-50)\}$ & (1,2) & Exception: InputError \\ 
+  2-2 & 2 & $J=\{(0,0),(2,0)\}$  &$\{(2,-50)\}$ & (1,2) & Exception: InputError \\ 
+  &&$M=\{(1,2)\}$&&&\\
  \hline
- TC3-1 & 3& $\{(0,0),(1,1),(2,0)\}$ & $\{(1,2),(2,3),(1,3)\}$ &$\{(2,-36000)\}$ & (1,3) & Exception: InputError \\ 
+ 3-1 & 3& $J=\{(0,0),(1,1),(2,0)\}$ & $\{(2,-36000)\}$ & (1,3) & Exception: InputError \\ 
+ &&$M=\{(1,2),(2,3),(1,3)\}$&&&\\
  \hline
-  TC3-2 & 3& $\{(0,0),(1,1),(2,0)\}$ & $\{(1,2),(2,3),(1,3)\}$ &$\{(2,36000)\}$ & (1,3) & Exception: InputError \\ 
+  3-2 & 3& $J=\{(0,0),(1,1),(2,0)\}$ &$\{(2,36000)\}$ & (1,3) & Exception: InputError \\ 
+  &&$M=\{(1,2),(2,3),(1,3)\}$&&&\\
  \hline
-  TC4-1 & 3& $\{(0,0),(1,1),(2,0)\}$ & $\{(1,2),(2,3),(1,3)\}$ &$\{(2,-50)\}$ & (0,0) & Exception: InputError \\ 
+  4-1 & 3& $J=\{(0,0),(1,1),(2,0)\}$ &$\{(2,-50)\}$ & (0,0) & Exception: InputError \\
+  && $M=\{(1,2),(2,3),(1,3)\}$&&&\\
  \hline
- TC4-2 & 3& $\{(0,0),(1,1),(2,0)\}$ & $\{(4,5),(9,3),(1,3)\}$ &$\{(2,-50)\}$ & (1,3) & Exception: InputError \\ 
+ 4-2 & 3& $J=\{(0,0),(1,1),(2,0)\}$ &$\{(2,-50)\}$ & (1,3) & Exception: InputError \\ 
+ &&$M=\{(4,5),(9,3),(1,3)\}$ &&&\\
  \hline
- TC4-3 & 3& $\{(0,0),(1,1),(2,0)\}$ & $\{(1,2),(2,3),(1,3)\}$ &$\{(4,-50)\}$ & (1,3) & Exception: InputError \\ 
+ 4-3 & 3& $J=\{(0,0),(1,1),(2,0)\}$  &$\{(4,-50)\}$ & (1,3) & Exception: InputError \\ 
+ &&$M=\{(1,2),(2,3),(1,3)\}$&&&\\
  \hline
- TC4-4 & 3& $\{(0,0),(1,1),(2,0)\}$ & $\{(1,2),(2,3),(1,3)\}$ &$\{(2,-50)\}$ & (4,5) & Exception: InputError \\ 
+ 4-4 & 3& $J=\{(0,0),(1,1),(2,0)\}$   &$\{(2,-50)\}$ & (4,5) & Exception: InputError \\
+ &&$M=\{(1,2),(2,3),(1,3)\}$&&&\\
  \hline
  
  
 \end{tabular}
-\caption{Test Cases used for Verification of Truss Tool}
-\label{tbl_tc}
-
-\end{center}		
+\caption{\label{tbl_tc}Test cases For input Verification.}
+\end{table}		
 \paragraph{Input Verification test}
 
 \begin{enumerate}
@@ -199,7 +207,7 @@ Output: Exception: InputError
 Test Case Derivation: Amount of the external force/forces out of bound. 
 
 How the test will be performed: It will be performed by test classes built with the help of Pytest.
-\item{T-2: Invalid index of joints $N$\\}
+\item{T-4: Invalid index of joints $N$\\}
 
 Control: Automatic
 					
@@ -217,90 +225,145 @@ How the test will be performed: It will be performed by test classes built with 
 \end{enumerate}
 
 \subsubsection{Output verification}
+\begin{table} [h!]
 
-...
+ \begin{tabular}{|c|c |c  |} 
+ \hline
+ \textbf{Test cases}&N& \textbf{input}\\ 
+ \hline
+ TC5-1 & $3$&$J=\{(0,0),((1,1),(2,0)\}$\\
+ &  &  $M=\{(1,2),((1,3),(2,3)\}$\\
+ &  & $F=\{(2,-50)\}$,$S={(2,0)}$\\
+ \hline
+  TC5-2 & 4&$J=\{(0,0),((1,1),(2,0),(3,1)\}$\\
+ &  &  $M=\{(1,2),((1,3),(2,3),(2,4),(3,4)\}$\\
+ \hline
+ TC5-3 & 5&$J=\{(0,0),((1,1),(2,0),(3,1),(4,0)\}$\\
+ &  &  $M=\{(1,2),((1,3),(2,3),(2,4),(3,4),(3,5),(4,5)\}$\\
+  \hline
+  TC5-4 & 6&$J=\{(0,0),((1,1),(2,0),(3,1),(4,0),(5,1)\}$\\
+ &  &  $M=\{(1,2),((1,3),(2,3),(2,4),(3,4),(3,5),(4,5)(4,6),(5,6)\}$\\
+  \hline
+ TC5-5& 7&$J=\{(0,0),((1,1),(2,0),(3,1),(4,0),(5,1),(6,0)\}$\\
+ &  &  $M=\{(1,2),((1,3),(2,3),(2,4),(3,4),(3,5),(4,5)(4,6),$\\
+&&$ (5,6),(5,7),(6,7)\}$\\
+  \hline
+  TC5-6 & 8&$J=\{(0,0),((1,1),(2,0),(3,1),(4,0),(5,1),(6,0),$\\
+  &&$(7,1)\}$\\
+ &  &  $M=\{(1,2),((1,3),(2,3),(2,4),(3,4),(3,5),(4,5)(4,6),$\\
+&&$ (5,6),(5,7),(6,7),(6,8),(7,8)\}$\\
+ \hline
+  TC5-7 & 9&$J=\{(0,0),((1,1),(2,0),(3,1),(4,0),(5,1),(6,0),$\\
+  &&$(7,1),(8,0)\}$\\
+ &  &  $M=\{(1,2),((1,3),(2,3),(2,4),(3,4),(3,5),(4,5)(4,6),$\\
+&&$ (5,6),(5,7),(6,7),(6,8),(7,8),(7,9),(8,9)\}$\\
+  \hline
+\end{tabular}
 
-\subsection{Tests for Nonfunctional Requirements}
+\caption{\label{tbl_tcR}Test cases for time performance.}
 
-\wss{The nonfunctional requirements for accuracy will likely just reference the
-  appropriate functional tests from above.  The test cases should mention
-  reporting the relative error for these tests.  Not all projects will
-  necessarily have nonfunctional requirements related to accuracy}
-
-\wss{Tests related to usability could include conducting a usability test and
-  survey.  The survey will be in the Appendix.}
-
-\wss{Static tests, review, inspections, and walkthroughs, will not follow the
-format for the tests given below.}
-
-\subsubsection{Area of Testing1}
-		
-\paragraph{Title for Test}
+\end{table}	
+The Output Will be tested as follows:
+\paragraph{Output Verification test}
 
 \begin{enumerate}
 
-\item{test-id1\\}
+\item{T-5: Zero summation for the last joint\\}
 
-Type: Functional, Dynamic, Manual, Static etc.
+Control: Automatic
 					
-Initial State: 
+Initial State: All internal forces are already calculated.
 					
-Input/Condition: 
+Input: Internal forces array $IF$\\
 					
-Output/Result: 
+Output: Exception: Output Error
 					
-How test will be performed: 
+How the test will be performed: It will be performed by Truss Tool. The summation of internal forces in the last joint will be zero. Otherwise, it will generate an exception message.
+\item{T-6: Pseudo-oracle test\\}
+Control: Manual
 					
-\item{test-id2\\}
-
-Type: Functional, Dynamic, Manual, Static etc.
+Initial State: Both Truss Tool and 2D-Truss Analyse are running.
 					
-Initial State: 
+Input: The result of internal forces and support reaction from both tools \\
 					
-Input: 
+Output:  The euclidean distance between results.
 					
-Output: 
-					
-How test will be performed: 
+How the test will be performed: It will be performed by the Truss Tool team to verify results of the software is similar to the previous software introduced in section 4.7.
 
 \end{enumerate}
 
-\subsubsection{Area of Testing2}
+\subsection{Tests for Nonfunctional Requirements}
+This section will define the tests to ensure Truss Tool satisfies the nonfunctional requirements seen in the SRS document of Truss Tool. 
+\subsubsection{Reliability}
 
-...
 
+		
+\paragraph{Performance measurement}
+
+\begin{enumerate}
+
+\item{T-7: Time performance\\}
+
+Type: Manual
+					
+Initial State: Truss Tool is running.					
+Input/Condition: The user has entered the inputs correctly.
+
+					
+Output/Result: Time duration for calculating all the internal forces.
+					
+How the test will be performed: run-time of test cases from table \ref{tbl_tcR}  will be stored as a pair of run-time and the number of Joints. The VnV team members will analyze the log and report the results.
+
+	
+
+\end{enumerate}
+
+%\subsubsection{Area of Testing2}
 \subsection{Traceability Between Test Cases and Requirements}
+The purpose of the traceability matrices is to provide easy references on what has to be additionally modified if a certain component is changed. Every time a component is changed, the items in the column of that component that is marked with an X may have to be modified as well. Table \ref{tbl_tr_TC} shows which test cases are supporting which requirements.
 
-\wss{Provide a table that shows which test cases are supporting which
-  requirements.}
+
+\begin{table} [h!]
+\centering
+\begin{tabular}{|c|c| c| c| c | c |}
+\hline
+Test Cases & R1 & R2 & R3& R4& NFR1  \\
+ \hline   
+ T-1 & X&X & & &  \\
+ \hline
+  T-2   & X& X& & &  \\
+ \hline
+  T-3   &X & X& & &  \\
+ \hline
+  T-4  &X &X & & &  \\
+ \hline
+  T-5  & & & &X &  \\
+ \hline
+  T-6  & & & X&X &  \\
+ \hline
+  T-7  & & & & & X \\
+ \hline
+ 
+\end{tabular}
+\caption{\label{tbl_tr_TC}Traceability Matrix between tests and requirements.}
+\end{table}
+
+
 
 \section{Unit Test Description} \label{sec_unitest}
 
-\wss{Reference your MIS (detailed design document) and explain your overall
-  philosophy for test case selection.}  
-\wss{This section should not be filled in until after the MIS (detailed design
-  document) has been completed.}
+%\wss{Reference your MIS (detailed design document) and explain your overall   philosophy for test case selection.}  
+This section should not be filled in until after the MIS (detailed design   document) has been completed.
 
 \subsection{Unit Testing Scope}
+In this project, we will use SymPy library of Python to solve our equations. Testing this library is not in the scope of this document.
 
-\wss{What modules are outside of the scope.  If there are modules that are
-  developed by someone else, then you would say here if you aren't planning on
-  verifying them.  There may also be modules that are part of your software, but
-  have a lower priority for verification than others.  If this is the case,
-  explain your rationale for the ranking of module importance.}
 
 \subsection{Tests for Functional Requirements}
 
-\wss{Most of the verification will be through automated unit testing.  If
-  appropriate specific modules can be verified by a non-testing based
-  technique.  That can also be documented in this section.}
 
 \subsubsection{Module 1}
 
-\wss{Include a blurb here to explain why the subsections below cover the module.
-  References to the MIS would be good.  You will want tests from a black box
-  perspective and from a white box perspective.  Explain to the reader how the
-  tests were selected.}
 
 \begin{enumerate}
 
@@ -334,22 +397,11 @@ Test Case Derivation: \wss{Justify the expected value given in the Output field}
 
 How test will be performed: 
 
-\item{...\\}
     
 \end{enumerate}
 
-\subsubsection{Module 2}
-
-...
-
 \subsection{Tests for Nonfunctional Requirements}
 
-\wss{If there is a module that needs to be independently assessed for
-  performance, those test cases can go here.  In some projects, planning for
-  nonfunctional tests of units will not be that relevant.}
-
-\wss{These tests may involve collecting performance data from previously
-  mentioned functional tests.}
 
 \subsubsection{Module ?}
 		
