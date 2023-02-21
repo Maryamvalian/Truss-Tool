@@ -150,6 +150,7 @@ A Tool for Truss Analysis}
 \midrule
  2023-01-30 & 1.0 & Initial version of the SRS\\
  2023-01-10& 1.1 & Modification according to the feedback\\
+ 2023-02-20 & 1.2 & Updating according to SRSfdbk.pdf\\
 \bottomrule
 \end{tabularx}
 
@@ -234,9 +235,17 @@ In this document, we do not use any specific mathematical notation.
 \pagenumbering{arabic}
 
 \section{Introduction}
-{A truss is a structure that consists of members organized into connected triangles to enable the distribution of loads and forces. Trusses are most commonly used for wide spans like bridges, and roofs. Truss Analysis shows whether the external forces are well-distributed among the members or not. \\
-The following section provides an overview of the software requirements specification (SRS) for the truss tool. In this section, first, we explain the purpose of the document. Then we explain the scope of the requirements, the characteristics of the intended reader and the organization of the document.
+{A truss is a structure that consists of members organized into connected triangles to enable the distribution of loads and forces. Trusses are most commonly used for wide spans like bridges, and roofs. Figure \ref{Fig_bridge} shows a bridge built with planar trusses in 1969 called the Burlington lift bridge. Truss Analysis shows whether the external forces are well-distributed among the members or not. \\
+We introduce Truss Tool that helps engineers analyze a given planar truss. The following section provides an overview of the Truss Tool's software requirements specification (SRS). In this section, first, we explain the purpose of the document. Then we describe the scope of the requirements, the intended reader's characteristics and the document's organization.
 }
+
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=0.6\textwidth]{bridge.jpg}
+\caption{Burlington lift bridge: an example of the planar truss}
+\label{Fig_bridge} 
+\end{center}
+\end{figure}
 
 \subsection{Purpose of Document}
 {The primary purpose of this document is to outline the software requirements of the truss analysis tool. To provide a good understanding of the system, different aspects of the system such as  goals, assumptions, theoretical models, and definitions will be explained.  The following SRS document will remain abstract exploring what is being solved rather than how it will be solved.\\
@@ -244,10 +253,10 @@ The following document will describe the system context and constraints, the spe
 development of the tool.}
 
 \subsection{Scope of Requirements} 
-{The scope of the requirements includes the analysis of the two-dimensional trusses where all members and nodes lie within a two-dimensional plane. for more details, you can also see the assumptions section  (Section~\ref{sec_assumpt}). }
+{The scope of the requirements includes the analysis of the two-dimensional trusses where all members and nodes lie within a two-dimensional plane. For more details, you can also see the assumptions section  (Section~\ref{sec_assumpt}). }
 
 \subsection{Characteristics of Intended Reader} \label{sec_IntendedReader}
-Reviewers of this documentation should have a basic understanding of structure statics and high school physics and high school Mathematics. The users of the Truss Tool must have a higher level of expertise, as explained in Section: User Characteristics (Section~\ref{SecUserCharacteristics}). 
+Reviewers of this documentation should have a basic understanding of software development and structure statics and high school physics and high school Mathematics.  The users of the Truss Tool must have a higher level of expertise, as explained in Section: User Characteristics (Section~\ref{SecUserCharacteristics}). 
 
 \subsection{Organization of Document}
 The organization of the document follows the template for an SRS for scientific computing software proposed by \citet{SmithandLai2005}. The template will present the system's goals, theories, definitions, and assumptions. Readers interested in top-down reading can begin by reading the system's goal statements (Section~\ref{Sec_gs}). Subsequently, the theoretical models will elaborate on the goal statements. Lastly, readers can finish with a more  understanding of the system by reading instance models of the system.
@@ -262,7 +271,7 @@ represent a user that interacts with the software. The rectangle represents the 
 
 \begin{figure}[h!]
 \begin{center}
- \includegraphics[width=0.8\textwidth]{systemcontext.jpg}
+ \includegraphics[width=0.8\textwidth]{systemcontext .jpg}
 \caption{System Context}
 \label{Fig_SystemContext} 
 \end{center}
@@ -272,8 +281,8 @@ The interaction between the product and the user is through a user interface. Th
 \begin{itemize}
 \item User Responsibilities:
 \begin{itemize}
-\item Provide truss design features, supports and external forces. 
-\item Ensure the input data describes a correct truss.
+\item Provide truss geometry, supports and external forces. 
+\item Ensure the input data describes a valid truss.
 
 \end{itemize}
 \item Truss Tool Responsibilities:
@@ -290,7 +299,7 @@ The end user of Truss Tool should be an architecture/civil/mechanic engineer or 
 
 \subsection{System Constraints}
 
-There is no constraint on the development of the Truss Tool.
+There are no constraints on the development of the Truss Tool.
 
 
 \section{Specific System Description}
@@ -312,14 +321,14 @@ sections and their meaning, with the purpose of reducing ambiguity and making it
 \begin{itemize}
 
 \item{ Planar truss:  A planar truss is one where all members and nodes lie within a two-dimensional plane.} 
-\item{Joint(nodes): A place where two or more  members of the truss  are connected.}
+\item{Joint (nodes): A place where two or more  members of the truss  are connected.}
 \item{Force equilibrium: A body is in force equilibrium if the sum of all the forces acting on the body is zero.}
 \item{Moment equilibrium: A body is in moment equilibrium if the sum of all the moments of all the forces acting on the body is zero.}
 \item{Moment: The turning effect of a force is called the moment. The moment is the result of the force multiplied by the perpendicular distance from the line of action of the force to the pivot or point where the object will turn.}
-\item{Compression: When a member force points toward the joint it is attached to, the member is in compression}
-\item{Tension: When a member force points away from the joint it is attached to, the member is in tension.}
-\item{Pinned support: A kind of structural support that can have both a horizontal reaction and a vertical reaction. }
-\item{Roller support: A kind of structural support that can have only a vertical reaction. }
+\item{Compression: The internal force acts to shorten the member.}
+\item{Tension: The internal force acts to long the member.}
+\item{Pinned support: A pinned support can resist both vertical and horizontal forces but not a moment. }
+\item{Roller support: Roller support and reactions resist perpendicular forces and they cannot resist parallel or horizontal forces and moments. It means the roller support will move freely along the surface without resisting horizontal force. }
 \item{Zero force members: Members which do not have any force in them.}
 \end{itemize}
 
@@ -374,12 +383,12 @@ likely change [LC], in which the respective assumption is used.
 
 \item{A\refstepcounter{assumpnum}\theassumpnum \label{connection}: Members are inter-connected only at their ends.}
 \item{A\refstepcounter{assumpnum}\theassumpnum \label{as_straight}: Members must be straight.}
-\item{A\refstepcounter{assumpnum}\theassumpnum \label{frictionless}: All joints are smooth and frictionless hinges.}
+\item{A\refstepcounter{assumpnum}\theassumpnum \label{frictionless}: All joints are frictionless hinges.}
 \item{A\refstepcounter{assumpnum}\theassumpnum \label{Force_at_joints}: All forces must only be applied at joints}
 \item{A\refstepcounter{assumpnum}\theassumpnum \label{reaction_at_joints}: All reactions must only be applied at joints}
 \item{A\refstepcounter{assumpnum}\theassumpnum \label{self_w}: Self-weight of the member will be neglected}
 \item{A\refstepcounter{assumpnum}\theassumpnum \label{axial_fmem}: Members are subjected to axial forces only.}
-\item{A\refstepcounter{assumpnum}\theassumpnum \label{maxsupport}: The number of supports at most is two.}
+\item{A\refstepcounter{assumpnum}\theassumpnum \label{maxsupport}: The number of supports are at most two.}
 
 \end{itemize}
 
@@ -403,17 +412,17 @@ Label &\bf General Equilibrium equations \\
 SI Units& All Forces are measured in \si{\newton} \\
 & Moments are measured in \si{\newton\metre}\\
 \hline
-Equation& $\sum F = 0$ ,   $\sum M = 0$\\
+Equation& $\sum F_{x}=0 $, $\sum F_{y}=0 $, $\sum M=0$\\
 \hline
 Description &
 The equilibrium equation describes the static equilibrium of all  forces of the system and the moment for the system so that $\sum M =0$ and $\sum F=0$.\\
   & $F$ is any force in the system (\si{\newton}). $M$ is a moment that is the turning effect of a force. Moments act about a point in a clockwise or anticlockwise direction(\si{\newton\metre})\\
-
+ & According to \aref{planar} the summation of forces either horizontal $\sum F_{x}=0 $ or vertical $\sum F_{y}=0 $ should be equal to zero.
 \\
 \hline
   Source & \cite{hibbeler2006structural} \\
   \hline
-  Ref.\ By & \dref{Trussequil}\\
+  Ref.\ By & \iref{Supp_react},\iref{i_force}\\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -423,37 +432,7 @@ The equilibrium equation describes the static equilibrium of all  forces of the 
 
 \subsubsection{General Definitions}\label{sec_gendef}
 
-This section collects the laws and equations that will be used in building the
-instance models.
-%--------------------------------------GD1
-~\newline
-
-\noindent
-\begin{minipage}{\textwidth}
-\renewcommand*{\arraystretch}{1.5}
-\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
-\hline
-\rowcolor[gray]{0.9}
-Number& GD\refstepcounter{defnum}\thedefnum \label{Trussequil}\\
-\hline
-Label &\bf Equilibrium equations in planar trusses \\
-\hline
-SI Units& All Forces are measured in \si{\newton}\\
-\hline
-Equation& $\sum F_{x}=0 $, $\sum F_{y}=0 $   \\
-& $F_{x}=F\cos{\theta}$ , $F_{y}=F\sin{\theta}$\\
-\hline
-Description &
-By Decomposition of the force $F$ into $F_{x}, F_{y}$ (\aref{planar}), For any joint point in a planar truss, the equilibrium equations are satisfied horizontally and vertically in the direction of the x-axis and y-axis.
-
-\\
-\hline
-  Source & \cite{hibbeler2006structural} \\
-  \hline
-  Ref.\ By & \iref{Supp_react},\iref{i_force}\\
-  \hline
-\end{tabular}
-\end{minipage}\\
+Not applicable.
 
 \subsubsection{Data Definitions}\label{sec_datadef}
 
@@ -471,7 +450,7 @@ Number& DD\refstepcounter{datadefnum}\thedatadefnum \label{length_mem}\\
 \hline
 Label& \bf Length of a straight Line \\
 \hline
-Symbol &$L$\\
+Symbol &$L(m): Member \rightarrow \mathbb{R}$\\
 \hline
 
   SI Units & \si{\metre}\\
@@ -509,7 +488,7 @@ Symbol &$\theta$\\
   Equation& $\theta= \arccos(\frac{a^2+b^2+c^2}{2ab}$)\\
  \hline
 Description & 
-   The Law of Cosine helps us to find any angle for a  given triangle with a known length of sides. Where $\theta$ is the angle between sides a and b. and c is the length of the opposite side. \\
+   The Law of Cosine helps us to find any angle for a  given triangle with a known length of sides. Where $\theta$ is the angle between sides $a$ and $b$. and $c$ is the length of the opposite side. \\
   \hline
   Sources& \url{https://en.wikipedia.org/wiki/Law_of_cosines} \\
   \hline
@@ -517,20 +496,78 @@ Description &
   \hline
 \end{tabular}
 \end{minipage}\\
+
+%-------------------------------DD3
+~\newline
+
+
+\noindent
+\begin{minipage}{\textwidth}
+\renewcommand*{\arraystretch}{1.5}
+\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+\hline
+\rowcolor[gray]{0.9}
+Number& DD\refstepcounter{datadefnum}\thedatadefnum \label{decomp}\\
+\hline
+Label& \bf Decomposition of the force \\
+\hline
+Symbol &$D(F,\theta) \rightarrow (F_x,F_y)$\\
+\hline
+
+  SI Units & (\si{\newton , \newton})\\
+  \hline
+  Equation& $F_{x}=F\cos{\theta}$ , $F_{y}=F\sin{\theta}$\\
+ \hline
+Description & 
+   Each force say F with angle $\theta$ with horizontal line can be decomposed to $F_x$ and $F_y$ \\
+  \hline
+  Sources& \cite{galishnikova2009geometrically} \\
+  \hline
+  Ref.\ By & \iref{Design_truss}\\
+  \hline
+\end{tabular}
+\end{minipage}\\
 \subsubsection{Data Types}\label{sec_datatypes}
 
-This section collects and defines all the data types needed to document the models. For Truss Tool, all data types are real numbers or boolean numbers.
+This section collects and defines all the data types needed to document the models. For Truss Tool, all data types are real numbers or Boolean.
 
 \subsubsection{Instance Models} \label{sec_instance}    
 
 This section transforms the problem defined in Section~\ref{Sec_pd} into 
 one which is expressed in mathematical terms. It uses concrete symbols defined 
 in Section~\ref{sec_datadef} to replace the abstract symbols in the models 
-identified in Sections~\ref{sec_theoretical} and~\ref{sec_gendef}.
+identified in Sections~\ref{sec_theoretica}.
 
 The goals \gsref{G_react} and \gsref{G_force} are solved by \iref{Design_truss}, \iref{Supp_react}, \iref{i_force}
  
 ~\newline
+
+\subsubsection{Data Types}\label{sec_datatypes}
+
+This section collects and defines all the data types needed to document the models. For Truss Tool, all data types are real or integer numbers.
+
+\subsubsection{Instance Models} \label{sec_instance}    
+
+For better understanding the inputs and outputs of the instant models consider a simple truss with $n=3$ joints as shown in figure \ref{fig_example}. The other trusses with higher number of joints can modeled similarly.
+\begin{figure}[h!]
+\begin{center}
+ %\rotatebox{-90}
+ 
+  \includegraphics[width=0.5\textwidth]{example.jpg}
+ 
+ \caption{Example of simple truss for better understanding.}
+ \label{fig_example}
+ \end{center}
+ \end{figure}
+
+The input for \iref{Design_truss} is geometric location of each joint $J=\{(0,0),(1,1),(2,0)\}$. Also we have index for joint, for example $J_{1} =(0,0)$, $J_{2} =(1,1)$, $J_{3} =(2,0)$. The other input is Members $M=\{(1,2),(1,3),(2,3)\}$. for example $M_{1} =(1,2)$ which means that $J_{1}$ is connected to $J_{2}$. Now by applying \ddref{length_mem} we can calculate 
+$L_{1} =\sqrt{(1-0)+(1-0)} = 1.41 $. Same for $M_{2} =(1,3)$, the distance between $j_{1} =(0,0)$ and $J_{3} =(2,0)$ is calculated as $2$. The out put of the \iref{Design_truss} is 
+$L=\{1.41,2,1.41$\}$
+$By \ddref{Law_cos} and $L$ we can calculate $\theta$ for each joint. $\theta_{1} = \arccos(\frac{(1.41)^2-(1.41)^2-(2)^2}{-2*2*1.41} = 45$. The array of angles will be calculated as $\theta =\{ 45,90,45\}$. For \iref{Supp_react} other inputs are modeled as external forces on each joint $F=\{(0,0),(0,-50),(0,0)\}$ which means there is an external force only on $J_{2}$. Also $S_p =1 $ and $S_r =3 $ which means pinned support is on $J_{1} = (0,0)$ and roller support is on $J_{3} =(2,0)$. The output will be calculated as $R_{px} =0, R_{py}=+25, R_{ry}=+25$. 
+
+ 
+~\newline
+
 
 %--------------------Instance Model 1
 
@@ -544,13 +581,13 @@ The goals \gsref{G_react} and \gsref{G_force} are solved by \iref{Design_truss},
   \hline
   Label& \bf Calculate truss design features \\
   \hline
-  Input& $J_{i}=$ Tuples of $(X,Y)$ location of joints \\& $M_{j}=$ Tuples of end-joints for the members \\
+  Input& $J_{i}=$ Tuples of $(X,Y)$ location of joints \\& $M_{j}=$ Tuples of end-joints for the members where each end-joint has a specific integer index. \\
  
    \hline
-   Output& $L(m_{j})=$ Tuples of the length of all members such that $0 \leq L$ \\
+   Output& $L_{j}=$ Tuples of the length of all members such that $0 \leq L_{j} \leq 20$ \\
    &$\theta_{p,q}= $ Tuples of all angles between two members $M_{p}$ and $M_{q}$ so that $0<\theta<180$ \\
    \hline
-  Description&  For each member, Truss Tool should calculate the length $L(m_{j})$ from \ddref{length_mem}. For each two members $M_{p}$ and $M_{q}$, Truss Tool should calculate $\theta_{p,q}$ from \ddref{Law_cos}.\\
+  Description&  For each member, Truss Tool should calculate the length $L{j}$ from \ddref{length_mem}. For each two members $M_{p}$ and $M_{q}$, Truss Tool should calculate $\theta_{p,q}$ from \ddref{Law_cos}.\\
   
  \hline
   Sources& \cite{galishnikova2009geometrically} \\
@@ -572,15 +609,15 @@ The goals \gsref{G_react} and \gsref{G_force} are solved by \iref{Design_truss},
   \hline
   Label& \bf Find support's reactions \\
   \hline
-  Input&   $S_{k}=$ Tuples of Joint index for support position $J_{i}$, and type of support from the set of $\{"pin", "roller"\}$\\
-  & $F_{i}=$ Tuples of a joint index for the position of an external force, and the amount of force (\si{\newton}) \\ 
+  Input&   $S_{p}=$ Position of the pinned support as joint index, $S_{r}$ Position of the roller support as joint index\\
+  & $F_{i}=$ Tuples of a joint index for the position of an external force, and the amount of force in $x$ direction and $y$ direction (\si{\newton}) \\ 
 
   \hline
-  Output& $R_ix$, $R_iy$ for each support located on joint $i$, such that if support is a roller one, $R_{ix}=0$ \\
+  Output& $R_px$, $R_py$ for pinned support ($S_{p}$) and $R_ry$ for roller support ($S_{r}$) \\
 
   \hline
-  Description & By considering the whole truss as a free body, The reaction of the supports should be calculated from GD\ref{Trussequil} \\
- & The input is constrained so that $k \leq 2$ (\aref{maxsupport})\\
+  Description & By considering the whole truss as a free body, The reaction of the supports should be calculated from \tref{equil}\\
+ & The input is constrained so that we have at most only two supports at most $S_p , S_r$ (\aref{maxsupport})\\
    & For inputting the position of an External force or support, the index of a join is needed. (\aref{Force_at_joints},\aref{reaction_at_joints}) \\
  \hline
   Sources& \cite{galishnikova2009geometrically} \\
@@ -604,13 +641,13 @@ The goals \gsref{G_react} and \gsref{G_force} are solved by \iref{Design_truss},
   \hline
   Label& \bf Calculate internal forces for all members  $IF_{m}$\\
   \hline
-  Input& $F_{i}=$ External forces.\\
-  & $L(m_{j})$ all Members lengths, $\theta_{p,q}$ all angles between members from \iref{Design_truss}\\
-  & $R_{i}$ Support reactions from \iref{Supp_react}\\
+  Input& $F_{i}=$ External forces. External forces can be applied only at joints. We have index of each joint as integer number i. Amount of external force should be entered as $F_x,F_y$.\\
+  & $L{j}$ all Members lengths, $\theta_{p,q}$ all angles between members from \iref{Design_truss}\\
+  & $R_px$,$R_py$, $R_ry$  reactions from \iref{Supp_react}\\
   \hline
-   Output& $IF_{m}$ Internal force for each member $m$ (\si{\newton})\\
+   Output& $IF_{j}$ Internal force for each member by solving ($n-1$) equation of equilibrium for each joint except the last joint. where $j$ is an integer index for a member.(\si{\newton})\\
   \hline
-  Description& By decomposition of each internal force $IF_{i}$ to $IF_{x}$ and $IF_{y}$ (\aref{planar}) and applying equilibrium equations from GD\ref{Trussequil} for each joint, the internal forces will be calculated jointly. For the last joint $j_{n}$, there will be no unknown internal force left. Hence we can use the last equation as the verification test of output correctness.  \\
+  Description& By decomposition of each internal force $IF_{i}$ to $IF_{x}$ and $IF_{y}$ (\aref{planar}) and applying equilibrium equations from \tref{equil} for each joint, the internal forces will be calculated jointly. For the last joint $j_{n}$, there will be no unknown internal force left. Hence we can use the last equation as the verification test of output correctness.  \\
  
  \hline
   Sources& \cite{galishnikova2009geometrically} \\
@@ -639,7 +676,7 @@ Table~\ref{TblSpecParams}.
   \textbf{Var} & \textbf{Physical Constraints} & \textbf{Software Constraints} &
                              \textbf{Typical Value} & \textbf{Uncertainty}\\
   \midrule 
-  $n$ & $n > 3$ & $n_{\text{min}} \leq n \leq n_{\text{max}}$ & 8  & 5\%
+  $n$ & $n > 3$ & $n_{\text{min}} \leq n \leq n_{\text{max}}$ & 5  & 5\%
   \\
   \bottomrule
 \end{longtable*}
@@ -659,7 +696,7 @@ Table~\ref{TblSpecParams}.
   \textbf{Var} & \textbf{Value} \\
   \midrule 
   $n_\text{min}$ & 3 \\
-  $n_\text{max}$ & 20\\
+  $n_\text{max}$ & 9\\
   \bottomrule
 \end{longtable*}
 \end{table}
@@ -723,11 +760,9 @@ qualities that the software is expected to exhibit.
 
 \noindent \begin{itemize}
 
-\item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_Accuracy}:]
-  \textbf{Accuracy: The accuracy of the computed solutions should meet the level needed for
-structural mechanic and have the properties described in Section \ref{sec_CorrectSolution}.}
+
  
-\item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_Usability}:] \textbf{Usability: The properties of the software should be able to tested easily through
+\item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_Usability}:] \textbf{Reliability: The Time performance of the software should be able to tested through
 verification and validation plan (VnV Plan).}
  
 
@@ -735,7 +770,7 @@ verification and validation plan (VnV Plan).}
   \textbf{Maintainability: The effort required to make any of the likely    changes listed for Truss Tool should be less than 30\% of the original    development time.}
 
 \item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_Portability}:]
-  \textbf{Portability:  Truss Tool is runnable on different environments, such as Windows, Mac-OS, and Linux.} 
+  \textbf{Portability:  Truss Tool is runnable on Windows.}
 
 \end{itemize}
 
@@ -771,19 +806,19 @@ the assumptions.
 
 \begin{table}[h!]
 \centering
-\begin{tabular}{|c|c|c|c|c|c|c|c|}
+\begin{tabular}{|c|c|c|c|c|c|c|}
 \hline
-	& \tref{equil} & \dref{Trussequil}& \ddref{length_mem}  
-  & \ddref{Law_cos} &\iref{Design_truss}& \iref{Supp_react}& 
-	\iref{i_force}  \\
+	& \tref{equil} &\ddref{length_mem}  &  \ddref{Law_cos}
+  & \ddref{decomp} &\iref{Design_truss}& \iref{Supp_react} 
+	  \\
 \hline
-\tref{equil}       & & & & & & &\\ \hline
-\dref{Trussequil}    &X & & & & & &\\ \hline
-\ddref{length_mem}    & & & & & & &\\ \hline
-\ddref{Law_cos}       & & & & & & &\\ \hline
-\iref{Design_truss} & & &X &X & & &\\ \hline 
-\iref{Supp_react} & &X & & & & &\\ \hline 
-\iref{i_force} & &X & & &X &X &\\ \hline 
+\tref{equil}       & & & & & & \\ \hline
+ \ddref{length_mem}   &X & & & & & \\ \hline
+  \ddref{Law_cos}  & & & & & & \\ \hline
+  \ddref{decomp}     & & & & & & \\ \hline
+\iref{Design_truss} & & &X &X & & \\ \hline 
+\iref{Supp_react} & &X & & & & \\ \hline 
+\iref{i_force} & &X & & &X &X \\ \hline 
 \end{tabular}
 \caption{Traceability Matrix Showing the Connections Between  theoretical models, general definitions,
 data definitions and Instance Models}
@@ -813,10 +848,10 @@ R4       & & & &X\\ \hline
 	& \aref{planar}& \aref{connection}& \aref{as_straight}  &\aref{frictionless} & \aref{Force_at_joints} & \aref{reaction_at_joints} & \aref{self_w} 
  & \aref{axial_fmem} &\aref{maxsupport}\\
 \hline
-\tref{equil}       & & & & & & & & & \\ \hline
-\dref{Trussequil}      &X & & &X & & & & & \\ \hline
-\ddref{length_mem}      & & &X & & & & & & \\ \hline
-\ddref{Law_cos}      & &X &X & & & & & & \\ \hline
+\tref{equil}       &X & & & & & & & & \\ \hline
+  \ddref{length_mem}    & & &X & & & & & & \\ \hline
+  \ddref{Law_cos}     & & &X &X & & & & & \\ \hline
+  \ddref{decomp}   &X &X &X & & & & & & \\ \hline
 \iref{Design_truss}      & &X &X & & & & & & \\ \hline
 \iref{Supp_react}      &X &X &X &X &X &X & & &X \\ \hline
 \iref{i_force}      &X & & &X & & &X &X &X \\ \hline
@@ -828,7 +863,7 @@ R4       & & & &X\\ \hline
 
 \section{Development Plan}
 
-This section is optional.  It is used to explain the plan for developing the software.  In particular, this section gives a list of the order in which the requirements will be implemented.
+Not applicable.
 
 
 \section{Values of Auxiliary Constants}
@@ -843,21 +878,17 @@ This section is optional.  It is used to explain the plan for developing the sof
 		\si{\newton}\\
 		$F_{\text{min}}$ & the minimum value for external force & -35000 & 
 		\si{\newton}\\
-        $(X, Y)$ & the maximum value for the distance from the center of the coordinate axis & +20 & 
-		\si{\metre}\\
-        $(X, Y)$ & the minimum value for the distance from the center of the coordinate axis & 0 & 
-		\si{\metre}\\
-  	
+       	
 		$\theta_{\text{max}}$ & the maximum value for angle & 180 & 
 		Degree\\
 		$\theta_{\text{min}}$ & the minimum value for angle & 0 & 
 		Degree\\
-  $d_{\text{max}}$ & the maximum value for the count of joints & 30 & 
+  $d_{\text{max}}$ & the maximum value for the count of joints & 9 & 
 		\\
 		$d_{\text{min}}$ & the minimum value for the count of joints &  3 & \\
   $S_{\text{max}}$ & the maximum value for the count of supports & 2 & 
 		\\
-		$S_{\text{min}}$ & the minimum value for the count of supports &  0 & 
+		$S_{\text{min}}$ & the minimum value for the count of supports &  1 & 
 		\\
 		\bottomrule		
 	\end{longtable*}
@@ -872,24 +903,6 @@ This section is optional.  It is used to explain the plan for developing the sof
 \bibliography {refs/References.bib}
 
 
-\newpage{}
-\section*{Appendix --- Reflection}
 
-The information in this section will be used to evaluate the team members on the
-graduate attribute of Lifelong Learning.  Please answer the following questions:
-
-\begin{enumerate}
-  \item What knowledge and skills will the team collectively need to acquire to
-  successfully complete this capstone project?  Examples of possible knowledge
-  to acquire include domain-specific knowledge from the domain of your
-  application, software engineering knowledge, mechatronics knowledge or
-  computer science knowledge.  Skills may be related to technology, or writing,
-  or presentation, or team management, etc.  You should look to identify at
-  least one item for each team member.
-  \item For each of the knowledge areas and skills identified in the previous
-  question, what are at least two approaches to acquiring the knowledge or
-  mastering the skill?  Of the identified approaches, which will each team
-  member pursue, and why did they make this choice?
-\end{enumerate}
 
 \end{document}
