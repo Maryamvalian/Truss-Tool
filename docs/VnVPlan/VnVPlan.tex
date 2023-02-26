@@ -28,8 +28,10 @@
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
 13-02-2023 & 1.0 & First Draft of VnV plan\\
-14-0202023 & 1.1& Updating Test cases   \\
-16-0202023 & 1.2& Updating Tests for NFRs   \\
+14-02-2023 & 1.1& Updating Test cases   \\
+16-02-2023 & 1.2& Updating Tests for NFRs   \\
+25-02-2023 & 1.3& Updating According to VnV reviewer feedback   \\
+
 \bottomrule
 \end{tabularx}
 
@@ -48,7 +50,7 @@
   \midrule 
   T & Test\\
   SRS & Software Requirements Specification\\
-  FR & Functional Requirements\\
+  R & Functional Requirements\\
   NFR & Nonfunctional Requirements\\
   N/A & Not Applicable\\
   VnV & Verification and Validation\\
@@ -70,7 +72,7 @@ In this document, we explain how Truss Tool is being tested. Truss Tool is softw
 
 \subsection{Objectives}
 
-For our project, the most important quality of the software is the correctness of the results. So our objective is to build confidence in the software's correctness and increase its reliability. Not only functional requirements will be tested, but also We will test nonfunctional requirements in Section 5. 
+Our objective is to build confidence in the software's correctness and increase its reliability. The functional requirements will be tested according to section 5.1, and Non-functional requirements will be tested according to section 5.2.
 
 \subsection{Relevant Documentation}
 \begin{itemize}
@@ -84,7 +86,7 @@ For our project, the most important quality of the software is the correctness o
 \end{itemize}
 
 \section{Plan}
-In This section, we explain the VnV plan of the Truss Tool. Section \ref{VTeam} introduces VnV team members and their roles in the project's verification. Verification plans of SRS, design, VnV plan verification plan and implementation are covered in section \ref{SRSvplan}, section \ref{Sec_Design_verific}, and section \ref{Sec_implementation},\ref{Sec_VofVnV} respectively. Section \ref{} introduces the tools that are used for automated testing. Section \ref{} outlines the validation plan of the software.
+In This section, we explain the VnV plan of the Truss Tool. The first section will introduce VnV team members and their roles in the project's verification. Next, the verification plans of SRS, design, VnV verification plan, implementation, Automated testing, and software validation plan will be given. 
 
 \subsection{Verification and Validation Team} \label{VTeam}
 This section lists VnV team members and describes the role of each member in the project's verification.
@@ -105,7 +107,7 @@ The SRS will be reviewed by Dr. Spencer Smith and Lesely Wheat. Reviewers can gi
 The design document MIS will be reviewed by Dr. Spencer Smith, Lesley Wheat and Jason Balaci. Reviewers can give feedback and revision suggestions to the author by creating issues on GitHub. It is the author's responsibility to check the submitted issues regularly and make necessary modifications.
 
 \subsection{Verification and Validation Plan Verification Plan} \label{Sec_VofVnV}
-The VnV plan document will be reviewed by Dr. Spencer Smith, Lesley Wheat and Joachim de Frostier. Reviewers can give feedback and revision suggestions to the author by creating issues on GitHub. It is the author's responsibility to check the submitted issues regularly and make necessary modifications.
+The VnV plan document will be reviewed by Dr. Spencer Smith, Lesley Wheat and Joachim de Fourestier. Reviewers can give feedback and revision suggestions to the author by creating issues on GitHub. It is the author's responsibility to check the submitted issues regularly and make necessary modifications.
 \subsection{Implementation Verification Plan} \label{Sec_implementation}
 The implementation of the software will be verified using several techniques involving manual or automated interactions. The software will be developed in Python programming language. The code evaluation will involve unit and system testing. The tools for the
 evaluations will be mentioned in section \ref{sec_automat}. Furthermore, the test cases used in system and unit testing will be stated in sections \ref{sec_systest} and \ref{sec_unitest}, respectively.
@@ -440,7 +442,7 @@ How test will be performed:
 
 \subsection{Traceability Between Test Cases and Modules}
 
-\wss{Provide evidence that all of the modules have been considered.}
+%Provide evidence that all of the modules have been considered.
 				
 \bibliographystyle{plainnat}
 
@@ -450,16 +452,35 @@ How test will be performed:
 
 \section{Appendix}
 
-This is where you can place additional information.
+Not applicable.
 
 \subsection{Symbolic Parameters}
+\begin{table} [h!]
+\centering
+\begin{tabular}{|c| c |}
+\hline
+Symbol & Meaning   \\
+ \hline   
+ $J$& Tuples of the joint's coordination.\\
+ &Each tuple is a pair of two-dimensional geometric coordination.   \\
+ \hline
+ $M$ & Tuples of members. Each tuple is pair of joint index  \\
+ \hline
+ $F$ & External forces. Tuples of the vertical and\\
+ & horizontal amount of force for each joint  \\
+ \hline
+ $S=(S_{p} ,S_R)$ &Pair of two indices. Index of pinned support\\
+ & and index of roller support \\
+ \hline
 
-The definition of the test cases will call for SYMBOLIC\_CONSTANTS.
-Their values are defined in this section for easy maintenance.
+ 
+\end{tabular}
+\caption{\label{tbl_tr_TC}Traceability Matrix between tests and requirements.}
+\end{table}
 
 \subsection{Usability Survey Questions?}
 
-\wss{This is a section that would be appropriate for some projects.}
+Not Applicable.
 
 \newpage{}
 \section*{Appendix --- Reflection}
