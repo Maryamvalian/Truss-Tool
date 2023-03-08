@@ -1,4 +1,7 @@
 # Truss Tool Source Code
+<hr>
+#HOW to Run the code:
+python control.py input.txt
 
 The folders and files for this project are as follows:
 
