@@ -3,7 +3,8 @@
 The folders and files for this project are as follows:
 
 <ol> 
-<li> inputTRUSS.py </li>
+ <li> input.txt </li>
+<li> Inputs.py </li>
 <li> control.py </li>
 <li> CalculateReact.py </li>
 </ol>
