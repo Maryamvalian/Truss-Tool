@@ -1,16 +1,15 @@
-#import inputTRUSS
 import Inputs
 import sys
+import React
 
-#input via keyboard
-#(n,J,M,F,p,r)=inputTRUSS.gettruss()
 #input via file
 filename = sys.argv[1]
 f = open(filename, "r")
-# read input
-(n,J,M,F,p,r)=Inputs.getfile(f)
+(n,m,J,M,F,p,r)=Inputs.getfile(f)
 f.close()
-#inParams = (n,J,M,F,p,r)
-#calledfunc = "control"
-
+#mirror input 
 print("Given Truss with",n,"Joints\n",J,"\n Members:",M,"\n E forces:\n",F,"\n Pinned Support at",p," , Roller support at",r)
+#compute react
+(px,py,ry)=React.find_react(n,J,F,p,r)
+#
+print("Px,Py,Ry",px,py,ry)
