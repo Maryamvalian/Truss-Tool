@@ -1,8 +1,5 @@
 # Truss Tool Source Code
 
-<h2>How to Run the code:</h2>
-<h2>python control.py input.txt</h2>
-
 The folders and files for this project are as follows:
 
 <ol> 
@@ -11,4 +8,6 @@ The folders and files for this project are as follows:
 <li> CalculateReact.py </li>
 </ol>
 <hr>
+<h4>How to Run the code:</h4>
+python control.py input.txt
 
