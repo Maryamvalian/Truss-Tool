@@ -1,0 +1,4 @@
+Truss Results:
+ Pinned Support X-direction reaction=-0.0
+ Pinned Support Y-directed reaction =25.0
+ Roller Support Y-directed reaction =25.0
