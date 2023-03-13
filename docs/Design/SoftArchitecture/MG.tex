@@ -16,8 +16,6 @@
     urlcolor=blue
 }
 
-\input{../../Comments}
-\input{../../Common}
 
 \newcounter{acnum}
 \newcommand{\actheacnum}{AC\theacnum}
@@ -33,8 +31,8 @@
 
 \begin{document}
 
-\title{Module Guide for \progname{}} 
-\author{\authname}
+\title{Module Guide for Truss Tool} 
+\author{Maryam Valian}
 \date{\today}
 
 \maketitle
@@ -46,8 +44,8 @@
 \begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
-Date 1 & 1.0 & Notes\\
-Date 2 & 1.1 & Notes\\
+11/03/2023 & 1.0 & Draft version\\
+12/03/2023 & 1.1 & Update section 6\\
 \bottomrule
 \end{tabularx}
 
@@ -66,15 +64,16 @@ This section records information for easy reference.
   \midrule 
   AC & Anticipated Change\\
   DAG & Directed Acyclic Graph \\
+  IF & Internal forces of a truss\\
   M & Module \\
   MG & Module Guide \\
   OS & Operating System \\
   R & Requirement\\
   SC & Scientific Computing \\
   SRS & Software Requirements Specification\\
-  \progname & Explanation of program name\\
+  
   UC & Unlikely Change \\
-  \wss{etc.} & \wss{...}\\
+  
   \bottomrule
 \end{tabular}\\
 
@@ -161,7 +160,16 @@ change.
   hardware on which the software is running.
 \item[\refstepcounter{acnum} \actheacnum \label{acInput}:] The format of the
   initial input data.
-\item ...
+ \item[\refstepcounter{acnum} \actheacnum \label{acInParam}:] The format of the
+  initial input parameters.
+  \item[\refstepcounter{acnum} \actheacnum \label{acInConstraint}:] The constraints on the input data.
+\item[\refstepcounter{acnum} \actheacnum \label{acOutput}:] The format of the final output data.  
+\item[\refstepcounter{acnum} \actheacnum \label{acOutConstraint}:] The constraints on the output data.
+\item[\refstepcounter{acnum} \actheacnum \label{acDecompose}:] How to decompose forces according to input data of truss type.
+\item[\refstepcounter{acnum} \actheacnum \label{acEquations}:] How the equilibrium equations are defined from Input data.
+\item[\refstepcounter{acnum} \actheacnum \label{acSequence}:] The implementation of the sequence data structure.
+\item[\refstepcounter{acnum} \actheacnum \label{acDecompose}:] The algorithm used for the linear equation solver.
+ 
 \end{description}
 
 \subsection{Unlikely Changes} \label{SecUchange}
@@ -176,7 +184,12 @@ decisions will be changed.
 \begin{description}
 \item[\refstepcounter{ucnum} \uctheucnum \label{ucIO}:] Input/Output devices
   (Input: File and/or Keyboard, Output: File, Memory, and/or Screen).
-\item ...
+  \item[\refstepcounter{ucnum} \uctheucnum \label{ucExternalIn}:] 
+  An External source of input data should be provided for the software.
+  \item[\refstepcounter{ucnum} \uctheucnum \label{ucDispaly}:] The output data are always displayed at the output devices.
+  \item[\refstepcounter{ucnum} \uctheucnum \label{ucGoal}:] The goal of the system is to calculate support reactions and internal forces for each member.
+  \item[\refstepcounter{ucnum} \uctheucnum \label{ucGoal}:] The equilibrium equations can be defined using parameters defined in the input parameter module. 
+
 \end{description}
 
 \section{Module Hierarchy} \label{SecMH}
@@ -188,9 +201,19 @@ actually be implemented.
 
 \begin{description}
 \item [\refstepcounter{mnum} \mthemnum \label{mHH}:] Hardware-Hiding Module
-\item ...
-\end{description}
+\item [\refstepcounter{mnum} \mthemnum \label{InParam}:] Input parameters module
+\item [\refstepcounter{mnum} \mthemnum \label{InParam}:] Input verification module
+\item [\refstepcounter{mnum} \mthemnum \label{outfrmt}:] Output format module
+\item [\refstepcounter{mnum} \mthemnum \label{outverifi}:] Output verification module
+\item [\refstepcounter{mnum} \mthemnum \label{eqSR}:] Equilibrium equations for free body of truss module. 
+\item [\refstepcounter{mnum} \mthemnum \label{fdecomp}:] Force decomposing module
+\item [\refstepcounter{mnum} \mthemnum \label{eqALLj}:] Equilibrium equations for all joints module.
+\item [\refstepcounter{mnum} \mthemnum \label{cntrlm}:] Control module
+\item [\refstepcounter{mnum} \mthemnum \label{sds}:] Sequence data structure module
+\item [\refstepcounter{mnum} \mthemnum \label{linalg}:] linear equation solver module
 
+\end{description} 
+Not all of the above list will be implemented. Since M\ref{mHH} is already implemented in operating system. Also M\ref{sds} and  M\ref{linalg} are already implemented in Numpy and Scipy libraries of Python, respectively.
 
 \begin{table}[h!]
 \centering
@@ -202,19 +225,19 @@ actually be implemented.
 {Hardware-Hiding Module} & ~ \\
 \midrule
 
-\multirow{7}{0.3\textwidth}{Behaviour-Hiding Module} & ?\\
-& ?\\
-& ?\\
-& ?\\
-& ?\\
-& ?\\
-& ?\\ 
-& ?\\
+\multirow{7}{0.3\textwidth}{Behaviour-Hiding Module} & Input parameters module\\
+& Input verification module\\
+& Output format module\\
+& Output verification module\\
+& Equilibrium equations for free body of truss module. \\
+& Force decomposing module\\
+& Equilibrium equations for all joints module.\\
+& Control module\\ 
+
 \midrule
 
-\multirow{3}{0.3\textwidth}{Software Decision Module} & {?}\\
-& ?\\
-& ?\\
+\multirow{3}{0.3\textwidth}{Software Decision Module} & Sequence data structure module\\
+& linear equation solver module\\
 \bottomrule
 
 \end{tabular}
