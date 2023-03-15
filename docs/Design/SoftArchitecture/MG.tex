@@ -45,7 +45,8 @@
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
 11/03/2023 & 1.0 & Draft version\\
-12/03/2023 & 1.1 & Update section 6\\
+12/03/2023 & 1.1 & Update module decomposition\\
+15/03/2023 &1.2 & Update module hierarchy\\
 \bottomrule
 \end{tabularx}
 
@@ -160,15 +161,15 @@ change.
   hardware on which the software is running.
 \item[\refstepcounter{acnum} \actheacnum \label{acInput}:] The format of the
   initial input data.
- \item[\refstepcounter{acnum} \actheacnum \label{acInParam}:] The format of the
+ \item[\refstepcounter{acnum} \actheacnum \label{acParam}:] The format of the
   initial input parameters.
-  \item[\refstepcounter{acnum} \actheacnum \label{acInConstraint}:] The constraints on the input data.
+  \item[\refstepcounter{acnum} \actheacnum \label{acVerify}:] The constraints on the input data.
 \item[\refstepcounter{acnum} \actheacnum \label{acOutput}:] The format of the final output data.  
-\item[\refstepcounter{acnum} \actheacnum \label{acOutConstraint}:] The constraints on the output data.
-\item[\refstepcounter{acnum} \actheacnum \label{acDecompose}:] How to decompose forces according to input data of truss type.
-\item[\refstepcounter{acnum} \actheacnum \label{acEquations}:] How the equilibrium equations are defined from Input data.
-\item[\refstepcounter{acnum} \actheacnum \label{acSequence}:] The implementation of the sequence data structure.
-\item[\refstepcounter{acnum} \actheacnum \label{acDecompose}:] The algorithm used for the linear equation solver.
+\item[\refstepcounter{acnum} \actheacnum \label{acOutVeri}:] The constraints on the output data.
+\item[\refstepcounter{acnum} \actheacnum \label{acDecompos}:] How to decompose forces according to input data of truss type.
+\item[\refstepcounter{acnum} \actheacnum \label{acEq}:] How the equilibrium equations are defined from Input data.
+\item[\refstepcounter{acnum} \actheacnum \label{acSeq}:] The implementation of the sequence data structure.
+\item[\refstepcounter{acnum} \actheacnum \label{acLinalg}:] The algorithm used for the linear equation solver.
  
 \end{description}
 
@@ -201,16 +202,17 @@ actually be implemented.
 
 \begin{description}
 \item [\refstepcounter{mnum} \mthemnum \label{mHH}:] Hardware-Hiding Module
-\item [\refstepcounter{mnum} \mthemnum \label{InParam}:] Input parameters module
-\item [\refstepcounter{mnum} \mthemnum \label{InParam}:] Input verification module
-\item [\refstepcounter{mnum} \mthemnum \label{outfrmt}:] Output format module
-\item [\refstepcounter{mnum} \mthemnum \label{outverifi}:] Output verification module
-\item [\refstepcounter{mnum} \mthemnum \label{eqSR}:] Equilibrium equations for free body of truss module. 
-\item [\refstepcounter{mnum} \mthemnum \label{fdecomp}:] Force decomposing module
-\item [\refstepcounter{mnum} \mthemnum \label{eqALLj}:] Equilibrium equations for all joints module.
-\item [\refstepcounter{mnum} \mthemnum \label{cntrlm}:] Control module
-\item [\refstepcounter{mnum} \mthemnum \label{sds}:] Sequence data structure module
-\item [\refstepcounter{mnum} \mthemnum \label{linalg}:] linear equation solver module
+\item [\refstepcounter{mnum} \mthemnum \label{mIn}:] Input parameters module
+\item [\refstepcounter{mnum} \mthemnum \label{mparam}:] Input verification module
+\item [\refstepcounter{mnum} \mthemnum \label{mSpec}:] Specification parameters module 
+\item [\refstepcounter{mnum} \mthemnum \label{mout}:] Output format module
+\item [\refstepcounter{mnum} \mthemnum \label{mverify}:] Output verification module
+\item [\refstepcounter{mnum} \mthemnum \label{mreact}:] Support reaction equations module. 
+\item [\refstepcounter{mnum} \mthemnum \label{mdecomp}:] Force decomposing module
+\item [\refstepcounter{mnum} \mthemnum \label{minternal}:] \mbox{IF} equations module.
+\item [\refstepcounter{mnum} \mthemnum \label{mControl}:] Control module
+\item [\refstepcounter{mnum} \mthemnum \label{msds}:] Sequence data structure module
+\item [\refstepcounter{mnum} \mthemnum \label{mlinalg}:] linear equation solver module
 
 \end{description} 
 Not all of the above list will be implemented. Since M\ref{mHH} is already implemented in operating system. Also M\ref{sds} and  M\ref{linalg} are already implemented in Numpy and Scipy libraries of Python, respectively.
@@ -227,6 +229,7 @@ Not all of the above list will be implemented. Since M\ref{mHH} is already imple
 
 \multirow{7}{0.3\textwidth}{Behaviour-Hiding Module} & Input parameters module\\
 & Input verification module\\
+& Specification parameters module\\
 & Output format module\\
 & Output verification module\\
 & Equilibrium equations for free body of truss module. \\
@@ -260,8 +263,8 @@ module. The \emph{Services} field specifies \emph{what} the module will do
 without documenting \emph{how} to do it. For each module, a suggestion for the
 implementing software is given under the \emph{Implemented By} title. If the
 entry is \emph{OS}, this means that the module is provided by the operating
-system or by standard programming language libraries.  \emph{\progname{}} means the
-module will be implemented by the \progname{} software.
+system or by standard programming language libraries.  \emph{Truss Tool} means the
+module will be implemented by the Truss Tool software.
 
 Only the leaf modules in the hierarchy have to be implemented. If a dash
 (\emph{--}) is shown, this means that the module is not a leaf and will not have
@@ -287,21 +290,93 @@ to be implemented.
   documents. This module serves as a communication layer between the
   hardware-hiding module and the software decision module. The programs in this
   module will need to change if there are changes in the SRS.
-\item[Implemented By:] --
+\item[Implemented By:] Truss Tool
 \end{description}
 
-\subsubsection{Input Format Module (\mref{mInput})}
+\subsubsection{Input Format Module (\mref{mIn})}
 
 \begin{description}
 \item[Secrets:]The format and structure of the input data.
 \item[Services:]Converts the input data into the data structure used by the
   input parameters module.
-\item[Implemented By:] [Your Program Name Here]
+\item[Implemented By:] [Truss Tool]
 \item[Type of Module:] [Record, Library, Abstract Object, or Abstract Data Type]
   [Information to include for leaf modules in the decomposition by secrets tree.]
 \end{description}
 
-\subsubsection{Etc.}
+\subsubsection{Input verification module(\mref{mparam})}
+
+\begin{description}
+\item[Secrets:]The load and verify secrets are isolated from program.
+\item[Services:] Checks the input data complies with software constraints or not. if not, throws an exception with a proper message.
+\item[Implemented By:] [Truss Tool]
+\item[Type of Module:] [Record, Library, Abstract Object, or Abstract Data Type]
+  [Information to include for leaf modules in the decomposition by secrets tree.]
+\end{description}
+\subsubsection{Specification parameters module(\mref{mSpec})}
+
+\begin{description}
+\item[Secrets:]The values of the specification parameters and constants according to SRS.
+\item[Services:] Reads specifications.
+\item[Implemented By:] [Truss Tool]
+\item[Type of Module:] [Record]
+  [Information to include for leaf modules in the decomposition by secrets tree.]
+\end{description}
+\subsubsection{Format output module(\mref{mout})}
+
+\begin{description}
+\item[Secrets:]The format and structure of output.
+\item[Services:] Outputs results of support reaction and internal forces.
+\item[Implemented By:] [Truss Tool]
+\item[Type of Module:] [Record]
+  [Information to include for leaf modules in the decomposition by secrets tree.]
+\end{description}
+\subsubsection{Output verification module(\mref{mverify})}
+
+\begin{description}
+\item[Secrets:]The algorithm used to check correctness of results.
+\item[Services:] Verifies that the internal forces for the last joint is correct.
+\item[Implemented By:] [Truss Tool]
+\item[Type of Module:] [Record]
+  [Information to include for leaf modules in the decomposition by secrets tree.]
+\end{description}
+\subsubsection{Support reaction module(\mref{mreact})}
+
+\begin{description}
+\item[Secrets:]The algorithm used for calculation of support reactions.
+\item[Services:] Calculates equilibrium equation for support reaction and solve it by linear solver module.
+\item[Implemented By:] [Truss Tool]
+\item[Type of Module:] [Record]
+  [Information to include for leaf modules in the decomposition by secrets tree.]
+\end{description}
+\subsubsection{Force decomposition module(\mref{mdecomp})}
+
+\begin{description}
+\item[Secrets:]The algorithm used for decomposition of forces.
+\item[Services:] Decomposes internal forces in direction of X-axis and Y-axis.
+\item[Implemented By:] [Truss Tool]
+\item[Type of Module:] [Record]
+  [Information to include for leaf modules in the decomposition by secrets tree.]
+\end{description}
+\subsubsection{Internal Forces module(\mref{minternal})}
+
+\begin{description}
+\item[Secrets:]The algorithm used to create equilibrium equations for each joint.
+\item[Services:] Calculates all equilibrium equations needed to calculate internal forces of the truss. 
+\item[Implemented By:] [Truss Tool]
+\item[Type of Module:] [Record]
+  [Information to include for leaf modules in the decomposition by secrets tree.]
+\end{description}
+\subsubsection{Control module(\mref{mControl})}
+
+\begin{description}
+\item[Secrets:]The flow algorithm of the program.
+\item[Services:] Provides the main program.
+\item[Implemented By:] [Truss Tool]
+\item[Type of Module:] [Record]
+  [Information to include for leaf modules in the decomposition by secrets tree.]
+\end{description}
+
 
 
 \subsection{Software Decision Module}
@@ -316,8 +391,24 @@ to be implemented.
   % improve performance than by externally imposed changes.
 \item[Implemented By:] --
 \end{description}
+\subsubsection{Sequence data structure module(\mref{msds})}
 
-\subsubsection{Etc.}
+\begin{description}
+\item[Secrets:]The data structure used for sequences data type.
+\item[Services:] Provides array creation and modifications.
+\item[Implemented By:] [Numpy- Python]
+\item[Type of Module:] [Library]
+ 
+\end{description}
+\subsubsection{Linear equation solver(\mref{mlinalg})}
+
+\begin{description}
+\item[Secrets:]The algorithm used for solve a linear equation.
+\item[Services:] Solves a linear equation given by a Gaussian matrix and a vector.
+\item[Implemented By:] [Scipy- Python]
+\item[Type of Module:] [Library]
+  
+\end{description}
 
 \section{Traceability Matrix} \label{SecTM}
 
@@ -332,17 +423,11 @@ requirements and between the modules and the anticipated changes.
 \toprule
 \textbf{Req.} & \textbf{Modules}\\
 \midrule
-R1 & \mref{mHH}, \mref{mInput}, \mref{mParams}, \mref{mControl}\\
-R2 & \mref{mInput}, \mref{mParams}\\
-R3 & \mref{mVerify}\\
-R4 & \mref{mOutput}, \mref{mControl}\\
-R5 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}, \mref{mSeqDS}, \mref{mSolver}, \mref{mPlot}\\
-R6 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}, \mref{mSeqDS}, \mref{mSolver}, \mref{mPlot}\\
-R7 & \mref{mOutput}, \mref{mEnergy}, \mref{mControl}, \mref{mSeqDS}, \mref{mPlot}\\
-R8 & \mref{mOutput}, \mref{mEnergy}, \mref{mControl}, \mref{mSeqDS}, \mref{mPlot}\\
-R9 & \mref{mVerifyOut}\\
-R10 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}\\
-R11 & \mref{mOutput}, \mref{mODEs}, \mref{mEnergy}, \mref{mControl}\\
+R1 & \mref{mHH}, \mref{mIn}, \mref{mparam}, \mref{mControl}\\
+R2 & \mref{mIn},\mref{mSpec}, \mref{mparam},,\mref{mout},\mref{mControl}\\
+R3 & \mref{mreact},,\mref{mlinalg},\mref{msds},\mref{mControl}\\
+R4 & \mref{mout},\mref{mdecomp}, \mref{minternal},\mref{mverify},\mref{mControl},\mref{msds},\mref{mlinalg}\\
+
 \bottomrule
 \end{tabular}
 \caption{Trace Between Requirements and Modules}
@@ -356,17 +441,15 @@ R11 & \mref{mOutput}, \mref{mODEs}, \mref{mEnergy}, \mref{mControl}\\
 \textbf{AC} & \textbf{Modules}\\
 \midrule
 \acref{acHardware} & \mref{mHH}\\
-\acref{acInput} & \mref{mInput}\\
-\acref{acParams} & \mref{mParams}\\
-\acref{acVerify} & \mref{mVerify}\\
-\acref{acOutput} & \mref{mOutput}\\
-\acref{acVerifyOut} & \mref{mVerifyOut}\\
-\acref{acODEs} & \mref{mODEs}\\
-\acref{acEnergy} & \mref{mEnergy}\\
-\acref{acControl} & \mref{mControl}\\
-\acref{acSeqDS} & \mref{mSeqDS}\\
-\acref{acSolver} & \mref{mSolver}\\
-\acref{acPlot} & \mref{mPlot}\\
+\acref{acInput} & \mref{mIn}\\
+\acref{acParam} & \mref{mparam}\\
+\acref{acVerify} & \mref{mverify}\\
+\acref{acOutput} & \mref{mout}\\
+\acref{acOutVeri} & \mref{mverify}\\
+\acref{acDecompos} & \mref{mdecomp}\\
+\acref{acEq} & \mref{mreact},\mref{minternal}\\
+\acref{acSeq} & \mref{msds}\\
+\acref{acLinalg} & \mref{mlinalg}\\
 \bottomrule
 \end{tabular}
 \caption{Trace Between Anticipated Changes and Modules}
@@ -388,7 +471,7 @@ because they use modules from the lower levels.
 
 \begin{figure}[H]
 \centering
-%\includegraphics[width=0.7\textwidth]{UsesHierarchy.png}
+\includegraphics[width=0.7\textwidth]{mg.png}
 \caption{Use hierarchy among modules}
 \label{FigUH}
 \end{figure}
@@ -396,7 +479,7 @@ because they use modules from the lower levels.
 %\section*{References}
 
 \bibliographystyle {plainnat}
-\bibliography{../../../refs/References}
+\bibliography {refs/References.bib}
 
 \newpage{}
 
