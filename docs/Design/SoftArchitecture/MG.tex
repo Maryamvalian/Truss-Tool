@@ -47,6 +47,7 @@
 11/03/2023 & 1.0 & Draft version\\
 12/03/2023 & 1.1 & Update module decomposition\\
 15/03/2023 &1.2 & Update module hierarchy\\
+16/03/2023 &1.3 & Update after presentation feedback\\
 \bottomrule
 \end{tabularx}
 
@@ -300,7 +301,7 @@ to be implemented.
 \item[Services:]Converts the input data into the data structure used by the
   input parameters module.
 \item[Implemented By:] [Truss Tool]
-\item[Type of Module:] [Record, Library, Abstract Object, or Abstract Data Type]
+\item[Type of Module:] [Abstract Data Type]
   [Information to include for leaf modules in the decomposition by secrets tree.]
 \end{description}
 
@@ -310,7 +311,7 @@ to be implemented.
 \item[Secrets:]The load and verify secrets are isolated from program.
 \item[Services:] Checks the input data complies with software constraints or not. if not, throws an exception with a proper message.
 \item[Implemented By:] [Truss Tool]
-\item[Type of Module:] [Record, Library, Abstract Object, or Abstract Data Type]
+\item[Type of Module:] [ Abstract Data Type]
   [Information to include for leaf modules in the decomposition by secrets tree.]
 \end{description}
 \subsubsection{Specification parameters module(\mref{mSpec})}
@@ -328,7 +329,7 @@ to be implemented.
 \item[Secrets:]The format and structure of output.
 \item[Services:] Outputs results of support reaction and internal forces.
 \item[Implemented By:] [Truss Tool]
-\item[Type of Module:] [Record]
+\item[Type of Module:] [Abstract Data Type]
   [Information to include for leaf modules in the decomposition by secrets tree.]
 \end{description}
 \subsubsection{Output verification module(\mref{mverify})}
@@ -337,7 +338,7 @@ to be implemented.
 \item[Secrets:]The algorithm used to check correctness of results.
 \item[Services:] Verifies that the internal forces for the last joint is correct.
 \item[Implemented By:] [Truss Tool]
-\item[Type of Module:] [Record]
+\item[Type of Module:] [Abstract Data Type]
   [Information to include for leaf modules in the decomposition by secrets tree.]
 \end{description}
 \subsubsection{Support reaction module(\mref{mreact})}
@@ -346,7 +347,7 @@ to be implemented.
 \item[Secrets:]The algorithm used for calculation of support reactions.
 \item[Services:] Calculates equilibrium equation for support reaction and solve it by linear solver module.
 \item[Implemented By:] [Truss Tool]
-\item[Type of Module:] [Record]
+\item[Type of Module:] [Abstract Data Type]
   [Information to include for leaf modules in the decomposition by secrets tree.]
 \end{description}
 \subsubsection{Force decomposition module(\mref{mdecomp})}
@@ -355,7 +356,7 @@ to be implemented.
 \item[Secrets:]The algorithm used for decomposition of forces.
 \item[Services:] Decomposes internal forces in direction of X-axis and Y-axis.
 \item[Implemented By:] [Truss Tool]
-\item[Type of Module:] [Record]
+\item[Type of Module:] [Abstract Data Type]
   [Information to include for leaf modules in the decomposition by secrets tree.]
 \end{description}
 \subsubsection{Internal Forces module(\mref{minternal})}
@@ -364,7 +365,7 @@ to be implemented.
 \item[Secrets:]The algorithm used to create equilibrium equations for each joint.
 \item[Services:] Calculates all equilibrium equations needed to calculate internal forces of the truss. 
 \item[Implemented By:] [Truss Tool]
-\item[Type of Module:] [Record]
+\item[Type of Module:] [Abstract Data Type]
   [Information to include for leaf modules in the decomposition by secrets tree.]
 \end{description}
 \subsubsection{Control module(\mref{mControl})}
@@ -373,7 +374,7 @@ to be implemented.
 \item[Secrets:]The flow algorithm of the program.
 \item[Services:] Provides the main program.
 \item[Implemented By:] [Truss Tool]
-\item[Type of Module:] [Record]
+\item[Type of Module:] [Abstract Data Type]
   [Information to include for leaf modules in the decomposition by secrets tree.]
 \end{description}
 
