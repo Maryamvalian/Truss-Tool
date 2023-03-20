@@ -51,7 +51,9 @@ urlcolor=cyan          % color of external links
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
 16/03/2023 & 1.0 & Initial Draft\\
-17/03/2023 & 1.1 & Update\\
+17/03/2023 & 1.1 & Update Control module\\
+19/03/2023 & 1.2 & Update formulas\\
+20/03/2023 & 1.3 & Update other modules\\
 \bottomrule
 \end{tabularx}
 
@@ -133,9 +135,9 @@ The following table is taken directly from the Module Guide document for this pr
 & Specification parameters module\\
 & Output format module\\
 & Output verification module\\
-& Equilibrium equations for free body of truss module. \\
+& Support reactions module. \\
 & Force decomposing module\\
-& Equilibrium equations for all joints module.\\
+& Internal force module\\
 & Control module\\ 
 
 \midrule
@@ -180,7 +182,22 @@ Main & - & - & - \\
 \subsection{Semantics}
 
 \subsubsection{State Variables}
-None.
+$\#$ from R1 and R2:\\
+$n$ : $\mathbb{N}$ \\
+$m$ : $\mathbb{N}$ \\
+$J_n$ : $\mathbb{R}$ \\
+$M_m$ : $\mathbb{N}$ \\
+$F_m$ : $\mathbb{R}$ \\
+$sp$ : $\mathbb{N}$ \\
+$sr$ : $\mathbb{N}$ \\
+\newline
+$\#$ from R3:\\
+$px$ : $\mathbb{R}$ \\
+$py$ : $\mathbb{R}$ \\
+$ry$ : $\mathbb{R}$ \\
+\newline
+$\#$ from R4:\\
+$I_m$ : $\mathbb{R}$ \\
 
 \subsubsection{Environment Variables}
 
@@ -195,14 +212,47 @@ The path and the name of the given input file are correct.
 \noindent Main():  
 \begin{itemize}
 \item transition: Modifies the state of the Input module and the environment variables for the Output modules by following these steps:
-\item output: 
+
+Get (filename: String) from user which indicates input file.
+LoadParams(filename).
+\#\textit{Find Support reactions $(P_x,P_y,R_y)$}\\
+$P_x=-\sum F_x$\\
+\[A=
+   \left[ {\begin{array}{cc}
+    1 & 1 \\
+    J_x(sp) & J_x(sr) \\
+  \end{array} } \right]\]
+\[B=
+   \left[ {\begin{array}{cc}
+    -\sum F_y(i) \\
+    -\sum (J_x(i)* F_y(i))  \\
+  \end{array} } \right]
+\]\\ 
+$(P_y,R_y) = Solve(A,B)$\\
+
+\#\textit{Find Internal Forces $I_m$}\\
+$\theta= Decomp (n,m,J,M)$\\
+
+\#\textit{Compute $a_{ij},b_j$ elements of $A,B$} from equilibrium equations:\\
+$a_{ij}=I_m*\cos\theta_{m},b_j=\sum_x \textit{All forces and reactions at j}$\\
+or\\
+$a_{ij}=I_m*\sin\theta_{m},b_j=\sum_y \textit{All forces and reactions at j}$\\
+
+$I=Solve(A,B)$
+
+\#\textit{Output $P_x,P_y,R_y,I$}\\
+
+verify-Output($P_x,P_y,R_y,I$)\\
+output(file-name,$P_x,P_y,R_y,I$)\\
+
+\item output: output file
 \item exception:  Input file not found
 \end{itemize}
 
 \subsubsection{Local Functions}
 
 None.
-
+%----------------------------------------------------------------
 \section{MIS of Input Module \label{mInput} }
 
 \subsection{Module}
@@ -254,14 +304,7 @@ $M_m$ : $\mathbb{N}$ \\
 $F_m$ : $\mathbb{R}$ \\
 $sp$ : $\mathbb{N}$ \\
 $sr$ : $\mathbb{N}$ \\
-\newline
-$\#$ from R3:\\
-$px$ : $\mathbb{R}$ \\
-$py$ : $\mathbb{R}$ \\
-$ry$ : $\mathbb{R}$ \\
-\newline
-$\#$ from R4:\\
-$I_m$ : $\mathbb{R}$ \\
+
 
 
 
@@ -270,26 +313,282 @@ $I_m$ : $\mathbb{R}$ \\
 InputFile: sequence of strings in the text file.
 
 \subsubsection{Assumptions}
-
-load_params will be called before the values of any state variables will be accessed.
-
-The file contains the string equivalents of the numeric values for each input parameter
-in order, each on a new line.
-
-
-
+\begin{itemize}
+    \item {Load parameters will be called before the values of any state variables will be accessed.}
+    \item{The file contains the string equivalents of the numeric values for each input parameter. The order is important.}
+\end{itemize}
 \subsubsection{Access Routine Semantics}
 
-\noindent Main():  
+\noindent Load-Parameter():  
 \begin{itemize}
-\item transition: Modifies the state of the Input module and the environment variables for the Output modules by following these steps:
-\item output: 
-\item exception:  Input file not found
+\item transition: Modifies the state variables from the input file:
+\begin{itemize}
+    \item Read sequentially from file and loads state variables from R1 and R2.
+    \item verify-input()
+\end{itemize}
+\item output: None 
+\item exception:  file-Error, input-type-mismatch-Error
 \end{itemize}
 
-\subsubsection{Local Functions}
+\noindent Verify-Input():
+\begin{itemize}
+\item transition: Modifies the state variables from the input file:
+\begin{itemize}
+    \item Read constants from specification module.
+    \item Check constraints as follows:
+    \begin{table}[!h]
+\caption{Constraint check table} \label{TblSpecParams}
+\renewcommand{\arraystretch}{1.2}
+\noindent \begin{longtable*}{l l} 
+  \toprule
+  \textbf{Constraint} & \textbf{Error} \\
+  \midrule 
+  $n_{min}$ \leq $n$ \leq $n_{max} $ & BadInputSize \\
+  $m_{min}$ \leq $m$ \leq $m_{max} $ & BadInputSize \\
+  $m < n$ & BadInputSize\\
+  $|J|$ \neq $n$ & InconsistentInput\\
+  $|M|$ \neq $m$ & InconsistentInput\\
+  $|F|$ \neq $n$ & InconsistentInput\\
+  
+  $J_{min} \leq J_j \leq J_{max} $ & BadInputSize \\
+  $F_{min}$ \leq $F_j$ \leq $F_{max} $ & BadInputSize \\
+  $M_{j,0}=M_{j,1}$ & BadMember\\
+  $Sp>n,Sp<0$ & Badsupport\\
+  $Sr>n, Sr<0$ & BadSupport\\
+  $Sp=Sr=0$& NoSupportDefined\\
+  \bottomrule
+\end{longtable*}
+\end{table}
+\end{itemize}
+\item output: None 
+\item exception:  Bad-parameters-Error
+\end{itemize}
+%---------------------------------------------------------
+\section{MIS of Specification Parameters \label{mSpec} }
 
+\subsection{Module}
+
+Specification
+
+\subsection{Uses}
 None.
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+$\#$ From Table.2 SRS: \\
+$n_{min}:=3$\\
+$n_{max}:=20$\\
+$m_{min}:=3$\\
+$m_{max}:=30$\\
+$J_{max}(i,j):=200$\\
+$J_{min}(i,j):=0$\\
+$F_{max}:=35000$\\
+$F_{min}:=-35000$\\
+
+
+
+\subsubsection{Exported Access Programs}
+N/A
+\subsection{Semantics}
+\subsubsection{State Variables}
+N/A
+
+\subsubsection{Environment Variables}
+N/A
+%***************************************************************
+\subsection{MIS of Support Reaction Module \label{mSpec} }
+
+\subsection{Module}
+
+React
+
+\subsection{Uses}
+Sequence data structure module.\\
+linear equation solver module.\\
+
+\subsection{Syntax}
+\begin{tabular}{p{3cm} p{1cm} p{1cm} >{\raggedright\arraybackslash}p{9cm}}
+\toprule
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\midrule
+React & params & reacts &  ReactionFailed Error \\
+
+$n$ &  $\mathbb{N}$&-\\
+$F_j$ &  $\mathbb{R}$&-\\
+$J_j$ &  $\mathbb{R}$&-\\
+$Sp$ &  $\mathbb{N}$&-\\
+$Sr$ &  $\mathbb{N}$ &-\\
+$P_x$ & - & $\mathbb{R}$\\
+$P_y$ & - & $\mathbb{R}$\\
+$R_y$ & - & $\mathbb{R}$\\
+
+\bottomrule
+\end{tabular}
+\subsubsection{Exported Constants}
+N/A
+\subsubsection{Exported Access Programs}
+\begin{center}
+\begin{tabular}{p{2cm} p{4cm} p{4cm} p{2cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+React& $(J,F: array of real,sp,sr: Integer)$ & $(P_x,P_y,R_y: Real)$ & ReactFailed \\
+\hline
+\end{tabular}
+\end{center}
+\subsection{Semantics}
+\subsubsection{State Variables}
+None.
+
+\subsubsection{Environment Variables}
+N/A
+
+\subsubsection{Assumptions}
+None.
+\subsubsection{Access Routine Semantics}
+\begin{itemize}
+    \item Output: \\
+    $Out:=P_x=-\sum F_x$\\
+\[A=
+   \left[ {\begin{array}{cc}
+    1 & 1 \\
+    J_x(sp) & J_x(sr) \\
+  \end{array} } \right]\]
+\[B=
+   \left[ {\begin{array}{cc}
+    -\sum F_y(i) \\
+    -\sum (J_x(i)* F_y(i))  \\
+  \end{array} } \right]
+\]\\ 
+$Out:=(P_y,R_y) = Solve(A,B)$\\
+
+\end{itemize}
+
+%------------------------------------------------------------------
+\section{MIS of Internal Forces Module\label{mSpec} }
+
+\subsection{Module}
+
+Internal
+
+\subsection{Uses}
+Force decomposing module\\
+Sequence data structure module\\
+linear equation solver module\\
+
+
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+N/A
+\subsubsection{Exported Access Programs}
+\begin{center}
+\begin{tabular}{p{2cm} p{4cm} p{4cm} p{2cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+Decomp & $\theta(M_{m}):\mathbb{R}^{2} \rightarrow \mathbb{R}$  &$\Theta_m$ & decompFailed \\
+Internal & $I_m(F_j,\theta_m):\mathbb{R}*\mathbb{R}^{2} \rightarrow \mathbb{R}$  &$I_m$ & InternalFailed \\
+\hline
+\end{tabular}
+\end{center}
+\subsection{Semantics}
+\subsubsection{State Variables}
+N/A
+
+\subsubsection{Environment Variables}
+N/A
+
+\subsubsection{Assumptions}
+None.
+\subsubsection{Access Routine Semantics}
+\begin{itemize}
+    \item Output: $Out:=I$ where:\\
+    
+    $a_{ij}=I_m*\cos\theta_{m},b_j=\sum_x \textit{All forces and reactions at j}$\\
+or\\
+$a_{ij}=I_m*\sin\theta_{m},b_j=\sum_y \textit{All forces and reactions at j}$\\
+
+$I=Solve(A,B)$\\
+\end{itemize}
+%----------------------------------------------------------------
+\subsection{MIS of Output Verification Module \label{mSpec} }
+
+\subsection{Module}
+
+verify-out
+
+\subsection{Uses}
+None.
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+\subsubsection{Exported Access Programs}
+\begin{center}
+\begin{tabular}{p{2cm} p{4cm} p{4cm} p{2cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+
+Verify-0ut & $check(I_m,J_j):\mathbb{R}*\mathbb{R} \rightarrow {Boolean}$  & Valid/NotValid & verifyFailed \\
+\hline
+\end{tabular}
+\end{center}
+\subsection{Semantics}
+\subsubsection{State Variables}
+N/A
+
+\subsubsection{Environment Variables}
+N/A
+
+\subsubsection{Assumptions}
+None.
+\subsubsection{Access Routine Semantics}
+\begin{itemize}
+    \item Exception: Exep:=($\sum { (I_m(n) + F_m(n), P_x(n),P_y(n),R_y(n))} \neq 0)$ \Rightarrow VerifyFailed
+\end{itemize}
+\subsubsection{Assumptions}
+None.
+
+%-------------------------------------------------------------------
+\subsection{MIS of Output Module \label{mSpec} }
+
+\subsection{Module}
+
+Output
+
+\subsection{Uses}
+None.
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+
+output file name.
+\subsubsection{Exported Access Programs}
+N/A
+\subsection{Semantics}
+\subsubsection{State Variables}
+N/A
+
+\subsubsection{Environment Variables}
+output file
+
+\subsubsection{Assumptions}
+None.
+
+\subsection{}{Assumptions}
+None.
+\subsubsection{Access Routine Semantics}
+\begin{itemize}
+    \item transition: Write to file the following: the input 
+parameters from Param, and the calculated values $I_m, P_x,P_y,R_y$. 
+
+\end{itemize}
+
 
 \newpage
 
