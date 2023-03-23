@@ -54,6 +54,7 @@ urlcolor=cyan          % color of external links
 17/03/2023 & 1.1 & Update Control module\\
 19/03/2023 & 1.2 & Update formulas\\
 20/03/2023 & 1.3 & Update other modules\\
+23/03/2023 & 1.4 & Update based on first Reviewer Feedback\\
 \bottomrule
 \end{tabularx}
 
@@ -335,7 +336,7 @@ InputFile: sequence of strings in the text file.
 \item transition: Modifies the state variables from the input file:
 \begin{itemize}
     \item Read constants from specification module.
-    \item Check constraints as follows:
+    \item Check constraints given in Table \ref{TblSpecParams}.
     \begin{table}[!h]
 \caption{Constraint check table} \label{TblSpecParams}
 \renewcommand{\arraystretch}{1.2}
@@ -389,13 +390,13 @@ $F_{min}:=-35000$\\
 
 
 \subsubsection{Exported Access Programs}
-N/A
+
 \subsection{Semantics}
 \subsubsection{State Variables}
-N/A
+None.
 
 \subsubsection{Environment Variables}
-N/A
+None.
 %***************************************************************
 \subsection{MIS of Support Reaction Module \label{mSpec} }
 
@@ -426,7 +427,7 @@ $R_y$ & - & $\mathbb{R}$\\
 \bottomrule
 \end{tabular}
 \subsubsection{Exported Constants}
-N/A
+None.
 \subsubsection{Exported Access Programs}
 \begin{center}
 \begin{tabular}{p{2cm} p{4cm} p{4cm} p{2cm}}
@@ -442,7 +443,7 @@ React& $(J,F: array of real,sp,sr: Integer)$ & $(P_x,P_y,R_y: Real)$ & ReactFail
 None.
 
 \subsubsection{Environment Variables}
-N/A
+None.
 
 \subsubsection{Assumptions}
 None.
@@ -482,7 +483,7 @@ linear equation solver module\\
 \subsection{Syntax}
 
 \subsubsection{Exported Constants}
-N/A
+None.
 \subsubsection{Exported Access Programs}
 \begin{center}
 \begin{tabular}{p{2cm} p{4cm} p{4cm} p{2cm}}
@@ -496,10 +497,10 @@ Internal & $I_m(F_j,\theta_m):\mathbb{R}*\mathbb{R}^{2} \rightarrow \mathbb{R}$ 
 \end{center}
 \subsection{Semantics}
 \subsubsection{State Variables}
-N/A
+None.
 
 \subsubsection{Environment Variables}
-N/A
+None.
 
 \subsubsection{Assumptions}
 None.
@@ -526,6 +527,7 @@ None.
 \subsection{Syntax}
 
 \subsubsection{Exported Constants}
+None.
 \subsubsection{Exported Access Programs}
 \begin{center}
 \begin{tabular}{p{2cm} p{4cm} p{4cm} p{2cm}}
@@ -539,10 +541,10 @@ Verify-0ut & $check(I_m,J_j):\mathbb{R}*\mathbb{R} \rightarrow {Boolean}$  & Val
 \end{center}
 \subsection{Semantics}
 \subsubsection{State Variables}
-N/A
+None.
 
 \subsubsection{Environment Variables}
-N/A
+None.
 
 \subsubsection{Assumptions}
 None.
@@ -569,10 +571,10 @@ None.
 
 output file name.
 \subsubsection{Exported Access Programs}
-N/A
+None.
 \subsection{Semantics}
 \subsubsection{State Variables}
-N/A
+None.
 
 \subsubsection{Environment Variables}
 output file

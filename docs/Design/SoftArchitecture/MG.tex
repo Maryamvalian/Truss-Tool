@@ -48,6 +48,7 @@
 12/03/2023 & 1.1 & Update module decomposition\\
 15/03/2023 &1.2 & Update module hierarchy\\
 16/03/2023 &1.3 & Update after presentation feedback\\
+23/03/2023 &1.4 & Update based on First reviewer feedback\\
 \bottomrule
 \end{tabularx}
 
@@ -187,7 +188,7 @@ decisions will be changed.
 \item[\refstepcounter{ucnum} \uctheucnum \label{ucIO}:] Input/Output devices
   (Input: File and/or Keyboard, Output: File, Memory, and/or Screen).
   \item[\refstepcounter{ucnum} \uctheucnum \label{ucExternalIn}:] 
-  An External source of input data should be provided for the software.
+  An external source of input data should be provided for the software.
   \item[\refstepcounter{ucnum} \uctheucnum \label{ucDispaly}:] The output data are always displayed at the output devices.
   \item[\refstepcounter{ucnum} \uctheucnum \label{ucGoal}:] The goal of the system is to calculate support reactions and internal forces for each member.
   \item[\refstepcounter{ucnum} \uctheucnum \label{ucGoal}:] The equilibrium equations can be defined using parameters defined in the input parameter module. 
@@ -216,7 +217,7 @@ actually be implemented.
 \item [\refstepcounter{mnum} \mthemnum \label{mlinalg}:] linear equation solver module
 
 \end{description} 
-Not all of the above list will be implemented. Since M\ref{mHH} is already implemented in operating system. Also M\ref{sds} and  M\ref{linalg} are already implemented in Numpy and Scipy libraries of Python, respectively.
+Not all of the above list will be implemented. Since M\ref{mHH} is already implemented in operating system. Also M\ref{msds} and  M\ref{mlinalg} are already implemented in Numpy and Scipy libraries of Python, respectively.
 
 \begin{table}[h!]
 \centering
@@ -308,7 +309,7 @@ to be implemented.
 \subsubsection{Input verification module(\mref{mparam})}
 
 \begin{description}
-\item[Secrets:]The load and verify secrets are isolated from program.
+\item[Secrets:] The algorithm of the verification is isolated from the program.
 \item[Services:] Checks the input data complies with software constraints or not. if not, throws an exception with a proper message.
 \item[Implemented By:] [Truss Tool]
 \item[Type of Module:] [ Abstract Data Type]
@@ -318,7 +319,7 @@ to be implemented.
 
 \begin{description}
 \item[Secrets:]The values of the specification parameters and constants according to SRS.
-\item[Services:] Reads specifications.
+\item[Services:] Read access for the specification parameters.
 \item[Implemented By:] [Truss Tool]
 \item[Type of Module:] [Record]
   [Information to include for leaf modules in the decomposition by secrets tree.]
@@ -344,8 +345,8 @@ to be implemented.
 \subsubsection{Support reaction module(\mref{mreact})}
 
 \begin{description}
-\item[Secrets:]The algorithm used for calculation of support reactions.
-\item[Services:] Calculates equilibrium equation for support reaction and solve it by linear solver module.
+\item[Secrets:]The algorithm used for the calculation of support reactions.
+\item[Services:] Creates equilibrium equations  and solves them by linear solver module.
 \item[Implemented By:] [Truss Tool]
 \item[Type of Module:] [Abstract Data Type]
   [Information to include for leaf modules in the decomposition by secrets tree.]
@@ -371,7 +372,7 @@ to be implemented.
 \subsubsection{Control module(\mref{mControl})}
 
 \begin{description}
-\item[Secrets:]The flow algorithm of the program.
+\item[Secrets:]The algorithm for coordinating the running of the program.
 \item[Services:] Provides the main program.
 \item[Implemented By:] [Truss Tool]
 \item[Type of Module:] [Abstract Data Type]
@@ -395,7 +396,7 @@ to be implemented.
 \subsubsection{Sequence data structure module(\mref{msds})}
 
 \begin{description}
-\item[Secrets:]The data structure used for sequences data type.
+\item[Secrets:]The data structure  for a sequence data type.
 \item[Services:] Provides array creation and modifications.
 \item[Implemented By:] [Numpy- Python]
 \item[Type of Module:] [Library]
@@ -404,8 +405,8 @@ to be implemented.
 \subsubsection{Linear equation solver(\mref{mlinalg})}
 
 \begin{description}
-\item[Secrets:]The algorithm used for solve a linear equation.
-\item[Services:] Solves a linear equation given by a Gaussian matrix and a vector.
+\item[Secrets:]The algorithm used for solving a linear equation.
+\item[Services:] Solves a linear equation.
 \item[Implemented By:] [Scipy- Python]
 \item[Type of Module:] [Library]
   
@@ -424,10 +425,10 @@ requirements and between the modules and the anticipated changes.
 \toprule
 \textbf{Req.} & \textbf{Modules}\\
 \midrule
-R1 & \mref{mHH}, \mref{mIn}, \mref{mparam}, \mref{mControl}\\
-R2 & \mref{mIn},\mref{mSpec}, \mref{mparam},,\mref{mout},\mref{mControl}\\
-R3 & \mref{mreact},,\mref{mlinalg},\mref{msds},\mref{mControl}\\
-R4 & \mref{mout},\mref{mdecomp}, \mref{minternal},\mref{mverify},\mref{mControl},\mref{msds},\mref{mlinalg}\\
+R1 & \mref{mHH},\mref{mSpec} \mref{mIn}, \mref{mparam}, \mref{mControl}\\
+R2 & \mref{mHH},\mref{mout},\mref{mControl}\\
+R3 & \mref{mout},\mref{mverify},\mref{mreact},\mref{mdecomp},\mref{minternal},\mref{mControl},\mref{msds},\mref{mlinalg}\\
+R4 & \mref{mverify},\mref{mControl} \\
 
 \bottomrule
 \end{tabular}
