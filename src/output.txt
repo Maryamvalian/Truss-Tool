@@ -1,10 +1,8 @@
 Truss Results:
  Pinned Support X-direction reaction=-0.0
- Pinned Support Y-directed reaction =0.0
- Roller Support Y-directed reaction =-10.0
+ Pinned Support Y-directed reaction =25.0
+ Roller Support Y-directed reaction =25.0
  Internal Forces: 
-[[ 0.]
- [-0.]
- [10.]
- [-0.]
- [ 0.]]
+[[-35.36]
+ [ 25.  ]
+ [-35.36]]

@@ -8,8 +8,8 @@ def valid(px,py,ry,I,n,m,J,M,p,r,F):
     #Check Validation in the final jonit n
     for i in range (1,m+1):
         if M[i][0]==n or M[i][1]==n:
-            sumx+=I[n]*math.cos(angles[n])
-            sumy+=I[n]*math.sin(angles[n])
+            sumx+=I[n-1]*math.cos(angles[n])
+            sumy+=I[n-1]*math.sin(angles[n])
     if (p==n):
         sumx+=px
         sumy+=py

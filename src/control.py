@@ -13,7 +13,7 @@ f.close()
 
 #input verification
 check=Inputs.verify(n,m,J,M ,F ,p,r)
-if (check==False):
+if (check==True):
     raise Exception("Bad Input Parameter")
 
 #mirror input 
