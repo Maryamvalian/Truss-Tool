@@ -1,4 +1,48 @@
 import numpy as np
+import specif
+
+def verify(n,m,J,M ,F ,p,r):
+    flag=True
+    if (n<specif.constants.n_min):
+        flag=False
+    if (n>specif.constants.n_max):
+        flag=False    
+    if (m<specif.constants.m_min):
+        flag=False    
+    if (m>specif.constants.m_max):
+        flag=False    
+    for i in range (0,n):
+        if (F[i][0]<specif.constants.f_min):
+            flag=False    
+        if (F[i][1]<specif.constants.f_min): 
+            flag=False
+        if (F[i][0]>specif.constants.f_max):
+            flag=False    
+        if (F[i][1]>specif.constants.f_max): 
+            flag=False     
+        if (J[i][0]<specif.constants.d_min):
+            flag=False    
+        if (J[i][1]<specif.constants.d_min): 
+            flag=False
+        if (J[i][0]>specif.constants.d_max):
+            flag=False    
+        if (J[i][1]>specif.constants.f_max): 
+            flag=False         
+    if (n>m):
+        flag=False    
+    if (p>n):
+        flag=False    
+    if (r>n):
+        flag=False    
+    if ((p==0) and (r==0)):
+        flag=False    
+    
+
+
+
+    return flag
+
+
 
 def getfile(f):
     f.readline()
