@@ -1,0 +1,24 @@
+# Count Of Joints
+4
+# Joints Location
+0 0
+1 1
+1 0
+2 0
+# Members number
+5
+#Members
+1 1
+3 3
+2 3
+2 4
+3 4
+# External Forces (N)
+0 0
+0 0
+0 10
+0 0
+# Pinned Suport joint index
+1
+#Roller Support joint index
+2

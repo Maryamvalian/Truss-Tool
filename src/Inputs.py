@@ -1,7 +1,7 @@
 import numpy as np
 import specif
 
-def verify(n,m,J,M ,F ,p,r):
+def verify(n,m,J,M,F,p,r):
     flag=True
     if (n<specif.constants.n_min):
         flag=False
@@ -26,7 +26,7 @@ def verify(n,m,J,M ,F ,p,r):
             flag=False
         if (J[i][0]>specif.constants.d_max):
             flag=False    
-        if (J[i][1]>specif.constants.f_max): 
+        if (J[i][1]>specif.constants.d_max): 
             flag=False         
     if (n>m):
         flag=False    
@@ -36,7 +36,9 @@ def verify(n,m,J,M ,F ,p,r):
         flag=False    
     if ((p==0) and (r==0)):
         flag=False    
-    
+    for i in range (0,n):
+        if (M[i][0]==M[i][1]):
+            flag=False    
 
 
 
@@ -73,4 +75,4 @@ def getfile(f):
     f.readline()
     r=int(f.readline())
 
-    return n,m,J,M ,F ,p,r 
+    return n,m,J,M,F,p,r 

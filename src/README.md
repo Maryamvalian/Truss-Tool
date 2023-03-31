@@ -1,14 +1,13 @@
-# Truss Tool Source Code
+# Running Truss Tool
 
-The folders and files for this project are as follows:
+First, make sure python 3.8 (or aboved) is installed. Then, open a terminal and follow the steps:
+1. Go to the directory where the codes are saved.
+2. Set inputs in the **input.txt** file.
+3. Run the command to execute Truss Tool: <br/>
+```python Control.py input.txt```
+4. If the input sets are valid, an **output.txt** file will be generated.
+5. To test Truss Tool, run <br/>
+```Pytest```<br/>
+(Pytest Will Automatically find all test functions and run them)
 
-<ol> 
- <li> input.txt </li>
-<li> Inputs.py </li>
-<li> control.py </li>
-<li> CalculateReact.py </li>
-</ol>
-<hr>
-<h4>How to Run the code:</h4>
-python control.py input.txt
 
