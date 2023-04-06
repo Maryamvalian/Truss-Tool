@@ -3,30 +3,30 @@ import specif
 
 def verify(n,m,J,M,F,p,r):
     flag=True
-    if (n<specif.constants.n_min):
+    if (n<specif.constants.N_MIN):
         flag=False
-    if (n>specif.constants.n_max):
+    if (n>specif.constants.N_MAX):
         flag=False    
-    if (m<specif.constants.m_min):
+    if (m<specif.constants.M_MIN):
         flag=False    
-    if (m>specif.constants.m_max):
+    if (m>specif.constants.M_MAX):
         flag=False    
     for i in range (0,n):
-        if (F[i][0]<specif.constants.f_min):
+        if (F[i][0]<specif.constants.F_MIN):
             flag=False    
-        if (F[i][1]<specif.constants.f_min): 
+        if (F[i][1]<specif.constants.F_MIN): 
             flag=False
-        if (F[i][0]>specif.constants.f_max):
+        if (F[i][0]>specif.constants.F_MAX):
             flag=False    
-        if (F[i][1]>specif.constants.f_max): 
+        if (F[i][1]>specif.constants.F_MAX): 
             flag=False     
-        if (J[i][0]<specif.constants.d_min):
+        if (J[i][0]<specif.constants.D_MIN):
             flag=False    
-        if (J[i][1]<specif.constants.d_min): 
+        if (J[i][1]<specif.constants.D_MIN): 
             flag=False
-        if (J[i][0]>specif.constants.d_max):
+        if (J[i][0]>specif.constants.D_MAX):
             flag=False    
-        if (J[i][1]>specif.constants.d_max): 
+        if (J[i][1]>specif.constants.D_MAX): 
             flag=False         
     if (n>m):
         flag=False    

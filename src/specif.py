@@ -1,12 +1,12 @@
 class constants:
-    n_min=3
-    n_max=20
-    m_min=3
-    m_max=30
-    f_min = -100000
-    f_max = 100000
-    d_min = 0
-    d_max = 200
+    N_MIN=3
+    N_MAX=20
+    M_MIN=3
+    M_MAX=30
+    F_MIN = -100000
+    F_MAX = 100000
+    D_MIN = 0
+    D_MAX = 200
     
     
     
