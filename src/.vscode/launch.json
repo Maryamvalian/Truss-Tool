@@ -5,6 +5,17 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Python: Pyramid Application",
+            "type": "python",
+            "request": "launch",
+            "module": "pyramid.scripts.pserve",
+            "args": [
+                "${workspaceFolder}\\development.ini"
+            ],
+            "pyramid": true,
+            "jinja": true
+        },
+        {
             "name": "Python: Current File",
             "type": "python",
             "request": "launch",

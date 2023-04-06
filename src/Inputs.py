@@ -74,5 +74,11 @@ def getfile(f):
     p = int(f.readline())
     f.readline()
     r=int(f.readline())
+     #mirror
+    print("Given Truss with",n,"Joints\n",J,"\n Members:",M,"\n E forces:\n",F,"\n Pinned Support at",p," , Roller support at",r)
+     #verify input
+    check=verify(n,m,J,M ,F ,p,r)
+    if (check==True):
+        raise Exception("Bad Input Parameter")
 
     return n,m,J,M,F,p,r 

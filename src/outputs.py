@@ -20,6 +20,7 @@ def valid(px,py,ry,I,n,m,J,M,p,r,F):
 
     if (not(sumx==0) and (sumy==0)):
         raise Exception("Invalid output")
+    writefile(px,py,ry,I)
 
 
 
