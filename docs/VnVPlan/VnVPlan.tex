@@ -63,7 +63,7 @@
 
 \newpage
 This document provides an overview of the Verification and Validation
- plan for Truss Tool. The general information is introduced in section 3. The verification plans and the test descriptions are explained in section 4 and section 5, respectively.
+ plan for Truss Tool. The general information is introduced in section 3. The verification plans and the test descriptions are explained in sections 4,5, and 6, respectively.
 \pagenumbering{arabic}
 \section{General Information}
 
@@ -74,9 +74,10 @@ In this document, we explain how Truss Tool is being tested. Truss Tool is softw
 
 \subsection{Objectives}
 
-Our objective is to build confidence in the software's correctness and increase its reliability. The functional requirements will be tested according to section 5.1, and Non-functional requirements will be tested according to section 5.2.
+Our objective is to build confidence in the software's correctness and increase its reliability. The functional requirements will be tested according to section 5.1, and Non-functional requirements will be tested according to section 5.2. We do not measure usability for this project. In this phase, we did not develop a graphical visualization for the truss. The usability will be considered when a graphical module is added to the project.
 
 \subsection{Relevant Documentation}
+Relevant documentation can be found by providing direct links. The VnV plan is highly related to the VnV report and we will report the results of the designed test in that document. Please see the Problem statement for goal definition and the SRS document for requirement analysis.
 \begin{itemize}
 	\item 
 	\href{https://github.com/Maryamvalian/project741/blob/main/docs/ProblemStatementAndGoals/ProblemStatement.pdf}{Problem
@@ -88,28 +89,29 @@ Our objective is to build confidence in the software's correctness and increase 
 \end{itemize}
 
 \section{Plan}
-In This section, we explain the VnV plan of the Truss Tool. The first section will introduce VnV team members and their roles in the project's verification. Next, the verification plans of SRS, design, VnV verification plan, implementation, Automated testing, and software validation plan will be given. 
+In this section, we explain the VnV plan of Truss Tool. The first section will introduce the VnV team members and their roles in the project's verification. Next, the verification plans of the SRS, design, the VnV verification plan, implementation, automated testing, and software validation plan are given. For static analysis, we use Pylint library of Python as a code inspection. 
 
 \subsection{Verification and Validation Team} \label{VTeam}
-This section lists VnV team members and describes the role of each member in the project's verification.
+The VnV team members and their roles are as follows:
 \begin{itemize}
 \item {Maryam Valian reviews the whole project as the author.}
-\item {Dr. Spencer Smith reviews the whole project as supervisor.}
-\item{Lesley Wheat reviews the whole project as a domain expert.}
-\item{Joachim de Fourestier reviews the VnV plan as a secondary reviewer.}
-\item{Jason Balaci reviews the MIS as a secondary reviewer.}
+\item {Dr.\  Smith reviews the whole project as supervisor.}
+\item{Lesley Wheat reviews the whole project as the domain expert.}
+\item{Joachim de Fourestier reviews the VnV plan as the secondary reviewer.}
+\item{Jason Balaci reviews the MIS as the secondary reviewer.}
+\item{Zehong Wong failed to review the SRS as the secondary reviewer.}
 
 \end{itemize}
 
 \subsection{SRS Verification Plan} \label{SRSvplan}
-The SRS will be reviewed by Dr. Spencer Smith and Lesely Wheat. Reviewers can give feedback and revision suggestions to the author by creating issues on GitHub. It is the author's responsibility to check the submitted issues regularly and make necessary modifications.
+The SRS will be reviewed by  Smith and Lesely Wheat. Reviewers can give feedback and revision suggestions to the author by creating issues on GitHub. It is the author's responsibility to check the submitted issues regularly and make necessary modifications.
 
 \subsection{Design Verification Plan} \label{Sec_Design_verific}
 
-The design document MIS will be reviewed by Dr. Spencer Smith, Lesley Wheat and Jason Balaci. Reviewers can give feedback and revision suggestions to the author by creating issues on GitHub. It is the author's responsibility to check the submitted issues regularly and make necessary modifications.
+The design document MIS will be reviewed by Dr.\  Smith, Lesley Wheat and Jason Balaci. Reviewers can give feedback and revision suggestions to the author by creating issues on GitHub. It is the author's responsibility to check the submitted issues regularly and make necessary modifications.
 
 \subsection{Verification and Validation Plan Verification Plan} \label{Sec_VofVnV}
-The VnV plan document will be reviewed by Dr. Spencer Smith, Lesley Wheat and Joachim de Fourestier. Reviewers can give feedback and revision suggestions to the author by creating issues on GitHub. It is the author's responsibility to check the submitted issues regularly and make necessary modifications.
+The VnV plan document will be reviewed by Dr.\  Smith, Lesley Wheat and Joachim de Fourestier. Reviewers can give feedback and revision suggestions to the author by creating issues on GitHub. It is the author's responsibility to check the submitted issues regularly and make necessary modifications.
 \subsection{Implementation Verification Plan} \label{Sec_implementation}
 The implementation of the software will be verified using several techniques involving manual or automated interactions. The software will be developed in Python programming language. The code evaluation will involve unit and system testing. The tools for the
 evaluations will be mentioned in section \ref{sec_automat}. Furthermore, the test cases used in system and unit testing will be stated in sections \ref{sec_systest} and \ref{sec_unitest}, respectively.
@@ -118,12 +120,7 @@ evaluations will be mentioned in section \ref{sec_automat}. Furthermore, the tes
 Truss Tool will be tested and verified by Pytest as an automated tool for unit testing and system testing. Automated testing will be implemented for individual units as well as the integrated system.
 
 \subsection{Software Validation Plan}
- Validation is the process of comparing the outputs of models to experimental values. The validation of the Truss Tool will be done by comparing the outputs of the software to several outputs from an online tool called 2D-Truss Analysis developed by \cite{valdivia}. The Euclidean distance between both results from the two software will be reported as an error measurement for some cases. The euclidean distance formula will be calculated as follows:\\
-\newline
-$d\left( p,q\right)   = \sqrt {\sum _{i=1}^{n}  \left( q_{i}-p_{i}\right)^2 } $ \\
-\newline
-Where $p$ is the vector of internal forces from the Truss Tool and $q$ is the vector of internal forces from the 2D-Truss Analysis for a specific test case. 
-
+ Validation is the process of comparing the outputs of models to experimental values. The validation of the Truss Tool cannot be measured because we don't have real experimental data. 
 \section{System Test Description} \label{sec_systest}
 	
 \subsection{Tests for Functional Requirements}
@@ -131,37 +128,53 @@ The functional requirements are described in the \href{https://github.com/Maryam
 \subsubsection{Input Verification}
 The inputs will be tested to satisfy R1 and R2 from Truss Tool SRS. Specifically, this test will ensure values of the inputs align with the input constraints. Table \ref{tbl_tc} displays the inputs and outputs of test cases for the input constraints tests.
 \begin{table}
- \begin{tabular}{|c|c|  c c c| c |} 
+ \begin{tabular}{|c|c|c|c|} 
  \hline
-TC &$N$ &$J$,$M$ &$F$&$\{S(p,r)\}$& \textbf{Output}\\ 
+TC &$N$ &$J$,$M$,$F,S_r,S_p$& \textbf{Output}\\ 
  \hline
- 1-1 & 3& $J=\{(0,0),(1,1),(2,0)\}$ & $\{(2,-50)\}$ & (1,3) & (25,25) \\ 
- &&$M=\{(1,2),(2,3),(1,3)$\}&&&(-35,-35,25)\\ 
+ Valid & 3& $J=\{(0,0),(1,1),(2,0)\}$& (0,25,25) \\ 
+ &&$M=\{(1,2),(2,3),(1,3)\}$&(-35,-35,25)\\ 
+&&$F=\{(0,0),(0,-50),(0,0)\}$&\\ 
+ &&$S_p=1,S_r=3$&\\
  \hline
- 2-1 & 10 & $J=\{(0,0),..,(2,0)\}$  &$\{(2,-50)\}$ & (1,3) & Error \\ 
- && $M=\{(1,2),..,(1,3)\}$&&&\\
+Invalid Force & 3& $J=\{(0,0),(1,1),(2,0)\}$& Invalid force  \\ 
+ &&$M=\{(1,2),(2,3),(1,3)\}$&Exception\\ 
+&&$F=\{(0,0),(0,100001),(0,0)\}$&\\ 
+ &&$S_p=1,S_r=3$&\\
+  \hline
+Invalid Joint & 2& $J=\{(0,0),(1,1)\}$& Invalid Joint  \\ 
+ &&$M=\{(1,2)\}$&Exception\\ 
+&&$F=\{(0,0),(0,-50),(0,0)\}$&\\ 
+ &&$S_p=1,S_r=0$&\\
+   \hline
+Invalid Location & 3& $J=\{(0,0),(1,201),(1,0)\}$& Invalid Location \\ 
+ &&$M=\{(1,2),(1,3),(2,3)\}$&Exception \\ 
+&&$F=\{(0,0),(0,-50),(0,0)\}$&\\ 
+ &&$S_p=1,S_r=3$&\\
+    \hline
+Invalid Connection & 3& $J=\{(0,0),(1,1),(2,0)\}$& Invalid Connection  \\ 
+ &&$M=\{(1,1),(3,3),(2,2)\}$&Exception\\ 
+&&$F=\{(0,0),(0,-50),(0,0)\}$&\\ 
+ &&$S_p=1,S_r=3$&\\
+    \hline
+Invalid Members & 4& $J=\{(0,0),(1,1),(2,0),(3,1)\}$& Invalid Members  \\ 
+ &&$M=\{(1,2),(1,3),(2,3)\}$&Exception\\ 
+&&$F=\{(0,0),(0,-50),(0,0)\}$&\\ 
+ &&$S_p=1,S_r=3$&\\
+    \hline
+Invalid Index & 3& $J=\{(0,0),(1,1),(2,0)\}$& Invalid 
+ Index  \\ 
+ &&$M=\{(1,2),(1,3),(2,3)\}$&Exception\\ 
+&&$F=\{(0,0),(0,-50),(0,0)\}$&\\ 
+ &&$S_p=4,S_r=5$&\\
+    \hline
+Invalid Supports & 3& $J=\{(0,0),(1,201),(1,0)\}$& No Support  \\ 
+ &&$M=\{(1,2),(1,3),(2,3)\}$&Exception\\ 
+&&$F=\{(0,0),(0,-50),(0,0)\}$&\\ 
+ &&$S_p=0,S_r=0$&\\
+ 
  \hline
-  2-2 & 2 & $J=\{(0,0),(2,0)\}$  &$\{(2,-50)\}$ & (1,2) & Error \\ 
-  &&$M=\{(1,2)\}$&&&\\
- \hline
- 3-1 & 3& $J=\{(0,0),(1,1),(2,0)\}$ & $\{(2,-36000)\}$ & (1,3) & Error \\ 
- &&$M=\{(1,2),(2,3),(1,3)\}$&&&\\
- \hline
-  3-2 & 3& $J=\{(0,0),(1,1),(2,0)\}$ &$\{(2,36000)\}$ & (1,3) & Error \\ 
-  &&$M=\{(1,2),(2,3),(1,3)\}$&&&\\
- \hline
-  4-1 & 3& $J=\{(0,0),(1,1),(2,0)\}$ &$\{(2,-50)\}$ & (0,0) & Error \\
-  && $M=\{(1,2),(2,3),(1,3)\}$&&&\\
- \hline
- 4-2 & 3& $J=\{(0,0),(1,1),(2,0)\}$ &$\{(2,-50)\}$ & (1,3) & Error \\ 
- &&$M=\{(4,5),(9,3),(1,3)\}$ &&&\\
- \hline
- 4-3 & 3& $J=\{(0,0),(1,1),(2,0)\}$  &$\{(4,-50)\}$ & (1,3) & Error \\ 
- &&$M=\{(1,2),(2,3),(1,3)\}$&&&\\
- \hline
- 4-4 & 3& $J=\{(0,0),(1,1),(2,0)\}$   &$\{(2,-50)\}$ & (4,5) & Error \\
- &&$M=\{(1,2),(2,3),(1,3)\}$&&&\\
- \hline
+ 
  
  
 \end{tabular}
@@ -177,7 +190,7 @@ Control: Automatic
 					
 Initial State: N/A
 					
-Input: TC1-1
+Input: Valid
 					
 Output: Support Reactions (25,25), Internal forces (-35,-35,25)
 
@@ -185,86 +198,127 @@ Test Case Derivation: Derived from existing software 2D-Truss Analysis.
 					
 How the test will be performed: It will be performed by test classes built with the help of Pytest
 					
-\item{T-2: Invalid Number of joints $N$\\}
+\item{T-2: Invalid Number of joints \\}
 
 Control: Automatic
 					
 Initial State: N/A
 					
-Input: TC2-1, TC2-2
+Input: Invalid Joint
 					
-Output: Exception: InputError
+Output: Exception: Invalid Joints
 
-Test Case Derivation: N input is out of bound for 10 and 2.
+Test Case Derivation: N input is out of bound for 20 and 2.
 
 How the test will be performed: It will be performed by test classes built with the help of Pytest.
-\item{T-3: Invalid amount of external force $N$\\}
+\item{T-3: Invalid amount of external force \\}
 
 Control: Automatic
 					
 Initial State: N/A
 					
-Input: TC3-1, TC3-2
+Input: Invalid Force
 					
-Output: Exception: InputError
+Output: Exception: Invalid Force
 
 Test Case Derivation: Amount of the external force/forces out of bound. 
 
 How the test will be performed: It will be performed by test classes built with the help of Pytest.
-\item{T-4: Invalid index of joints $N$\\}
+\item{T-4: Invalid index of joints \\}
 
 Control: Automatic
 					
 Initial State: N/A
 					
-Input: TC4-1 to TC4-4
+Input: Invalid Index
 					
-Output: Exception: InputError
+Output: Exception: Invalid Index
 
 Test Case Derivation: Any reference to joints must be in the range of 1 to N. The support Index can be zero in case of no existing support, but both indices of support cannot be zero at the same time.
 
 How the test will be performed: It will be performed by test classes built with the help of Pytest.
 
 
+\item{T-5: No support defined \\}
+
+Control: Automatic
+					
+Initial State: N/A
+					
+Input: Invalid Supports
+					
+Output: Exception: Invalid Supports
+
+Test Case Derivation: There must be at least one support, otherwise the truss moves. 
+
+How the test will be performed: It will be performed by test classes built with the help of Pytest.
+\item{T-6: Invalid Connection \\}
+
+Control: Automatic
+					
+Initial State: N/A
+					
+Input: Invalid Connection
+					
+Output: Exception: Invalid Connection
+
+Test Case Derivation: A valid member connects to different joints.
+
+How the test will be performed: It will be performed by test classes built with the help of Pytest.
+
+\item{T-7: Invalid Members \\}
+
+Control: Automatic
+					
+Initial State: N/A
+					
+Input: Invalid Members
+					
+Output: Exception: Invalid Members
+
+Test Case Derivation: Member numbers cannot be less than the Joints number.
+
+How the test will be performed: It will be performed by test classes built with the help of Pytest.
+
 \end{enumerate}
 
 \subsubsection{Output verification}
 \begin{table} [h!]
 
- \begin{tabular}{|c|c |c  |} 
+ \begin{tabular}{|c|c |c |c|} 
  \hline
- \textbf{Test cases}&N& \textbf{input}\\ 
+ \textbf{Test cases}&N& \textbf{input}& Results\\ 
  \hline
- TC5-1 & $3$&$J=\{(0,0),((1,1),(2,0)\}$\\
- &  &  $M=\{(1,2),((1,3),(2,3)\}$\\
- &  & $F=\{(2,-50)\}$,$S={(2,0)}$\\
+ Valid  & $3$&$J=\{(0,0),((1,1),(2,0)\}$&$Px=0,Py=25$\\
+ N3m3&  &  $M=\{(1,2),((1,3),(2,3)\}$&$Ry=25$\\
+ &  & $F=\{(0,0),(0,-50),(0,0)\}$&$I=-35,-35,25$\\
+ & & $P=2,R=3$&\\
  \hline
-  TC5-2 & 4&$J=\{(0,0),((1,1),(2,0),(3,1)\}$\\
- &  &  $M=\{(1,2),((1,3),(2,3),(2,4),(3,4)\}$\\
+ Valid  & $4$&$J=\{(0,0),((1,1),(1,0),(2,0)\}$&$Px=0,Py=0$\\
+ N4m5&  &$M=\{(1,2),((1,3),(2,3)(2,4),(3,4)$\}$& $Ry=-10$\\
+ &  & $F=\{(0,0),(0,0)(0,10)(0,0)\}$&$I=0,0,-10,0,0$\\
+ & & $P=1,R=2$&\\
  \hline
- TC5-3 & 5&$J=\{(0,0),((1,1),(2,0),(3,1),(4,0)\}$\\
- &  &  $M=\{(1,2),((1,3),(2,3),(2,4),(3,4),(3,5),(4,5)\}$\\
-  \hline
-  TC5-4 & 6&$J=\{(0,0),((1,1),(2,0),(3,1),(4,0),(5,1)\}$\\
- &  &  $M=\{(1,2),((1,3),(2,3),(2,4),(3,4),(3,5),(4,5)(4,6),(5,6)\}$\\
-  \hline
- TC5-5& 7&$J=\{(0,0),((1,1),(2,0),(3,1),(4,0),(5,1),(6,0)\}$\\
- &  &  $M=\{(1,2),((1,3),(2,3),(2,4),(3,4),(3,5),(4,5)(4,6),$\\
-&&$ (5,6),(5,7),(6,7)\}$\\
-  \hline
-  TC5-6 & 8&$J=\{(0,0),((1,1),(2,0),(3,1),(4,0),(5,1),(6,0),$\\
-  &&$(7,1)\}$\\
- &  &  $M=\{(1,2),((1,3),(2,3),(2,4),(3,4),(3,5),(4,5)(4,6),$\\
-&&$ (5,6),(5,7),(6,7),(6,8),(7,8)\}$\\
+  Valid  & $5$&$J=\{(0,0),((1,1),(2,0),(3,1),(4,0)\}$&$Px=0,Py=37.5$\\
+ N5m7&  &  $M=\{(1,2),((1,3),(2,3)$&$Ry=12.5$\\
+ &  & $,(2,4),(3,4),(3,5)\}$&$\\
+ &  &$F=\{(0,0),(0,-50),$ &$I=-53.0,37.5,$\\
+ &  & $(0,0),(0,0)(0,0)\}$&$-17.6,-25,17.6,$\\
+ & & $P=1,R=5$&$12.5,-17.6$\\
  \hline
-  TC5-7 & 9&$J=\{(0,0),((1,1),(2,0),(3,1),(4,0),(5,1),(6,0),$\\
-  &&$(7,1),(8,0)\}$\\
- &  &  $M=\{(1,2),((1,3),(2,3),(2,4),(3,4),(3,5),(4,5)(4,6),$\\
-&&$ (5,6),(5,7),(6,7),(6,8),(7,8),(7,9),(8,9)\}$\\
-  \hline
+  Valid  & $10$&$J=\{(0,0),((2,0),(0,2),(2,2),$&$Px=0,Py=300$\\
+ Crane&  & $(0,4),(2,4)(0,6),(2,6),(2,8),(6,6)\}$&$Ry=-200$\\
+ &  & $M=\{(1,2),(1,3),(2,3),(2,4),$&\\
+ & & $(3,4),(3,5),(4,5),(4,6),(5,6),$ &\\
+ & & $(5,7),(6,7),(6,8),(7,8),(8,10),$ &$I=0,200,0,-300,0,200,$\\
+ & & $(7,9),(8,9),(9,10)\}$ &$0,-300,0,200,0,$\\
+ &  &$F=\{(0,0),(0,0),(0,0),(0,0),(0,0),$&$-300,-200,-200,282.8,$\\
+ &  & $(0,0),(0,0)(0,0),(0,0),(0,-100)\}$&$-300,223.6$\\
+ & & $P=2,R=1$&\\
+ \hline
 \end{tabular}
 
-\caption{\label{tbl_tcR}Test cases for time performance.}
+\caption{\label{tbl_tcR}Test cases for output verification Pseudo-oracle test}
 
 \end{table}	
 The output will be tested as follows:
@@ -272,27 +326,27 @@ The output will be tested as follows:
 
 \begin{enumerate}
 
-\item{T-5: Zero summation for the last joint\\}
+\item{T-8: Zero summation for the last joint\\}
 
 Control: Automatic
 					
 Initial State: All internal forces are already calculated.
 					
-Input: Internal forces array $\mbox {IF}$\\
+Input: Internal forces array $I$\\
 					
 Output: Exception: Output Error
 					
-How the test will be performed: It will be performed by Truss Tool. The summation of internal forces in the last joint will be zero. Otherwise, it will generate an exception message.
-\item{T-6: Pseudo-oracle test\\}
-Control: Manual
+How the test will be performed: It will be performed by Truss Tool. The summation of internal forces in the last joint will be less than a small number $e$. Otherwise, it will generate an exception message.
+\item{T-9: Pseudo-oracle test\\}
+Control: Automatic
 					
-Initial State: Both Truss Tool and 2D-Truss Analyse are running.
+Initial State: All internal forces are already calculated.
 					
-Input: The result of internal forces and support reaction from both tools \\
+Input: Valid n4m5 \\
 					
-Output:  The euclidean distance between results.
+Output:  The mean error between results.
 					
-How the test will be performed: It will be performed by the Truss Tool team to verify results of the software is similar to the previous software introduced in section 4.7.
+How the test will be performed: It will be performed by the help of Pytest.
 
 \end{enumerate}
 
@@ -306,17 +360,17 @@ This section will define the tests to ensure Truss Tool satisfies the nonfunctio
 
 \begin{enumerate}
 
-\item{T-7: Time performance\\}
+\item{T-9: Reliability\\}
 
-Type: Manual
+Type: Automatic
 					
-Initial State: Truss Tool is running.					
+Initial State: Results of Truss tool on Test cases are ready.					
 Input/Condition: The user has entered the inputs correctly.
 
 					
-Output/Result: Time duration for calculating all the internal forces.
+Output/Result: The mean error between the results of truss tool and pseudo-oracle.
 					
-How the test will be performed: run-time of test cases from table \ref{tbl_tcR}  will be stored as a pair of run-time and the number of Joints. The VnV team members will analyze the log and report the results.
+How the test will be performed: The results from table \ref{tbl_tcR}  will be compared to the results of Truss Tool and automatically checked that the difference is less than a small number.
 
 	
 
@@ -333,19 +387,27 @@ The purpose of the traceability matrices is to provide easy references on what h
 \hline
 Test Cases & R1 & R2 & R3& R4& NFR1  \\
  \hline   
- T-1 & X&X & & &  \\
+ Valid & X&X & X&X &X  \\
  \hline
-  T-2   & X& X& & &  \\
+  Invalid force   & X& X& & &  \\
  \hline
-  T-3   &X & X& & &  \\
+  Invalid Joints   &X & X& & &  \\
  \hline
-  T-4  &X &X & & &  \\
+  Invalid Members &X &X & & &  \\
  \hline
-  T-5  & & & &X &  \\
+ Invalid supports &X &X & & &  \\
  \hline
-  T-6  & & & X&X &  \\
+ Invalid index &X &X & & &  \\
  \hline
-  T-7  & & & & & X \\
+ Invalid Connection &X &X & & &  \\
+ \hline
+ Invalid Location &X &X & & &  \\
+ \hline
+  Valid n4m5  X&X &X &X &X &X  \\
+ \hline
+  Valid n5n7  X& X& X& X&X &X  \\
+ \hline
+  Valid Crane X & X& X& X& X& X \\
  \hline
  
 \end{tabular}
@@ -357,602 +419,124 @@ Test Cases & R1 & R2 & R3& R4& NFR1  \\
 \section{Unit Test Description} \label{sec_unitest}
 
 %\wss{Reference your MIS (detailed design document) and explain your overall   philosophy for test case selection.}  
-This section should not be filled in until after the MIS (detailed design   document) has been completed.
+In this section, we explain our overall philosophy of test case selection. The main idea is to divide test cases to two categories: the first one to check input verification module and the second to verify the correctness of the output validation module. for more detailed information about design and modules please check 
+\href{https://github.com/Maryamvalian/project741/blob/de6c2a97c2152f912c1ed33a18b693b2e031ab56/docs/Design/SoftDetailedDes/MIS.pdf}{MIS Document}.
 
 \subsection{Unit Testing Scope}
-In this project, we will use SymPy library of Python to solve our equations. Testing this library is not in the scope of this document.
+In this project, we use Scipy library of Python to solve our linear equations. Testing this library is not in the scope of this document and we trust its results. For unit testing we use Pytest to automatically check modules.
 
 
-\subsection{Tests for Functional Requirements}
+\subsection{Tests for Functional Requirements} 
 
 
-\subsubsection{Module 1}
+\subsubsection{Input parameters Module} \label{t_in}
 
 
 \begin{enumerate}
 
-\item{test-id1\\}
+\item{Input parameter\\}
 
-Type: \wss{Functional, Dynamic, Manual, Automatic, Static etc. Most will
-  be automatic}
+Type:  Automatic
 					
-Initial State: 
+Initial State: Truss Tool is running.
 					
-Input: 
+Input: import input.txt
 					
-Output: \wss{The expected result for the given inputs}
+Output: assert = True
 
-Test Case Derivation: \wss{Justify the expected value given in the Output field}
+Test Case Derivation: The parameters inputted by the user should 
+match the state variable from Inputs Module. An assert statement
+will return True if these are equal.
 
-How test will be performed: 
+How test will be performed: with help of Pytest Library.
+    
+\end{enumerate}
+
+\subsubsection{Calculation Module} \label{t_cal}
+
+
+\begin{enumerate}
+
+\item{Caclulate react module\\}
+
+Type:  Automatic
 					
-\item{test-id2\\}
-
-Type: \wss{Functional, Dynamic, Manual, Automatic, Static etc. Most will
-  be automatic}
+Initial State: Truss Tool is running.
 					
-Initial State: 
+Input: import input.txt
 					
-Input: 
+Output: assert = True
+
+Test Case Derivation: Test Case Derivation: Outputs of the system should match the values
+calculated by an online software \cite{valdivia}. An assert statement
+will return True if the mean error between calculated outputs and
+expected outputs is less than $0.1$
+
+How test will be performed: with help of Pytest Library.
+ \item{Caclulate Internals module\\} 
+
+Type:  Automatic
 					
-Output: \wss{The expected result for the given inputs}
+Initial State: Truss Tool is running.
+					
+Input: import input.txt
+					
+Output: assert = True
 
-Test Case Derivation: \wss{Justify the expected value given in the Output field}
+Test Case Derivation: Test Case Derivation: Outputs of the system should match the values
+calculated by an online software \cite{valdivia}. An assert statement
+will return True if the mean error between calculated outputs and
+expected outputs is less than $0.1$
 
-How test will be performed: 
+How test will be performed: with help of Pytest Library.   
 
+\end{enumerate}
+\subsubsection{Output Module} \label{t_out}
+
+
+\begin{enumerate}
+
+\item{Outputs\\}
+
+Type:  Automatic
+					
+Initial State: Truss Tool is running.
+					
+Input: import input.txt
+					
+Output: Generates output.txt
+
+Test Case Derivation: Outputs should include all the calculated support reactions and internal forces.
+
+How test will be performed: Manually checking the file output.txt in the Src folder.
     
 \end{enumerate}
 
 \subsection{Tests for Nonfunctional Requirements}
-
-
-\subsubsection{Module ?}
-		
-\begin{enumerate}
-
-\item{test-id1\\}
-
-Type: \wss{Functional, Dynamic, Manual, Automatic, Static etc. Most will
-  be automatic}
-					
-Initial State: 
-					
-Input/Condition: 
-					
-Output/Result: 
-					
-How test will be performed: 
-					
-\item{test-id2\\}
-
-Type: Functional, Dynamic, Manual, Static etc.
-					
-Initial State: 
-					
-Input: 
-					
-Output: 
-					
-How test will be performed: 
-
-\end{enumerate}
-
-\subsubsection{Module ?}
-
-...
+Testing nonfunctional requirements of units is not required for Truss. Tests
+for nonfunctional requirements of system are introduced in section 5.2.
 
 \subsection{Traceability Between Test Cases and Modules}
+The purpose of the traceability matrices is to provide easy references on what
+has to be additionally modified if a certain component is changed. Table 
+shows the dependencies between the test cases and the all of designed modules except the modules that are implemented by the operating system or Python.
 
-%Provide evidence that all of the modules have been considered.
-				
-\bibliographystyle{plainnat}
 
-\bibliography{refs/References.bib}
-
-\newpage
-
-\section{Appendix}
-
-Not applicable.
-
-\subsection{Symbolic Parameters}
-\begin{table} [h!]
-\centering
-\begin{tabular}{|c| c |}
-\hline
-Symbol & Meaning   \\
- \hline   
- $J$& Tuples of the joint's coordination.\\
- &Each tuple is a pair of two-dimensional geometric coordination.   \\
- \hline
- $M$ & Tuples of members. Each tuple is pair of joint index  \\
- \hline
- $F$ & External forces. Tuples of the vertical and\\
- & horizontal amount of force for each joint  \\
- \hline
- $S=(S_{p} ,S_R)$ &Pair of two indices. Index of pinned support\\
- & and index of roller support \\
- \hline
-
- 
-\end{tabular}
-\caption{\label{tbl_tr_TC}Traceability Matrix between tests and requirements.}
-\end{table}
-
-\subsection{Usability Survey Questions?}
-
-Not Applicable.
-
-\newpage{}
-\section*{Appendix --- Reflection}
-
-The information in this section will be used to evaluate the team members on the
-graduate attribute of Lifelong Learning.  Please answer the following questions:
-
-\newpage{}
-\section*{Appendix --- Reflection}
-
-The information in this section will be used to evaluate the team members on the
-graduate attribute of Lifelong Learning.  Please answer the following questions:
-
-\begin{enumerate}
-  \item What knowledge and skills will the team collectively need to acquire to
-  successfully complete the verification and validation of your project?
-  Examples of possible knowledge and skills include dynamic testing knowledge,
-  static testing knowledge, specific tool usage etc.  You should look to
-  identify at least one item for each team member.
-  \item For each of the knowledge areas and skills identified in the previous
-  question, what are at least two approaches to acquiring the knowledge or
-  mastering the skill?  Of the identified approaches, which will each team
-  member pursue, and why did they make this choice?
-\end{enumerate}
-
-\end{document}documentclass[12pt, titlepage]{article}
-
-\usepackage{booktabs}
-\usepackage{tabularx}
-\usepackage{hyperref}
-\hypersetup{
-    colorlinks,
-    citecolor=blue,
-    filecolor=black,
-    linkcolor=red,
-    urlcolor=blue
-}
-\usepackage[round]{natbib}
-
-\begin{document}
-
-\title{ System Verification and Validation Plan for Truss Tool} 
-\author{Maryam Valian}
-\date{\today}
-	
-\maketitle
-
-\pagenumbering{roman}
-
-\section{Revision History}
-
-\begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
-\toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
-\midrule
-13-02-2023 & 1.0 & First Draft of VnV plan\\
-14-02-2023 & 1.1& Updating Test cases   \\
-16-02-2023 & 1.2& Updating Tests for NFRs   \\
-25-02-2023 & 1.3& Updating According to VnV reviewer feedback   \\
-
-\bottomrule
-\end{tabularx}
-
-\newpage
-
-\tableofcontents
-
-\newpage
-
-\section{Symbols, Abbreviations and Acronyms}
-
-\renewcommand{\arraystretch}{1.2}
 \begin{tabular}{l l} 
   \toprule		
-  \textbf{symbol} & \textbf{description}\\
+  \textbf{Test Cases} & \textbf{Modules}\\
   \midrule 
-  T & Test\\
-  SRS & Software Requirements Specification\\
-  R & Functional Requirements\\
-  NFR & Nonfunctional Requirements\\
-  N/A & Not Applicable\\
-  VnV & Verification and Validation\\
+  
+   \ref{t_in}& Inputs Module\\
+  \ref{t_cal} & React Module\\
+  \ref{t_cal} & Internal Module\\
+  \ref{t_out} & Outputs Module\\
+
   
 \bottomrule
 \end{tabular}\\
 
 
-\newpage
-This document provides an overview of the Verification and Validation
- plan for Truss Tool. The general information is introduced in section 3. The verification plans and the test descriptions are explained in section 4 and section 5, respectively.
-\pagenumbering{arabic}
-\section{General Information}
-
-
-\subsection{Summary}
-
-In this document, we explain how Truss Tool is being tested. Truss Tool is software for truss analysis. Users can define a specific truss, by giving the exact location of the joints, members, supports and external forces.  Truss Tool calculates the reaction of the supports and internal forces. 
-
-\subsection{Objectives}
-
-Our objective is to build confidence in the software's correctness and increase its reliability. The functional requirements will be tested according to section 5.1, and Non-functional requirements will be tested according to section 5.2.
-
-\subsection{Relevant Documentation}
-\begin{itemize}
-	\item 
-	\href{https://github.com/Maryamvalian/project741/blob/main/docs/ProblemStatementAndGoals/ProblemStatement.pdf}{Problem
-	 Statement}
-	\item 
-	\href{https://github.com/Maryamvalian/project741/blob/main/docs/SRS/SRS.pdf}{SRS} 
-	\item \href{https://github.com/Maryamvalian/project741/blob/main/docs/VnVReport/VnVReport.pdf}{VnV
-	 report}
-\end{itemize}
-
-\section{Plan}
-In This section, we explain the VnV plan of the Truss Tool. The first section will introduce VnV team members and their roles in the project's verification. Next, the verification plans of SRS, design, VnV verification plan, implementation, Automated testing, and software validation plan will be given. 
-
-\subsection{Verification and Validation Team} \label{VTeam}
-This section lists VnV team members and describes the role of each member in the project's verification.
-\begin{itemize}
-\item {Maryam Valian reviews the whole project as the author.}
-\item {Dr. Spencer Smith reviews the whole project as supervisor.}
-\item{Lesley Wheat reviews the whole project as a domain expert.}
-\item{Joachim de Fourestier reviews the VnV plan as a secondary reviewer.}
-\item{Jason Balaci reviews the MIS as a secondary reviewer.}
-
-\end{itemize}
-
-\subsection{SRS Verification Plan} \label{SRSvplan}
-The SRS will be reviewed by Dr. Spencer Smith and Lesely Wheat. Reviewers can give feedback and revision suggestions to the author by creating issues on GitHub. It is the author's responsibility to check the submitted issues regularly and make necessary modifications.
-
-\subsection{Design Verification Plan} \label{Sec_Design_verific}
-
-The design document MIS will be reviewed by Dr. Spencer Smith, Lesley Wheat and Jason Balaci. Reviewers can give feedback and revision suggestions to the author by creating issues on GitHub. It is the author's responsibility to check the submitted issues regularly and make necessary modifications.
-
-\subsection{Verification and Validation Plan Verification Plan} \label{Sec_VofVnV}
-The VnV plan document will be reviewed by Dr. Spencer Smith, Lesley Wheat and Joachim de Fourestier. Reviewers can give feedback and revision suggestions to the author by creating issues on GitHub. It is the author's responsibility to check the submitted issues regularly and make necessary modifications.
-\subsection{Implementation Verification Plan} \label{Sec_implementation}
-The implementation of the software will be verified using several techniques involving manual or automated interactions. The software will be developed in Python programming language. The code evaluation will involve unit and system testing. The tools for the
-evaluations will be mentioned in section \ref{sec_automat}. Furthermore, the test cases used in system and unit testing will be stated in sections \ref{sec_systest} and \ref{sec_unitest}, respectively.
-
-\subsection{Automated Testing and Verification Tools} \label{sec_automat}
-Truss Tool will be tested and verified by Pytest as an automated tool for unit testing and system testing. Automated testing will be implemented for individual units as well as the integrated system.
-
-\subsection{Software Validation Plan}
- Validation is the process of comparing the outputs of models to experimental values. The validation of the Truss Tool will be done by comparing the outputs of the software to several outputs from an online tool called 2D-Truss Analysis developed by \cite{valdivia}. The Euclidean distance between both results from the two software will be reported as an error measurement for some cases. The euclidean distance formula will be calculated as follows:\\
-\newline
-$d\left( p,q\right)   = \sqrt {\sum _{i=1}^{n}  \left( q_{i}-p_{i}\right)^2 } $ \\
-\newline
-Where $p$ is the vector of internal forces from the Truss Tool and $q$ is the vector of internal forces from the 2D-Truss Analysis for a specific test case. 
-
-\section{System Test Description} \label{sec_systest}
-	
-\subsection{Tests for Functional Requirements}
-The functional requirements are described in the \href{https://github.com/Maryamvalian/project741/blob/main/docs/SRS/SRS.pdf}{SRS}. Truss Tool will detect invalid inputs and assure that the calculated outputs are correct. Testing R1 and R2 will be explained in the input verification section. R3 and R4 will be explained in the output verification test. 
-\subsubsection{Input Verification}
-The inputs will be tested to satisfy R1 and R2 from Truss Tool SRS. Specifically, this test will ensure values of the inputs align with the input constraints. Table \ref{tbl_tc} displays the inputs and outputs of test cases for the input constraints tests.
-\begin{table}
- \begin{tabular}{|c|c|  c c c| c |} 
- \hline
-TC &$N$ &$J$,$M$ &$F$&$\{S(p,r)\}$& \textbf{Output}\\ 
- \hline
- 1-1 & 3& $J=\{(0,0),(1,1),(2,0)\}$ & $\{(2,-50)\}$ & (1,3) & (25,25)(-35,-35,25) \\ 
- &&$M=\{(1,2),(2,3),(1,3)$\}&&&\\ 
- \hline
- 2-1 & 10 & $J=\{(0,0),..,(2,0)\}$  &$\{(2,-50)\}$ & (1,3) & Exception: InputError \\ 
- && $M=\{(1,2),..,(1,3)\}$&&&\\
- \hline
-  2-2 & 2 & $J=\{(0,0),(2,0)\}$  &$\{(2,-50)\}$ & (1,2) & Exception: InputError \\ 
-  &&$M=\{(1,2)\}$&&&\\
- \hline
- 3-1 & 3& $J=\{(0,0),(1,1),(2,0)\}$ & $\{(2,-36000)\}$ & (1,3) & Exception: InputError \\ 
- &&$M=\{(1,2),(2,3),(1,3)\}$&&&\\
- \hline
-  3-2 & 3& $J=\{(0,0),(1,1),(2,0)\}$ &$\{(2,36000)\}$ & (1,3) & Exception: InputError \\ 
-  &&$M=\{(1,2),(2,3),(1,3)\}$&&&\\
- \hline
-  4-1 & 3& $J=\{(0,0),(1,1),(2,0)\}$ &$\{(2,-50)\}$ & (0,0) & Exception: InputError \\
-  && $M=\{(1,2),(2,3),(1,3)\}$&&&\\
- \hline
- 4-2 & 3& $J=\{(0,0),(1,1),(2,0)\}$ &$\{(2,-50)\}$ & (1,3) & Exception: InputError \\ 
- &&$M=\{(4,5),(9,3),(1,3)\}$ &&&\\
- \hline
- 4-3 & 3& $J=\{(0,0),(1,1),(2,0)\}$  &$\{(4,-50)\}$ & (1,3) & Exception: InputError \\ 
- &&$M=\{(1,2),(2,3),(1,3)\}$&&&\\
- \hline
- 4-4 & 3& $J=\{(0,0),(1,1),(2,0)\}$   &$\{(2,-50)\}$ & (4,5) & Exception: InputError \\
- &&$M=\{(1,2),(2,3),(1,3)\}$&&&\\
- \hline
- 
- 
-\end{tabular}
-\caption{\label{tbl_tc}Test cases For input Verification.}
-\end{table}		
-\paragraph{Input Verification test}
-
-\begin{enumerate}
-
-\item{T-1: Expected Input\\}
-
-Control: Automatic
-					
-Initial State: N/A
-					
-Input: TC1-1
-					
-Output: Support Reactions (25,25), Internal forces (-35,-35,25)
-
-Test Case Derivation: Derived from existing software 2D-Truss Analysis.
-					
-How the test will be performed: It will be performed by test classes built with the help of Pytest
-					
-\item{T-2: Invalid Number of joints $N$\\}
-
-Control: Automatic
-					
-Initial State: N/A
-					
-Input: TC2-1, TC2-2
-					
-Output: Exception: InputError
-
-Test Case Derivation: N input is out of bound for 10 and 2.
-
-How the test will be performed: It will be performed by test classes built with the help of Pytest.
-\item{T-3: Invalid amount of external force $N$\\}
-
-Control: Automatic
-					
-Initial State: N/A
-					
-Input: TC3-1, TC3-2
-					
-Output: Exception: InputError
-
-Test Case Derivation: Amount of the external force/forces out of bound. 
-
-How the test will be performed: It will be performed by test classes built with the help of Pytest.
-\item{T-4: Invalid index of joints $N$\\}
-
-Control: Automatic
-					
-Initial State: N/A
-					
-Input: TC4-1 to TC4-4
-					
-Output: Exception: InputError
-
-Test Case Derivation: Any reference to joints must be in the range of 1 to N. The support Index can be zero in case of no existing support, but both indices of support cannot be zero at the same time.
-
-How the test will be performed: It will be performed by test classes built with the help of Pytest.
-
-
-\end{enumerate}
-
-\subsubsection{Output verification}
-\begin{table} [h!]
-
- \begin{tabular}{|c|c |c  |} 
- \hline
- \textbf{Test cases}&N& \textbf{input}\\ 
- \hline
- TC5-1 & $3$&$J=\{(0,0),((1,1),(2,0)\}$\\
- &  &  $M=\{(1,2),((1,3),(2,3)\}$\\
- &  & $F=\{(2,-50)\}$,$S={(2,0)}$\\
- \hline
-  TC5-2 & 4&$J=\{(0,0),((1,1),(2,0),(3,1)\}$\\
- &  &  $M=\{(1,2),((1,3),(2,3),(2,4),(3,4)\}$\\
- \hline
- TC5-3 & 5&$J=\{(0,0),((1,1),(2,0),(3,1),(4,0)\}$\\
- &  &  $M=\{(1,2),((1,3),(2,3),(2,4),(3,4),(3,5),(4,5)\}$\\
-  \hline
-  TC5-4 & 6&$J=\{(0,0),((1,1),(2,0),(3,1),(4,0),(5,1)\}$\\
- &  &  $M=\{(1,2),((1,3),(2,3),(2,4),(3,4),(3,5),(4,5)(4,6),(5,6)\}$\\
-  \hline
- TC5-5& 7&$J=\{(0,0),((1,1),(2,0),(3,1),(4,0),(5,1),(6,0)\}$\\
- &  &  $M=\{(1,2),((1,3),(2,3),(2,4),(3,4),(3,5),(4,5)(4,6),$\\
-&&$ (5,6),(5,7),(6,7)\}$\\
-  \hline
-  TC5-6 & 8&$J=\{(0,0),((1,1),(2,0),(3,1),(4,0),(5,1),(6,0),$\\
-  &&$(7,1)\}$\\
- &  &  $M=\{(1,2),((1,3),(2,3),(2,4),(3,4),(3,5),(4,5)(4,6),$\\
-&&$ (5,6),(5,7),(6,7),(6,8),(7,8)\}$\\
- \hline
-  TC5-7 & 9&$J=\{(0,0),((1,1),(2,0),(3,1),(4,0),(5,1),(6,0),$\\
-  &&$(7,1),(8,0)\}$\\
- &  &  $M=\{(1,2),((1,3),(2,3),(2,4),(3,4),(3,5),(4,5)(4,6),$\\
-&&$ (5,6),(5,7),(6,7),(6,8),(7,8),(7,9),(8,9)\}$\\
-  \hline
-\end{tabular}
-
-\caption{\label{tbl_tcR}Test cases for time performance.}
-
-\end{table}	
-The Output Will be tested as follows:
-\paragraph{Output Verification test}
-
-\begin{enumerate}
-
-\item{T-5: Zero summation for the last joint\\}
-
-Control: Automatic
-					
-Initial State: All internal forces are already calculated.
-					
-Input: Internal forces array $IF$\\
-					
-Output: Exception: Output Error
-					
-How the test will be performed: It will be performed by Truss Tool. The summation of internal forces in the last joint will be zero. Otherwise, it will generate an exception message.
-\item{T-6: Pseudo-oracle test\\}
-Control: Manual
-					
-Initial State: Both Truss Tool and 2D-Truss Analyse are running.
-					
-Input: The result of internal forces and support reaction from both tools \\
-					
-Output:  The euclidean distance between results.
-					
-How the test will be performed: It will be performed by the Truss Tool team to verify results of the software is similar to the previous software introduced in section 4.7.
-
-\end{enumerate}
-
-\subsection{Tests for Nonfunctional Requirements}
-This section will define the tests to ensure Truss Tool satisfies the nonfunctional requirements seen in the SRS document of Truss Tool. 
-\subsubsection{Reliability}
-
-
-		
-\paragraph{Performance measurement}
-
-\begin{enumerate}
-
-\item{T-7: Time performance\\}
-
-Type: Manual
-					
-Initial State: Truss Tool is running.					
-Input/Condition: The user has entered the inputs correctly.
-
-					
-Output/Result: Time duration for calculating all the internal forces.
-					
-How the test will be performed: run-time of test cases from table \ref{tbl_tcR}  will be stored as a pair of run-time and the number of Joints. The VnV team members will analyze the log and report the results.
-
-	
-
-\end{enumerate}
-
-%\subsubsection{Area of Testing2}
-\subsection{Traceability Between Test Cases and Requirements}
-The purpose of the traceability matrices is to provide easy references on what has to be additionally modified if a certain component is changed. Every time a component is changed, the items in the column of that component that is marked with an X may have to be modified as well. Table \ref{tbl_tr_TC} shows which test cases are supporting which requirements.
-
-
-\begin{table} [h!]
-\centering
-\begin{tabular}{|c|c| c| c| c | c |}
-\hline
-Test Cases & R1 & R2 & R3& R4& NFR1  \\
- \hline   
- T-1 & X&X & & &  \\
- \hline
-  T-2   & X& X& & &  \\
- \hline
-  T-3   &X & X& & &  \\
- \hline
-  T-4  &X &X & & &  \\
- \hline
-  T-5  & & & &X &  \\
- \hline
-  T-6  & & & X&X &  \\
- \hline
-  T-7  & & & & & X \\
- \hline
- 
-\end{tabular}
-\caption{\label{tbl_tr_TC}Traceability Matrix between tests and requirements.}
-\end{table}
-
-
-
-\section{Unit Test Description} \label{sec_unitest}
-
-%\wss{Reference your MIS (detailed design document) and explain your overall   philosophy for test case selection.}  
-This section should not be filled in until after the MIS (detailed design   document) has been completed.
-
-\subsection{Unit Testing Scope}
-In this project, we will use SymPy library of Python to solve our equations. Testing this library is not in the scope of this document.
-
-
-\subsection{Tests for Functional Requirements}
-
-
-\subsubsection{Module 1}
-
-
-\begin{enumerate}
-
-\item{test-id1\\}
-
-Type: \wss{Functional, Dynamic, Manual, Automatic, Static etc. Most will
-  be automatic}
-					
-Initial State: 
-					
-Input: 
-					
-Output: \wss{The expected result for the given inputs}
-
-Test Case Derivation: \wss{Justify the expected value given in the Output field}
-
-How test will be performed: 
-					
-\item{test-id2\\}
-
-Type: \wss{Functional, Dynamic, Manual, Automatic, Static etc. Most will
-  be automatic}
-					
-Initial State: 
-					
-Input: 
-					
-Output: \wss{The expected result for the given inputs}
-
-Test Case Derivation: \wss{Justify the expected value given in the Output field}
-
-How test will be performed: 
-
-    
-\end{enumerate}
-
-\subsection{Tests for Nonfunctional Requirements}
-
-
-\subsubsection{Module ?}
-		
-\begin{enumerate}
-
-\item{test-id1\\}
-
-Type: \wss{Functional, Dynamic, Manual, Automatic, Static etc. Most will
-  be automatic}
-					
-Initial State: 
-					
-Input/Condition: 
-					
-Output/Result: 
-					
-How test will be performed: 
-					
-\item{test-id2\\}
-
-Type: Functional, Dynamic, Manual, Static etc.
-					
-Initial State: 
-					
-Input: 
-					
-Output: 
-					
-How test will be performed: 
-
-\end{enumerate}
-
-\subsubsection{Module ?}
-
-...
-
-\subsection{Traceability Between Test Cases and Modules}
-
-%Provide evidence that all of the modules have been considered.
 				
 \bibliographystyle{plainnat}
 
@@ -962,7 +546,7 @@ How test will be performed:
 
 \section{Appendix}
 
-Not applicable.
+For easy understanding, we provide a symbolic parameters table briefly here. For a more detailed table please check SRS Document.
 
 \subsection{Symbolic Parameters}
 \begin{table} [h!]
@@ -985,7 +569,7 @@ Symbol & Meaning   \\
 
  
 \end{tabular}
-\caption{\label{tbl_tr_TC}Traceability Matrix between tests and requirements.}
+\caption{\label{tbl_tr_TC} Symbol Table for VnV document.}
 \end{table}
 
 \subsection{Usability Survey Questions?}
@@ -993,27 +577,5 @@ Symbol & Meaning   \\
 Not Applicable.
 
 \newpage{}
-\section*{Appendix --- Reflection}
-
-The information in this section will be used to evaluate the team members on the
-graduate attribute of Lifelong Learning.  Please answer the following questions:
-
-\newpage{}
-\section*{Appendix --- Reflection}
-
-The information in this section will be used to evaluate the team members on the
-graduate attribute of Lifelong Learning.  Please answer the following questions:
-
-\begin{enumerate}
-  \item What knowledge and skills will the team collectively need to acquire to
-  successfully complete the verification and validation of your project?
-  Examples of possible knowledge and skills include dynamic testing knowledge,
-  static testing knowledge, specific tool usage etc.  You should look to
-  identify at least one item for each team member.
-  \item For each of the knowledge areas and skills identified in the previous
-  question, what are at least two approaches to acquiring the knowledge or
-  mastering the skill?  Of the identified approaches, which will each team
-  member pursue, and why did they make this choice?
-\end{enumerate}
 
 \end{document}
