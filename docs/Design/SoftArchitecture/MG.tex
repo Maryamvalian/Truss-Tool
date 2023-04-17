@@ -50,6 +50,7 @@
 16/03/2023 &1.3 & Update after presentation feedback\\
 23/03/2023 &1.4 & Update based on First reviewer feedback\\
 30/03/2023 &1.5 & Update based on Second reviewer feedback\\
+17/04/2023&1.6& Update based on Supervisor feedback\\
 \bottomrule
 \end{tabularx}
 
@@ -68,7 +69,7 @@ This section records information for easy reference.
   \midrule 
   AC & Anticipated Change\\
   DAG & Directed Acyclic Graph \\
-  IF & Internal forces of a truss\\
+  I & Internal Forces of a truss\\
   M & Module \\
   MG & Module Guide \\
   OS & Operating System \\
@@ -163,11 +164,11 @@ change.
 \item[\refstepcounter{acnum} \actheacnum \label{acHardware}:] The specific
   hardware on which the software is running.
 \item[\refstepcounter{acnum} \actheacnum \label{acInput}:] The format of the
-  initial input data.
+   input data.
  \item[\refstepcounter{acnum} \actheacnum \label{acParam}:] The format of the
-  initial input parameters.
+   input parameters.
   \item[\refstepcounter{acnum} \actheacnum \label{acVerify}:] The constraints on the input data.
-\item[\refstepcounter{acnum} \actheacnum \label{acOutput}:] The format of the final output data.  
+\item[\refstepcounter{acnum} \actheacnum \label{acOutput}:] The format of the output data.  
 \item[\refstepcounter{acnum} \actheacnum \label{acOutVeri}:] The constraints on the output data.
 \item[\refstepcounter{acnum} \actheacnum \label{acDecompos}:] How to decompose forces according to input data of truss type.
 \item[\refstepcounter{acnum} \actheacnum \label{acEq}:] How the equilibrium equations are defined from Input data.
@@ -191,7 +192,7 @@ decisions will be changed.
   (Input: File and/or Keyboard, Output: File, Memory, and/or Screen).
   \item[\refstepcounter{ucnum} \uctheucnum \label{ucExternalIn}:] 
   An external source of input data should be provided for the software.
-  \item[\refstepcounter{ucnum} \uctheucnum \label{ucDispaly}:] The output data are always displayed at the output devices.
+  \item[\refstepcounter{ucnum} \uctheucnum \label{ucDispaly}:] The output data are always stored in the output file.
   \item[\refstepcounter{ucnum} \uctheucnum \label{ucGoal}:] The goal of the system is to calculate support reactions and internal forces for each member.
   \item[\refstepcounter{ucnum} \uctheucnum \label{ucGoal}:] The equilibrium equations can be defined using parameters defined in the input parameter module. 
 
@@ -211,9 +212,7 @@ actually be implemented.
 \item [\refstepcounter{mnum} \mthemnum \label{mSpec}:] Specification parameters module 
 \item [\refstepcounter{mnum} \mthemnum \label{mout}:] Output format module
 \item [\refstepcounter{mnum} \mthemnum \label{mverify}:] Output verification module
-\item [\refstepcounter{mnum} \mthemnum \label{mreact}:] Support reaction equations module. 
-\item [\refstepcounter{mnum} \mthemnum \label{mdecomp}:] Force decomposing module
-\item [\refstepcounter{mnum} \mthemnum \label{minternal}:] \mbox{IF} equations module.
+\item [\refstepcounter{mnum} \mthemnum \label{minternal}:] Calculation module
 \item [\refstepcounter{mnum} \mthemnum \label{mControl}:] Control module
 \item [\refstepcounter{mnum} \mthemnum \label{msds}:] Sequence data structure module
 \item [\refstepcounter{mnum} \mthemnum \label{mlinalg}:] linear equation solver module
@@ -236,9 +235,7 @@ Not all of the above list will be implemented. Since M\ref{mHH} is already imple
 & Specification parameters module\\
 & Output format module\\
 & Output verification module\\
-& Equilibrium equations for free body of truss module. \\
-& Force decomposing module\\
-& Equilibrium equations for all joints module.\\
+& Calculation module.\\
 & Control module\\ 
 
 \midrule
@@ -344,29 +341,11 @@ to be implemented.
 \item[Type of Module:] [Abstract Data Type]
   [Information to include for leaf modules in the decomposition by secrets tree.]
 \end{description}
-\subsubsection{Support reaction module (\mref{mreact})}
-
-\begin{description}
-\item[Secrets:]The algorithm used for the calculation of support reactions.
-\item[Services:] Creates equilibrium equations  and solves them by linear solver module.
-\item[Implemented By:] [Truss Tool]
-\item[Type of Module:] [Abstract Data Type]
-  [Information to include for leaf modules in the decomposition by secrets tree.]
-\end{description}
-\subsubsection{Force decomposition module (\mref{mdecomp})}
-
-\begin{description}
-\item[Secrets:]The algorithm used for decomposition of forces.
-\item[Services:] Decomposes internal forces in direction of X-axis and Y-axis.
-\item[Implemented By:] [Truss Tool]
-\item[Type of Module:] [Abstract Data Type]
-  [Information to include for leaf modules in the decomposition by secrets tree.]
-\end{description}
-\subsubsection{Internal Forces module (\mref{minternal})}
+\subsubsection{Calculation module (\mref{minternal})}
 
 \begin{description}
 \item[Secrets:]The algorithm used to create equilibrium equations for each joint.
-\item[Services:] Calculates all equilibrium equations needed to calculate internal forces of the truss. 
+\item[Services:] Calculates all equilibrium equations needed to calculate support reactions and internal forces of the truss. 
 \item[Implemented By:] [Truss Tool]
 \item[Type of Module:] [Abstract Data Type]
   [Information to include for leaf modules in the decomposition by secrets tree.]
@@ -430,7 +409,7 @@ requirements and between the modules and the anticipated changes.
 \midrule
 R1 & \mref{mHH},\mref{mSpec} \mref{mIn}, \mref{mparam}, \mref{mControl}\\
 R2 & \mref{mHH},\mref{mout},\mref{mControl}\\
-R3 & \mref{mout},\mref{mverify},\mref{mreact},\mref{mdecomp},\mref{minternal},\mref{mControl},\mref{msds},\mref{mlinalg}\\
+R3 & \mref{mout},\mref{mverify},\mref{minternal},\mref{mControl},\mref{msds},\mref{mlinalg}\\
 R4 & \mref{mverify},\mref{mControl} \\
 
 \bottomrule
@@ -451,8 +430,8 @@ R4 & \mref{mverify},\mref{mControl} \\
 \acref{acVerify} & \mref{mverify}\\
 \acref{acOutput} & \mref{mout}\\
 \acref{acOutVeri} & \mref{mverify}\\
-\acref{acDecompos} & \mref{mdecomp}\\
-\acref{acEq} & \mref{mreact},\mref{minternal}\\
+\acref{acDecompos} & \mref{minternal}\\
+\acref{acEq} &\mref{minternal}\\
 \acref{acSeq} & \mref{msds}\\
 \acref{acLinalg} & \mref{mlinalg}\\
 \bottomrule
@@ -477,7 +456,7 @@ because they use modules from the lower levels. Also from left to right, there i
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.7\textwidth]{mg.png}
-\caption{Use hierarchy among modules}
+\caption{Use Hierarchy Among Modules}
 \label{FigUH}
 \end{figure}
 
