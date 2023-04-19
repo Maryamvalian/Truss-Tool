@@ -56,6 +56,7 @@ urlcolor=cyan          % color of external links
 20/03/2023 & 1.3 & Update other modules\\
 23/03/2023 & 1.4 & Update based on first Reviewer Feedback\\
 30/03/2023 & 1.5 & Update based on second Reviewer Feedback\\
+18/04/2023&1.6& Update based on Supervisor feedback\\
 \bottomrule
 \end{tabularx}
 
@@ -162,7 +163,7 @@ The following table is taken directly from the Module Guide document for this pr
 Main
 
 \subsection{Uses}
-Input Module, Reaction Module, Internal Forces Module, Output Verification Module
+Inputs Module, Internals Module, Outputs Module
 
 \subsection{Syntax}
 
@@ -184,15 +185,7 @@ Main & - & - & - \\
 \subsection{Semantics}
 
 \subsubsection{State Variables}
-$\#$ from R1 and R2:\\
-$n$ : $\mathbb{N}$ \\
-$m$ : $\mathbb{N}$ \\
-$J_n$ : $\mathbb{R}$ \\
-$M_m$ : $\mathbb{N}$ \\
-$F_m$ : $\mathbb{R}$ \\
-$sp$ : $\mathbb{N}$ \\
-$sr$ : $\mathbb{N}$ \\
-\newline
+
 $\#$ from R3:\\
 $px$ : $\mathbb{R}$ \\
 $py$ : $\mathbb{R}$ \\
@@ -203,52 +196,27 @@ $I_m$ : $\mathbb{R}$ \\
 
 \subsubsection{Environment Variables}
 
-This module has external interaction with an input file, an output file.
+Not Applicable.
 
 \subsubsection{Assumptions}
 
-The path and the name of the given input file are correct.
+Not Applicable.
 
 \subsubsection{Access Routine Semantics}
 
 \noindent Main():  
 \begin{itemize}
-\item transition: Modifies the state of the Input module and the environment variables for the Output modules by following these steps:
+\item transition: Modifies the state of the Input module and the environment variables for the Output modules by following steps:
 
-Get (filename: String) from user which indicates input file.
-LoadParams(filename).
-\#\textit{Find Support reactions $(P_x,P_y,R_y)$}\\
-$P_x=-\sum F_x$\\
-\[A=
-   \left[ {\begin{array}{cc}
-    1 & 1 \\
-    J_x(sp) & J_x(sr) \\
-  \end{array} } \right]\]
-\[B=
-   \left[ {\begin{array}{cc}
-    -\sum F_y(i) \\
-    -\sum (J_x(i)* F_y(i))  \\
-  \end{array} } \right]
-\]\\ 
-$(P_y,R_y) = Solve(A,B)$\\
 
-\#\textit{Find Internal Forces $I_m$}\\
-$\theta= Decomp (n,m,J,M)$\\
+$(n,m,J,M,F,S_p,S_r)=Inputs(FileName)$
 
-\#\textit{Compute $a_{ij},b_j$ elements of $A,B$} from equilibrium equations:\\
-$a_{ij}=I_m*\cos\theta_{m},b_j=\sum_x \textit{All forces and reactions at j}$\\
-or\\
-$a_{ij}=I_m*\sin\theta_{m},b_j=\sum_y \textit{All forces and reactions at j}$\\
+$(P_x,P_y,R_y,I)=Internals(n,m,J,M,F,S_p,S_r)$
 
-$I=Solve(A,B)$
+$Outputs(P_x,P_y,R_y,I)$
 
-\#\textit{Output $P_x,P_y,R_y,I$}\\
 
-verify-Output($P_x,P_y,R_y,I$)\\
-output(file-name,$P_x,P_y,R_y,I$)\\
 
-\item output: output file
-\item exception:  Input file not found
 \end{itemize}
 
 \subsubsection{Local Functions}
@@ -271,9 +239,9 @@ Input Verification Module
 \midrule
 load\_params & string & - &  Input File Error \\
 verify\_params & - & - & Input Parameters Error\\
-$n$ & -& $\mathbb{N}$\\
+$n$ & -& $\mathbb{N}$ \\
 $m$ & -& $\mathbb{N}$\\
-$J_n$ & -& $\mathbb{R}$\\
+$J[j ]\,$ & -& $\mathbb{R}$\\
 $M_m$ & - & $\mathbb{N}$\\
 $F_m$ & - & $\mathbb{R}$\\
 $sp$ & - & $\mathbb{N}$\\
@@ -299,13 +267,13 @@ Inputs & input plain text file & Parameters & FileError \\
 \subsection{Semantics}
 \subsubsection{State Variables}
 $\#$ from R1 and R2:\\
-$n$ : $\mathbb{N}$ \\
-$m$ : $\mathbb{N}$ \\
-$J_n$ : $\mathbb{R}$ \\
-$M_m$ : $\mathbb{N}$ \\
-$F_m$ : $\mathbb{R}$ \\
-$sp$ : $\mathbb{N}$ \\
-$sr$ : $\mathbb{N}$ \\
+$n$ : Integer \\
+$m$ : Integer \\
+$J[\,j\,]$ : Sequence of pair of Real numbers (x,y) \\
+$M[\,i\,]$ : Sequence of pair of Integers (end1, end2)\\
+$F[\,j\,]$ : Sequence of pair of Real numbers  \\
+$S_p$ : Integer \\
+$S_r$ : Integer \\
 
 
 
@@ -345,18 +313,13 @@ InputFile: sequence of strings in the text file.
   \toprule
   \textbf{Constraint} & \textbf{Error} \\
   \midrule 
-  $n_{min}$ \leq $n$ \leq $n_{max} $ & BadInputSize \\
-  $m_{min}$ \leq $m$ \leq $m_{max} $ & BadInputSize \\
-  $m < n$ & BadInputSize\\
-  $|J|$ \neq $n$ & InconsistentInput\\
-  $|M|$ \neq $m$ & InconsistentInput\\
-  $|F|$ \neq $n$ & InconsistentInput\\
-  
-  $J_{min} \leq J_j \leq J_{max} $ & BadInputSize \\
-  $F_{min}$ \leq $F_j$ \leq $F_{max} $ & BadInputSize \\
-  $M_{j,0}=M_{j,1}$ & BadMember\\
-  $Sp>n,Sp<0$ & Badsupport\\
-  $Sr>n, Sr<0$ & BadSupport\\
+  $n_{min}$ \leq $n$ \leq $n_{max} $ & InvalidJonits \\
+  $m$ \leq $m_{max} $ & InvalidMembers\\
+  $m < n$ & InvalidMembers\\
+  $J_{min} \leq J[\,j\,] \leq J_{max} $ & InvalidLocation \\
+  $F_{min}$ \leq $F[\,j\,] $ \leq $F_{max} $ & InvalidForce \\
+  $Sp>n,Sp<0$ & InvalidIndex\\
+  $Sr>n, Sr<0$ & InvalidIndex\\
   $Sp=Sr=0$& NoSupportDefined\\
   \bottomrule
 \end{longtable*}
@@ -381,12 +344,12 @@ None.
 $\#$ From Table.2 SRS: \\
 $n_{min}:=3$\\
 $n_{max}:=20$\\
-$m_{min}:=3$\\
 $m_{max}:=30$\\
-$J_{max}(i,j):=200$\\
-$J_{min}(i,j):=0$\\
-$F_{max}:=35000$\\
-$F_{min}:=-35000$\\
+$J_{max}:=200$\\
+$J_{min}:=0$\\
+$F_{max}:=100000$\\
+$F_{min}:=-100000$\\
+$error_{value}:=0.1$
 
 
 
@@ -399,83 +362,15 @@ None.
 \subsubsection{Environment Variables}
 None.
 %***************************************************************
-\subsection{MIS of Support Reaction Module \label{mSpec} }
+
+\section{MIS of Internals Module\label{mSpec} }
 
 \subsection{Module}
 
-React
+Internals
 
 \subsection{Uses}
-Sequence data structure module.\\
-linear equation solver module.\\
 
-\subsection{Syntax}
-\begin{tabular}{p{3cm} p{1cm} p{1cm} >{\raggedright\arraybackslash}p{9cm}}
-\toprule
-\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
-\midrule
-React & params & reacts &  ReactionFailed Error \\
-
-$n$ &  $\mathbb{N}$&-\\
-$F_j$ &  $\mathbb{R}$&-\\
-$J_j$ &  $\mathbb{R}$&-\\
-$Sp$ &  $\mathbb{N}$&-\\
-$Sr$ &  $\mathbb{N}$ &-\\
-$P_x$ & - & $\mathbb{R}$\\
-$P_y$ & - & $\mathbb{R}$\\
-$R_y$ & - & $\mathbb{R}$\\
-
-\bottomrule
-\end{tabular}
-\subsubsection{Exported Constants}
-None.
-\subsubsection{Exported Access Programs}
-\begin{center}
-\begin{tabular}{p{2cm} p{4cm} p{4cm} p{2cm}}
-\hline
-\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
-\hline
-React& $(J,F: array of real,sp,sr: Integer)$ & $(P_x,P_y,R_y: Real)$ & ReactFailed \\
-\hline
-\end{tabular}
-\end{center}
-\subsection{Semantics}
-\subsubsection{State Variables}
-None.
-
-\subsubsection{Environment Variables}
-None.
-
-\subsubsection{Assumptions}
-None.
-\subsubsection{Access Routine Semantics}
-\begin{itemize}
-    \item Output: \\
-    $Out:=P_x=-\sum F_x$\\
-\[A=
-   \left[ {\begin{array}{cc}
-    1 & 1 \\
-    J_x(sp) & J_x(sr) \\
-  \end{array} } \right]\]
-\[B=
-   \left[ {\begin{array}{cc}
-    -\sum F_y(i) \\
-    -\sum (J_x(i)* F_y(i))  \\
-  \end{array} } \right]
-\]\\ 
-$Out:=(P_y,R_y) = Solve(A,B)$\\
-
-\end{itemize}
-
-%------------------------------------------------------------------
-\section{MIS of Internal Forces Module\label{mSpec} }
-
-\subsection{Module}
-
-Internal
-
-\subsection{Uses}
-Force decomposing module\\
 Sequence data structure module\\
 linear equation solver module\\
 
@@ -491,12 +386,12 @@ None.
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
-Decomp & $\theta(M_{m}):\mathbb{R}^{2} \rightarrow \mathbb{R}$  &$\Theta_m$ & decompFailed \\
-Internal & $I_m(F_j,\theta_m):\mathbb{R}*\mathbb{R}^{2} \rightarrow \mathbb{R}$  &$I_m$ & InternalFailed \\
+React & $n,m,J,F,S_p,S_r$  & $P_x,P_y,R_y$& ReactFailed \\
+Internals & $n,m,J,M,F,S_p,S_r$  &$I[\,i\,]$ & InternalFailed \\
 \hline
 \end{tabular}
 \end{center}
-Exception decompFailed will show to the user if a correct member is not defined by the user so the angle between the member and the x-axis cannot be calculated. Exception InternalFailed will show to the user if the equations cannot be solved.
+Exception ReactFailed will show to the user if a correct member is not defined by the user so the angle between the member and the x-axis cannot be calculated. Exception InternalFailed will show to the user if the equations cannot be solved.
 \subsection{Semantics}
 \subsubsection{State Variables}
 None.
@@ -508,13 +403,46 @@ None.
 None.
 \subsubsection{Access Routine Semantics}
 \begin{itemize}
-    \item Output: $Out:=I$ where:\\
-    
-    $a_{ij}=I_m*\cos\theta_{m},b_j=\sum_x \textit{All forces and reactions at j}$\\
-or\\
-$a_{ij}=I_m*\sin\theta_{m},b_j=\sum_y \textit{All forces and reactions at j}$\\
+    \item Calculates: $Out:=P_x,P_y,R_y,I\,[i\,]$ by following steps:\\
+    \#\textit{Find Support reactions $(P_x,P_y,R_y)$}\\
+$P_x=-\sum F_x$\\
+\[A=
+   \left[ {\begin{array}{cc}
+    1 & 1 \\
+    J\,[S_p\,] & J[\,S_r\,] \\
+  \end{array} } \right]\]
+\[B=
+   \left[ {\begin{array}{cc}
+    -\sum F[\,i\,] \\
+    -\sum (J[\,i\,]* F[\,i\,])  \\
+  \end{array} } \right]
+\]\\ 
+$A*[\,P_y,R_y\,] =B$
 
-$I=Solve(A,B)$\\
+$(P_y,R_y) = Solve(A,B)$\\
+
+\#\textit{Find Internal Forces $I_m$}\\
+
+$\theta[\,i\,]=Tan^-1(J[\,M[i,end1\,]],J[M[i,end2]])$
+
+\#\textit{Compute $a[\,i,j\,] Elements of A,and compute b[j]$ elements of $B$} from equilibrium equations where $AI=B$:\\
+
+Build Equilibrium equations in the X-axis direction:
+$a[i,j]=\cos\theta[i]$
+
+$b_j=\sum \textit{All forces and reactions at j}$\\
+
+Or Build Equilibrium equations in the Y-axis direction:\\
+
+$a[i,j]=\sin\theta[i]$
+
+$b_j=\sum \textit{All forces and reactions at j}$\\
+
+$I=Solve(A,B)$
+
+
+    
+    
 \end{itemize}
 %----------------------------------------------------------------
 \subsection{MIS of Output Verification Module \label{mSpec} }
