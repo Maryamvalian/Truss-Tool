@@ -3,14 +3,13 @@
 \usepackage{tabularx}
 \usepackage{booktabs}
 
-\title{Reflection Report on \progname}
+\title{Reflection Report on Truss Tool}
 
-\author{\authname}
+\author{Maryam Valian}
 
 \date{}
 
-\input{../Comments}
-\input{../Common}
+
 
 \begin{document}
 
@@ -20,9 +19,8 @@
 \toprule
 \textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
 \midrule
-Date1 & Name(s) & Description of changes\\
-Date2 & Name(s) & Description of changes\\
-... & ... & ...\\
+19/04/2023 & Maryam Valian & Initial Version\\
+
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -31,22 +29,29 @@ Date2 & Name(s) & Description of changes\\
 
 \maketitle
 
-Put your introductory blurb here.
-
+This document describes key accomplishments and key problem areas of the Truss Tool project.
 \section{Project Overview}
 
-\plt{Summarize the original project goals and requirements}
+Truss Tool is intended to solve a given truss with given external forces. By solving a truss,
+we mean that we are interested to calculate all internal forces among the members and the
+reactions of the supports.
 
 \section{Key Accomplishments}
 
-\plt{What went well?  This can be what went well with the documentation, the
-  coding, the project management, etc.}
+In this project the following accomplishments have been done:
+\begin{enumerate}
+    \item Project Management: Considering the limited time that we had during the winter semester time management went well and we have done both coding and documentation in a short time without any budget.
+    \item Coding: Considering that it was the developer's first experience coding with Python, it was not a big problem due to the simplicity of Python programming language and its easy-to-use libraries. Automatic testing with Pytest was extremely easy and exciting. Also, the accuracy of the result of Truss Tool was even higher than the existing software.
+    \item Documentation: Thanks to the CapTemplate that we received from our Supervisor, the documentation went well and was very well organized. During this project, we learned so many new things about documentation.
+    \item Teamwork: Although most parts of coding and documentation were individual, a well-organized reviewing system was planned that helped us improve our documentation by receiving feedback from the VnV team continuously. The spirit of team working was really positive and friendly among all members.
+\end{enumerate}
 
 \section{Key Problem Areas}
 
-\plt{What went wrong?  This can be what went wrong with the documentation, the
-  technology, the coding, time management, etc.}
+The key problem was that the truss-solving problem is not a very straightforward formula but on the contrary, it is very tricky. In the nature of the problem, there are some complexities. So turning the problem into an understandable code was very challenging. There were so many input parameters and complexity in computation. we tried our best to make it understandable but it needs more effort. 
+
+
 
 \section{What Would you Do Differently Next Time}
-
+Actually, if we find a way to make the solution easier for understanding, next time we will make it simpler.
 \end{document}

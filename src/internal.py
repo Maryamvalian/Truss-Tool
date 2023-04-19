@@ -5,7 +5,7 @@ import React
 
 
 def insert(a,b,e,m,sum):
-    #This module check a row of equations(e) if not repetitive in A, add it to 
+    #This module check a row of equations(e) if not repetitive in A, add it to A,b
     # matrix for equation solver, other wise ignore it.
     dup=False
     done=False
@@ -61,7 +61,9 @@ def internals(n,m,J,M,F,p,r):
                 eq[1][j-1]=coef_y
                 #Eqiulibrium equations in Y-direction
             j+=1
+		# equations in x-axis direction are like a1I1+a2I2+...+anIn=b we put the coef_x : a1,a2,...an to the eq[0][j-1]	and b to sum1
         sum1=0
+		# equations in y-axis direction are like a1I1+a2I2+...+anIn=b we put the coef_x : a1,a2,...an to the eq[1][j-1]	and b to sum2
         sum2=0    
         sum1+=F[i][0]
         sum2+=F[i][1]  
@@ -70,7 +72,7 @@ def internals(n,m,J,M,F,p,r):
             sum2+=py
         if r==i :
             sum2+=ry
-        #prevent repititive equations     
+        #Add eq[0],eq[1] to A matrix,and Add sum1,sum2 to Vector b by calling insert     
         insert(A,b,eq[0],m,sum1)
         insert(A,b,eq[1],m,sum2)
         
