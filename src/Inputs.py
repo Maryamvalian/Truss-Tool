@@ -2,47 +2,63 @@ import numpy as np
 import specif
 
 def verify(n,m,J,M,F,p,r):
-    flag=True
+    
     if (n<specif.constants.N_MIN):
-        flag=False
+        print("Invalid Joints")
+        return False
     if (n>specif.constants.N_MAX):
-        flag=False    
+        print("Invalid Joints")
+        return False    
     if (m<specif.constants.M_MIN):
-        flag=False    
+        print("Invalid Members")
+        return False    
     if (m>specif.constants.M_MAX):
-        flag=False    
+        print("Invalid Members")
+        return False    
     for i in range (0,n):
         if (F[i][0]<specif.constants.F_MIN):
-            flag=False    
+            print("Invalid force")
+            return False    
         if (F[i][1]<specif.constants.F_MIN): 
-            flag=False
+            print("Invalid force")
+            return False
         if (F[i][0]>specif.constants.F_MAX):
-            flag=False    
+            print("Invalid force")
+            return False    
         if (F[i][1]>specif.constants.F_MAX): 
-            flag=False     
+            print("Invalid force")
+            return False     
         if (J[i][0]<specif.constants.D_MIN):
-            flag=False    
-        if (J[i][1]<specif.constants.D_MIN): 
-            flag=False
+            print("Invalid location")
+            return False    
+        if (J[i][1]<specif.constants.D_MIN):
+            print("Invalid location") 
+            return False
         if (J[i][0]>specif.constants.D_MAX):
-            flag=False    
-        if (J[i][1]>specif.constants.D_MAX): 
-            flag=False         
+            print("Invalid location")
+            return False    
+        if (J[i][1]>specif.constants.D_MAX):
+            print("Invalid location") 
+            return False         
     if (n>m):
-        flag=False    
+        print("Invalid Members")
+        return False    
     if (p>n):
-        flag=False    
+        print("Invalid Index")
+        return False    
     if (r>n):
-        flag=False    
+        print("Invalid lndex")
+        return False    
     if ((p==0) and (r==0)):
-        flag=False    
+        print("No support defined")
+        return False    
     for i in range (0,n):
         if (M[i][0]==M[i][1]):
-            flag=False    
+            return False    
 
 
 
-    return flag
+    return True
 
 
 
@@ -78,7 +94,7 @@ def getfile(f):
     print("Given Truss with",n,"Joints\n",J,"\n Members:",M,"\n E forces:\n",F,"\n Pinned Support at",p," , Roller support at",r)
      #verify input
     check=verify(n,m,J,M ,F ,p,r)
-    if (check==True):
+    if (check):
         raise Exception("Bad Input Parameter")
 
     return n,m,J,M,F,p,r 

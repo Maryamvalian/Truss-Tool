@@ -1,6 +1,5 @@
 import pytest
 import unittest
-import React
 import Inputs
 import internal
 import numpy as np
