@@ -32,6 +32,7 @@
 15/04/2023 & 1.0 & Draft version\\
 18/04/2023 & 1.1 & Update report\\
 19/04/2023 & 1.2 & Update figures and tables\\
+19/04/2023 & 1.3 & Update code coverage\\
 \bottomrule
 \end{tabularx}
 
@@ -123,7 +124,26 @@ Table  \ref{Table_req} shows the dependencies between the test cases and the req
 \section{Trace to Modules}		
 The traceability between test cases and modules are provided in section 6.4 of \href{https://github.com/Maryamvalian/project741/blob/cfe06182f41c842e3b44aa0eb33d661cf8a3ce79/docs/VnVPlan/VnVPlan.pdf}{VnV Plan} 
 \section{Code Coverage Metrics}
-Not Applicable.
+Code coverage is a white-box testing technique performed to verify the extent to which the code has been executed. The following results are provided by using the Coverage library of Python:
+\begin{table}[h!]
+	\centering
+	\begin{tabular}{l l} 
+		\toprule		
+		\textbf{Modules} & \textbf{Code coverage}\\
+		\midrule 
+		Inputs.py & 71\% \\
+		Internals.py & 87\% \\
+		 Outputs.py & 79\% \\
+   \hline
+   \textbf{Total} & \textbf{79\%}\\
+		
+		\bottomrule
+	\end{tabular}\\
+	
+	\caption{Results of Code coverage } 
+	\label{Tblcodecov}
+\end{table}	
+
 \bibliographystyle{plainnat}
 \bibliography{../../refs/References}
 
