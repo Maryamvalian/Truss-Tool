@@ -7,6 +7,7 @@ class constants:
     F_MAX = 100000
     D_MIN = 0
     D_MAX = 200
+    ERR_VALUE=0.1
     
     
     

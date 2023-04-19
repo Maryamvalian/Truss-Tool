@@ -1,6 +1,5 @@
 import Inputs
 import sys
-import React
 import internal
 import outputs
 

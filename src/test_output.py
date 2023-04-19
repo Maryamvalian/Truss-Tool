@@ -4,6 +4,7 @@ import React
 import Inputs
 import internal
 import numpy as np
+import specif 
 
 def abserr(actual, expected):
     return abs(actual - expected)
@@ -21,12 +22,12 @@ class OutputCorrectnessTest(unittest.TestCase):
         f = open(filename, "r")
         (n,m,J,M,F,p,r)=Inputs.getfile(f)
         (px,py,ry,I)=internal.internals(n,m,J,M,F,p,r)
-        assert abserr(px, 0.0) < 0.1
-        assert abserr(py, 25.0) < 0.1
-        assert abserr(ry, 25.0) < 0.1
-        assert abserr(I[0], -35.36) < 0.1
-        assert abserr(I[1], 25.0) < 0.1
-        assert abserr(I[2], -35.36) < 0.1
+        assert abserr(px, 0.0) < specif.constants.ERR_VALUE
+        assert abserr(py, 25.0) < specif.constants.ERR_VALUE
+        assert abserr(ry, 25.0) < specif.constants.ERR_VALUE
+        assert abserr(I[0], -35.36) < specif.constants.ERR_VALUE
+        assert abserr(I[1], 25.0) < specif.constants.ERR_VALUE
+        assert abserr(I[2], -35.36) < specif.constants.ERR_VALUE
     
     def test_valid_n4m5(self):
         filename = "Testcases/valid_n4m5.txt"
@@ -35,10 +36,10 @@ class OutputCorrectnessTest(unittest.TestCase):
         (px,py,ry,I)=internal.internals(n,m,J,M,F,p,r)
         ans=np.zeros(m)
         ans=[0,0,-10,0,0]
-        assert abserr(px, 0.0) < 0.01
-        assert abserr(py, 0.0) < 0.01
-        assert abserr(ry, -10.0) < 0.1
-        assert meanerr(I,ans,m) < 0.1
+        assert abserr(px, 0.0) < specif.constants.ERR_VALUE
+        assert abserr(py, 0.0) < specif.constants.ERR_VALUE
+        assert abserr(ry, -10.0) < specif.constants.ERR_VALUE
+        assert meanerr(I,ans,m) < specif.constants.ERR_VALUE
 
     def test_valid_n5m7(self):
         filename = "Testcases/valid_n5m7.txt"
@@ -47,10 +48,10 @@ class OutputCorrectnessTest(unittest.TestCase):
         (px,py,ry,I)=internal.internals(n,m,J,M,F,p,r)
         ans=np.zeros(m)
         ans=[-53.03,37.5,-17.6,-25,17.6,12.5,-17.6]
-        assert abserr(px, 0.0) < 0.1
-        assert abserr(py, 37.5) < 0.1
-        assert abserr(ry, 12.5) < 0.1
-        assert meanerr(I,ans,m) < 0.1
+        assert abserr(px, 0.0) < specif.constants.ERR_VALUE
+        assert abserr(py, 37.5) < specif.constants.ERR_VALUE
+        assert abserr(ry, 12.5) < specif.constants.ERR_VALUE
+        assert meanerr(I,ans,m) < specif.constants.ERR_VALUE
 
     def test_valid_crane(self):
         filename = "Testcases/valid_crane.txt"
@@ -59,10 +60,10 @@ class OutputCorrectnessTest(unittest.TestCase):
         (px,py,ry,I)=internal.internals(n,m,J,M,F,p,r)
         ans=np.zeros(m)
         ans=[0,200,0,-300,0,200,0,-300,0,200,0,-300,-200,-200,282.8,-300,223.6]
-        assert abserr(px, 0.0) < 0.1
-        assert abserr(py, 300.0) < 0.1
-        assert abserr(ry, -200.0) < 0.1
-        assert meanerr(I,ans,m) < 0.1    
+        assert abserr(px, 0.0) < specif.constants.ERR_VALUE
+        assert abserr(py, 300.0) < specif.constants.ERR_VALUE
+        assert abserr(ry, -200.0) < specif.constants.ERR_VALUE
+        assert meanerr(I,ans,m) < specif.constants.ERR_VALUE    
         
 
        
